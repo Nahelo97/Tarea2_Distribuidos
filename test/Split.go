@@ -11,7 +11,7 @@ import (
 
 func main() {
 
-        fileToBeChunked := "./bigfile.zip" // change here!
+        fileToBeChunked := "../Books/Dracula-Stoker_Bram.pdf" // change here!
 
         file, err := os.Open(fileToBeChunked)
 
@@ -58,7 +58,7 @@ func main() {
 
         // just for fun, let's recombine back the chunked files in a new file
 
-        newFileName := "NEWbigfile.zip"
+        newFileName := "../NewBooks/Dracula-Stoker_Bram.pdf"
         _, err = os.Create(newFileName)
 
         if err != nil {
