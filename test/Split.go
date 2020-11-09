@@ -58,7 +58,7 @@ func main() {
 
         // just for fun, let's recombine back the chunked files in a new file
 
-        newFileName := "../NewBooks/Dracula-Stoker_Bram.pdf"
+        newFileName := "Dracula-Stoker_Bram.pdf"
         _, err = os.Create(newFileName)
 
         if err != nil {
