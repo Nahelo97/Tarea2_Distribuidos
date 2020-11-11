@@ -10,10 +10,6 @@ type Server struct {
 
 }
 
-func (s* Server) UploadBook(ctx context.Context, request *comms.Request_UploadBook) (*comms.Response_UploadBook, error) {
-
-}
-
 func (s* Server) DownloadBook(ctx context.Context, request *comms.Request_DownloadBook) (*comms.Response_DownloadBook) {
 
 }

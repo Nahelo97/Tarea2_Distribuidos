@@ -2,11 +2,14 @@ syntax = "proto3";
 package comms;
 
 message Request_UploadBook {
-
+  bytes chunks = 1;
+  string nombre = 2;
+  int32 cantidad = 3;
+  int32 chunk_id = 4;
 }
 
 message Response_UploadBook {
-
+  int32 state;
 }
 
 message Request_DownloadBook {
