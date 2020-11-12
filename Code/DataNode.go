@@ -62,8 +62,8 @@ func createChunk (chunk_id int, chunk []byte, bookName string) {
 
 func (s* Server) UploadBook(ctx context.Context, request *comms.Request_UploadBook) (*comms.Response_UploadBook, error) {
   log.Printf("Receive Book from client")
-  tempChunk (int(request.Id), request.nombre, int(request.cantidad))
-  createChunk (int(request.Id), request.Chunk, request.nombre)
+  tempChunk (int(request.Id), request.Nombre, int(request.Cantidad))
+  createChunk (int(request.Id), request.Chunk, request.Nombre)
   if (request.Id != request-Ctdad_chunk) {
     return &comms.Response_UploadBook{State: int32(0)}, nil
   } else {
