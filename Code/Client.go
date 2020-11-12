@@ -29,8 +29,9 @@ func ver_libros_para_subir(){
   x=0
   for _, file := range files {
     s := strconv.Itoa(x)
+    aux:=strings.Split(archivo,"/")[2]
     if(x!=0){
-      fmt.Println(s+".-"+file)
+      fmt.Println(s+".-"+aux)
     }
     x+=1
   }
@@ -59,7 +60,7 @@ func find_book_index(y int )(string){
 
 func read_chunk(archivo string,numero int)([]byte){
   s := strconv.Itoa(numero)
-  file, err := os.Open(archivo+"_"+s)
+  file, err := os.Open("../Books/"+archivo+"_"+s)
   if err != nil {
     fmt.Println(err)
     return []byte("0")
