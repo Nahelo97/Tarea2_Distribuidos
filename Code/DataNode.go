@@ -58,7 +58,7 @@ func createChunk (chunk_id int, chunk []byte, bookName string) {
   if err != nil {
     log.Fatalf("failed writing to file: %s", err)
   defer file.Close()}
-  ioutil.WriteFile(file, chunk, os.ModeAppend)
+  ioutil.WriteFile("../Chunks" + name, chunk, os.ModeAppend)
 }
 
 func (s* Server) UploadBook(ctx context.Context, request *comms.Request_UploadBook) (*comms.Response_UploadBook, error) {
