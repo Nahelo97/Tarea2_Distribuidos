@@ -71,16 +71,16 @@ func (s* Server) UploadBook(ctx context.Context, request *comms.Request_UploadBo
   }
 }
 
-func (s* Server) DownloadBook(ctx context.Context, in *Request_DownloadBook, opts ...grpc.CallOption) (*Response_DownloadBook, error){
+func (s* Server) DownloadBook(ctx context.Context, in *comms.Request_DownloadBook) (comms.*Response_DownloadBook, error){
   return $comms.Response_DownloadBook
 }
-func (s* Server) Log(ctx context.Context, in *Request_Log, opts ...grpc.CallOption) (*Response_Log, error){
+func (s* Server) Log(ctx context.Context,*comms.Request_Log) (*comms.Response_Log, error){
   return $comms.Response_Log
 }
-func (s* Server) Propuesta(ctx context.Context, in *Request_Propuesta, opts ...grpc.CallOption) (*Response_Propuesta, error){
+func (s* Server) Propuesta(ctx context.Context, *comms.Request_Propuesta) (*comms.Response_Propuesta, error){
   return $comms.Response_Propuesta
 }
-func (s* Server) DistribuirChunks(ctx context.Context, in *Request_Distribuir, opts ...grpc.CallOption) (*Response_Distribuir, error){
+func (s* Server) DistribuirChunks(ctx context.Context,*comms.Request_Distribuir) (*comms.Response_Distribuir, error){
   return $comms.Response_Distribuir
 }
 
