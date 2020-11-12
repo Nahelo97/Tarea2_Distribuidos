@@ -4,7 +4,7 @@ import (
   "./comms"
   "google.golang.org/grpc"
   "os"
-  "ioutil"
+  "io/util"
   "strings"
 )
 
