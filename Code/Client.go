@@ -1,7 +1,7 @@
 package main
 
 import (
-  "./Code/comms"
+  "./comms"
   "google.golang.org/grpc"
   "golang.org/x/net/context"
   "os"
