@@ -44,7 +44,7 @@ func tempChunk (chunk_id int, bookName string, ctdad_chunk int) {
       log.Fatalf("failed writing to file: %s", err)
     }
     defer file.Close()
-    s = strconv.Itoa(ctdad_chunk)
+    s := strconv.Itoa(ctdad_chunk)
     _, err = file.WriteString(bookName + "\n" + s + "\nchunk_id")
     if err != nil {
       log.Printf("aqui 3")
