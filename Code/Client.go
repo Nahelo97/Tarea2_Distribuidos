@@ -59,7 +59,7 @@ func read_chunk(archivo string,numero int)([]byte){
   file, err := os.Open(archivo+"_"+s)
   if err != nil {
     fmt.Println(err)
-    return []byte(0)
+    return []byte("0")
   }
   defer file.Close()
 
@@ -77,7 +77,7 @@ func read_chunk(archivo string,numero int)([]byte){
     }
       return bytesread
   }
-  return []byte(0)
+  return []byte("0")
 }
 
 func subir_libro(conn *grpc.ClientConn){
