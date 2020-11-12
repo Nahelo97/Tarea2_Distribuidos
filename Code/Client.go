@@ -5,7 +5,6 @@ import (
   "google.golang.org/grpc"
   "os"
   "strconv"
-  "filepath"
   "path/filepath"
   "fmt"
 )
