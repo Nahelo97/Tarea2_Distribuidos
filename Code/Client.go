@@ -29,7 +29,7 @@ func ver_libros_para_subir(){
   x=0
   for _, file := range files {
     s := strconv.Itoa(x)
-    aux:=strings.Split(archivo,"/")[2]
+    aux:=strings.Split(file,"/")[2]
     if(x!=0){
       fmt.Println(s+".-"+aux)
     }
