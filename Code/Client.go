@@ -12,7 +12,6 @@ import (
   "log"
   "math"
   "io/ioutil"
-  "bytes"
 )
 func ver_libros_para_subir(){
   var files []string
@@ -75,9 +74,8 @@ func read_chunk(archivo string,numero int)(bytes){
 
       break
     }
+      return bytesread
   }
-    fmt.Println("bytes read: ", bytesread)
-    return bytesread
 }
 
 func subir_libro(conn *grpc.ClientConn){
