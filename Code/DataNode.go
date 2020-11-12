@@ -72,16 +72,16 @@ func (s* Server) UploadBook(ctx context.Context, request *comms.Request_UploadBo
 }
 
 func (s* Server) DownloadBook(ctx context.Context, request *comms.Request_DownloadBook) (*comms.Response_DownloadBook, error){
-  return $comms.Response_DownloadBook
+  return &comms.Response_DownloadBook{},nil
 }
 func (s* Server) Log(ctx context.Context,request *comms.Request_Log) (*comms.Response_Log, error){
-  return $comms.Response_Log
+  return &comms.Response_Log{},nil
 }
 func (s* Server) Propuesta(ctx context.Context,request *comms.Request_Propuesta) (*comms.Response_Propuesta, error){
-  return $comms.Response_Propuesta
+  return &comms.Response_Propuesta{},nil
 }
 func (s* Server) DistribuirChunks(ctx context.Context,request *comms.Request_Distribuir) (*comms.Response_Distribuir, error){
-  return $comms.Response_Distribuir
+  return &comms.Response_Distribuir{},nil
 }
 
 func main(){
