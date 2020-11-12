@@ -27,9 +27,11 @@ func ver_libros_para_subir(){
   var x int
   x=0
   for _, file := range files {
-    x+=1
     s := strconv.Itoa(x)
-    fmt.Println(s+".-"+file)
+    if(x!=0){
+      fmt.Println(s+".-"+file)
+    }
+    x+=1
   }
 }
 
@@ -46,10 +48,10 @@ func find_book_index(y int )(string){
   var x int
   x=0
   for _, file := range files {
-    x+=1
     if(x==y){
       return file
     }
+    x+=1
   }
   return ""
 }
