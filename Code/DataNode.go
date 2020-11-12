@@ -9,6 +9,7 @@ import (
   "log"
   "strconv"
   "golang.org/x/net/context"
+  "net"
 )
 
 type Server struct {
@@ -64,7 +65,7 @@ func (s* Server) UploadBook(ctx context.Context, request *comms.Request_UploadBo
   log.Printf("Receive Book from client")
   tempChunk (int(request.Id), request.Nombre, int(request.Cantidad))
   createChunk (int(request.Id), request.Chunks, request.Nombre)
-  if (request.Id != request-Ctdad_chunk) {
+  if (request.Id != request.Cantidad) {
     return &comms.Response_UploadBook{State: int32(0)}, nil
   } else {
     //mandar propuesta
