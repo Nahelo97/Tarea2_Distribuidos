@@ -95,10 +95,11 @@ func subir_libro(conn *grpc.ClientConn){
   chunks=splitter(archivo)
   for i:=1;i<=chunks;i++{
     c.UploadBook(context.Background(),&comms.Request_UploadBook{
-    Chunks:read_chunk(archivo,i),
+    Chunks:byte(read_chunk(archivo,i)),
     Nombre:archivo,
     Cantidad:int32(chunks),
-    Chunk_id:int32(i)})
+    Chunk_id:int32(i),
+  })
   }
 }
 
@@ -150,7 +151,7 @@ func splitter(archivo string)(int){
   return int(totalPartsNum)
 }
 
-func joiner(archivo string){
+func joiner(archivo string,totalPartsNum int){
   newFileName := archivo
   _, err := os.Create(newFileName)
   if err != nil {
@@ -253,7 +254,7 @@ func main(){
     case 1:
       subir_libro(conn)
     case 2:
-      nil
+      continue
     case 3:
       break
     }
