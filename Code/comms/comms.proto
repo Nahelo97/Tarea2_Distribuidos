@@ -9,7 +9,7 @@ message Request_UploadBook {
 }
 
 message Response_UploadBook {
-  int32 state;
+  int32 state = 1;
 }
 
 message Request_DownloadBook {
