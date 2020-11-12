@@ -6,6 +6,8 @@ import (
   "os"
   "io/ioutil"
   "strings"
+  "log"
+  "golang.org/x/net/context"
 )
 
 type Server struct {
@@ -47,7 +49,7 @@ func tempChunk (chunk_id int, bookName string, ctdad_chunk int) {
 }
 
 
-func createChunk (chunk_id int, chunk bytes, bookName string) {
+func createChunk (chunk_id int, chunk []byte, bookName string) {
   name := strings.Split(bookName, ".pdf")[0]
   file, err := os.Create("../Chunks" + name)
   if err != nil {
