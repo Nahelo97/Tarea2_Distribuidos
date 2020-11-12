@@ -75,7 +75,8 @@ func read_chunk(archivo string,numero int)([]byte){
 
       break
     }
-      return []byte(bytesread)
+    bs := []byte(strconv.Itoa(bytesread))
+      return bs
   }
   return []byte("0")
 }
