@@ -98,7 +98,7 @@ func subir_libro(conn *grpc.ClientConn){
     Chunks:[]byte(read_chunk(archivo,i)),
     Nombre:archivo,
     Cantidad:int32(chunks),
-    Chunk_Id:int32(i),
+    Id:int32(i),
   })
   }
 }
