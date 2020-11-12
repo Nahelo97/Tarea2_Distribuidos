@@ -7,6 +7,8 @@ import (
   "strconv"
   "path/filepath"
   "fmt"
+  "io"
+  "log"
 )
 func ver_libros_para_subir(){
   var files []string
@@ -45,6 +47,7 @@ func find_book_index(y int )(string){
       return file
     }
   }
+  return ""
 }
 
 func read_chunk(archivo string,numero int)(){
@@ -56,7 +59,7 @@ func read_chunk(archivo string,numero int)(){
   }
   defer file.Close()
 
-  buffer := make([]byte, BufferSize)
+  buffer := make([]byte)
 
   for {
     bytesread, err := file.Read(buffer)
