@@ -245,7 +245,10 @@ func main(){
   defer conn.Close()
 
   var accion int
-  for{
+  var flag bool
+
+  flag=true
+  for;flag;{
     log.Printf("Bienvenido! Ingrese una opción")
     log.Printf("1-Subir Libro")
     log.Printf("2-Descargar Libro")
@@ -257,7 +260,7 @@ func main(){
     case 2:
       continue
     case 3:
-      break
+      flag=false
     }
   }
 }
