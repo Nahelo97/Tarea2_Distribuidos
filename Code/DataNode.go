@@ -79,7 +79,7 @@ func main(){
   if err != nil {
     log.Fatalf("failed to listen: %v", err)
   }
-  s := comms.CommsServer{}
+  s := Server{}
   grpcServer := grpc.NewServer()
   comms.RegisterCommsServer(grpcServer, &s)
   if err := grpcServer.Serve(lis); err != nil {
