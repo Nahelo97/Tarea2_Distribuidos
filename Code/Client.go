@@ -96,6 +96,9 @@ func subir_libro(conn *grpc.ClientConn){
 
   var chunks int
   chunks=splitter(archivo)
+  log.Printf("hola1")
+  log.Printf(archivo)
+  log.Printf("hola2")
   for i:=1;i<=chunks;i++{
     c.UploadBook(context.Background(),&comms.Request_UploadBook{
     Chunks:[]byte(read_chunk(archivo,i)),
