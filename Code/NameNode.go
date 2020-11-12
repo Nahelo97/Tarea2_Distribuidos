@@ -25,3 +25,16 @@ func (s* Server) Propuesta(ctx context.Context, request *comms.Request_Propuesta
 func (s* Server) Distribuir(ctx context.Context, request *comms.Request_Distribuir) (*comms.Response_Distribuir) {
 
 }
+
+func main(){
+  lis, err := net.Listen("tcp", ":9000")
+  if err != nil {
+    log.Fatalf("failed to listen: %v", err)
+  }
+  s := Server{}
+  grpcServer := grpc.NewServer()
+  comms.RegisterCommsServer(grpcServer, &s)
+  if err := grpcServer.Serve(lis); err != nil {
+    log.Fatalf("failed to serve: %s", err)
+  }
+}
