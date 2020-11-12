@@ -67,3 +67,17 @@ func (s* Server) UploadBook(ctx context.Context, request *comms.Request_UploadBo
     return &comms.Response_UploadBook{State: int32(1)}, nil
   }
 }
+
+
+func main(){
+  lis, err := net.Listen("tcp", ":9000")
+  if err != nil {
+    log.Fatalf("failed to listen: %v", err)
+  }
+  s := Server{}
+  grpcServer := grpc.NewServer()
+  comms.RegisterCommsServer(grpcServer, &s)
+  if err := grpcServer.Serve(lis); err != nil {
+    log.Fatalf("failed to serve: %s", err)
+  }
+}
