@@ -31,20 +31,23 @@ func tempChunk (chunk_id int, bookName string, ctdad_chunk int) {
       log.Fatalf("failed opening file: %s", err)
     }
     defer file.Close()
-
-    _, err = file.WriteString("\nchunk_id")
+    s := strconv.Itoa(chunk_id)
+    _, err = file.WriteString("\n"+s)
     if err != nil {
+      log.printf("aqui 1")
       log.Fatalf("failed writing to file: %s", err)
     }
   } else {
     file, err := os.Create("../temp" + bookName)
     if err != nil {
+      log.printf("aqui 2")
       log.Fatalf("failed writing to file: %s", err)
     }
     defer file.Close()
-    s := strconv.Itoa(ctdad_chunk)
+    s = strconv.Itoa(ctdad_chunk)
     _, err = file.WriteString(bookName + "\n" + s + "\nchunk_id")
     if err != nil {
+      log.printf("aqui 3")
       log.Fatalf("failed writing to file: %s", err)
     }
   }
