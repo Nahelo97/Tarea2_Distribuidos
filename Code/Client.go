@@ -75,7 +75,7 @@ func read_chunk(archivo string,numero int)([]byte){
 
       break
     }
-      return bytesread
+      return []byte(bytesread)
   }
   return []byte("0")
 }
