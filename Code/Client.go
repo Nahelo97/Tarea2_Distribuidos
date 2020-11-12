@@ -54,7 +54,7 @@ func find_book_index(y int )(string){
   return ""
 }
 
-func read_chunk(archivo string,numero int)([]byte]){
+func read_chunk(archivo string,numero int)([]byte){
   s := strconv.Itoa(numero)
   file, err := os.Open(archivo+"_"+s)
   if err != nil {
