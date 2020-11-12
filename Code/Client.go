@@ -95,10 +95,10 @@ func subir_libro(conn *grpc.ClientConn){
   chunks=splitter(archivo)
   for i:=1;i<=chunks;i++{
     c.UploadBook(context.Background(),&comms.Request_UploadBook{
-    Chunks:byte(read_chunk(archivo,i)),
+    Chunks:[]byte(read_chunk(archivo,i)),
     Nombre:archivo,
     Cantidad:int32(chunks),
-    Chunk_id:int32(i),
+    Chunk_Id:int32(i),
   })
   }
 }
@@ -170,7 +170,7 @@ func joiner(archivo string,totalPartsNum int){
 
   // just information on which part of the new file we are appending
   var writePosition int64 = 0
-  for j := uint64(0); j < totalPartsNum; j++ {
+  for j := uint64(0); j < uint64(totalPartsNum); j++ {
           //read a chunk
           currentChunkFileName := "../temp/" + strconv.FormatUint(j, 10)
 
