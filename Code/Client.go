@@ -54,12 +54,12 @@ func find_book_index(y int )(string){
   return ""
 }
 
-func read_chunk(archivo string,numero int)(int){
+func read_chunk(archivo string,numero int)([]byte]){
   s := strconv.Itoa(numero)
   file, err := os.Open(archivo+"_"+s)
   if err != nil {
     fmt.Println(err)
-    return 0
+    return []byte(0)
   }
   defer file.Close()
 
@@ -77,7 +77,7 @@ func read_chunk(archivo string,numero int)(int){
     }
       return bytesread
   }
-  return 0
+  return []byte(0)
 }
 
 func subir_libro(conn *grpc.ClientConn){
