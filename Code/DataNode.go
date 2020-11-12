@@ -1,7 +1,7 @@
 package main
 
 import (
-  "github.com/Nahelo97/Tarea2_Distribuidos/Code/comms"
+  "./comms"
   "google.golang.org/grpc"
   "os"
   "ioutil"
