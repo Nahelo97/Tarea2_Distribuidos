@@ -12,8 +12,7 @@ import (
   "net"
 )
 
-type Server struct {
-
+type Server struct{
 }
 
 func fileExists(filename string) bool {
@@ -51,7 +50,6 @@ func tempChunk (chunk_id int, bookName string, ctdad_chunk int) {
   }
 }
 
-
 func createChunk (chunk_id int, chunk []byte, bookName string) {
   name := strings.Split(bookName, ".pdf")[0]
   file, err := os.Create("../Chunks" + name)
@@ -72,7 +70,6 @@ func (s* Server) UploadBook(ctx context.Context, request *comms.Request_UploadBo
     return &comms.Response_UploadBook{State: int32(1)}, nil
   }
 }
-
 
 func main(){
   lis, err := net.Listen("tcp", ":9000")
