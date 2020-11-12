@@ -13,6 +13,7 @@ import (
   "math"
   "io/ioutil"
   "bufio"
+  "strings"
 )
 func ver_libros_para_subir(){
   var files []string
@@ -93,7 +94,8 @@ func subir_libro(conn *grpc.ClientConn){
 
   var archivo string
   archivo=find_book_index(libro)
-
+  archivo=strings.Split(archivo,"../Books/")[0]
+  archivo=strings.Split(archivo,".")[0]
   var chunks int
   chunks=splitter(archivo)
   log.Printf("hola1")
