@@ -9,6 +9,8 @@ import (
   "fmt"
   "io"
   "log"
+  "math"
+  "io/ioutil"
 )
 func ver_libros_para_subir(){
   var files []string
