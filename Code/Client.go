@@ -3,6 +3,9 @@ package main
 import (
   "github.com/Nahelo97/Tarea2_Distribuidos/Code/comms"
   "google.golang.org/grpc"
+  "os"
+  "strconv"
+  "filepath"
 )
 func ver_libros_para_subir(){
   var files []string
