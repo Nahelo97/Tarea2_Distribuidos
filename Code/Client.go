@@ -6,6 +6,8 @@ import (
   "os"
   "strconv"
   "filepath"
+  "path/filepath"
+  "fmt"
 )
 func ver_libros_para_subir(){
   var files []string
