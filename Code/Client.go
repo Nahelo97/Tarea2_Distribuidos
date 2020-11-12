@@ -3,6 +3,7 @@ package main
 import (
   "github.com/Nahelo97/Tarea2_Distribuidos/Code/comms"
   "google.golang.org/grpc"
+  "golang.org/x/net/context"
   "os"
   "strconv"
   "path/filepath"
@@ -11,6 +12,7 @@ import (
   "log"
   "math"
   "io/ioutil"
+  "bytes"
 )
 func ver_libros_para_subir(){
   var files []string
@@ -52,7 +54,7 @@ func find_book_index(y int )(string){
   return ""
 }
 
-func read_chunk(archivo string,numero int)(){
+func read_chunk(archivo string,numero int)(bytes){
   s := strconv.Itoa(numero)
   file, err := os.Open(archivo+"_"+s)
   if err != nil {
@@ -61,7 +63,7 @@ func read_chunk(archivo string,numero int)(){
   }
   defer file.Close()
 
-  buffer := make([]byte)
+  buffer := make([]byte,100)
 
   for {
     bytesread, err := file.Read(buffer)
