@@ -12,6 +12,7 @@ import (
   "log"
   "math"
   "io/ioutil"
+  "bufio"
 )
 func ver_libros_para_subir(){
   var files []string
@@ -53,12 +54,12 @@ func find_book_index(y int )(string){
   return ""
 }
 
-func read_chunk(archivo string,numero int)([]byte){
+func read_chunk(archivo string,numero int)(int){
   s := strconv.Itoa(numero)
   file, err := os.Open(archivo+"_"+s)
   if err != nil {
     fmt.Println(err)
-    return
+    return 0
   }
   defer file.Close()
 
@@ -146,7 +147,7 @@ func splitter(archivo string)(int){
 
           fmt.Println("Split to : ", fileName)
   }
-  return totalPartsNum
+  return int(totalPartsNum)
 }
 
 func joiner(archivo string){
@@ -158,7 +159,7 @@ func joiner(archivo string){
   }
   //set the newFileName file to APPEND MODE!!
   // open files r and w
-  file, err = os.OpenFile(newFileName, os.O_APPEND|os.O_WRONLY, os.ModeAppend)
+  file, err := os.OpenFile(newFileName, os.O_APPEND|os.O_WRONLY, os.ModeAppend)
   if err != nil {
           fmt.Println(err)
           os.Exit(1)
