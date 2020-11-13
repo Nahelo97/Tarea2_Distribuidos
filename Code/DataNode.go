@@ -56,11 +56,11 @@ func tempChunk (chunk_id int, bookName string, ctdad_chunk int) {
 
 func createChunk (chunk_id int, chunk []byte, bookName string) {
   name := strings.Split(bookName, ".pdf")[0]
-  file, err := os.Create("../Chunks" + name)
+  file, err := os.Create("../Chunks/" + name)
   if err != nil {
     log.Fatalf("failed writing to file: %s", err)
   defer file.Close()}
-  ioutil.WriteFile("../Chunks" + name, chunk, os.ModeAppend)
+  ioutil.WriteFile("../Chunks/" + name, chunk, os.ModeAppend)
 }
 
 func (s* Server) UploadBook(ctx context.Context, request *comms.Request_UploadBook) (*comms.Response_UploadBook, error) {
