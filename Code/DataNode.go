@@ -25,8 +25,8 @@ func fileExists(filename string) bool {
 
 func tempChunk (chunk_id int, bookName string, ctdad_chunk int) {
 
-  if (fileExists("../temp" + bookName)) {
-    file, err := os.OpenFile("../temp" + bookName, os.O_WRONLY|os.O_APPEND, 0644)
+  if (fileExists("../temp/" + bookName)) {
+    file, err := os.OpenFile("../temp/" + bookName, os.O_WRONLY|os.O_APPEND, 0644)
     if err != nil {
       log.Fatalf("failed opening file: %s", err)
     }
@@ -38,7 +38,7 @@ func tempChunk (chunk_id int, bookName string, ctdad_chunk int) {
       log.Fatalf("failed writing to file: %s", err)
     }
   } else {
-    file, err := os.Create("../temp" + bookName)
+    file, err := os.Create("../temp/" + bookName)
     if err != nil {
       log.Printf("aqui 2")
       log.Fatalf("failed writing to file: %s", err)
