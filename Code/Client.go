@@ -253,7 +253,7 @@ func remover(){
   if err != nil {
     panic(err)
   }
-  for i:=1;len(files);i++{
+  for i:=1;i<len(files);i++{
     os.Remove(files[i])
   }
 }
