@@ -180,7 +180,7 @@ func joiner(archivo string,totalPartsNum int){
   var writePosition int64 = 0
   for j := uint64(0); j < uint64(totalPartsNum); j++ {
           //read a chunk
-          currentChunkFileName := "../temp/cliente/"+archivo+"_"+strconv.FormatUint(j, 10)
+          currentChunkFileName := "../temp/cliente/"+archivo+"_"+strconv.FormatUint(j+1, 10)
 
           newFileChunk, err := os.Open(currentChunkFileName)
 
