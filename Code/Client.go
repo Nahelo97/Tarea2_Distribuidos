@@ -243,6 +243,21 @@ func joiner(archivo string,totalPartsNum int){
   file.Close()
 }
 
+func remover(){
+  var files []string
+  root := "../temp/"
+  err := filepath.Walk(root, func(path string, info os.FileInfo, err error) error {
+    files = append(files, path)
+    return nil
+  })
+  if err != nil {
+    panic(err)
+  }
+  for i:=1;len(files);i++{
+    os.Remove(files[i])
+  }
+}
+
 func main(){
   var conn *grpc.ClientConn
   conn, err := grpc.Dial("localhost:9000", grpc.WithInsecure())
@@ -263,6 +278,7 @@ func main(){
     log.Printf("2-Descargar Libro")
     log.Printf("3-Salir")
     fmt.Scanln(&accion)
+    remover()
     switch accion {
     case 1:
       subir_libro(conn)
