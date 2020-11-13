@@ -278,7 +278,7 @@ func main(){
     log.Printf("2-Descargar Libro")
     log.Printf("3-Salir")
     fmt.Scanln(&accion)
-    remover()
+    //remover()
     switch accion {
     case 1:
       subir_libro(conn)
