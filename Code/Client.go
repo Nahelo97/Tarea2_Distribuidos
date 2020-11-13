@@ -160,7 +160,7 @@ func splitter(archivo string)(int){
 }
 
 func joiner(archivo string,totalPartsNum int){
-  newFileName := "../nbooks/"+archivo
+  newFileName := "../nbooks/_joiner"+archivo
   _, err := os.Create(newFileName)
   if err != nil {
           fmt.Println(err)
