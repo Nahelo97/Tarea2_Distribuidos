@@ -25,8 +25,8 @@ func fileExists(filename string) bool {
 
 func tempChunk (chunk_id int, bookName string, ctdad_chunk int) {
 
-  if (fileExists("../temp/" + bookName)) {
-    file, err := os.OpenFile("../temp/" + bookName, os.O_WRONLY|os.O_APPEND, 0644)
+  if (fileExists("../temp/node/" + bookName)) {
+    file, err := os.OpenFile("../temp/node/" + bookName, os.O_WRONLY|os.O_APPEND, 0644)
     if err != nil {
       log.Fatalf("failed opening file: %s", err)
     }
@@ -38,7 +38,7 @@ func tempChunk (chunk_id int, bookName string, ctdad_chunk int) {
       log.Fatalf("failed writing to file: %s", err)
     }
   } else {
-    file, err := os.Create("../temp/" + bookName)
+    file, err := os.Create("../temp/node/" + bookName)
     if err != nil {
       log.Printf("aqui 2")
       log.Fatalf("failed writing to file: %s", err)
@@ -86,7 +86,20 @@ func (s* Server) Propuesta(ctx context.Context,request *comms.Request_Propuesta)
 func (s* Server) DistribuirChunks(ctx context.Context,request *comms.Request_Distribuir) (*comms.Response_Distribuir, error){
   return &comms.Response_Distribuir{},nil
 }
-
+func remover(){
+  var files []string
+  root := "../temp/node/"
+  err := filepath.Walk(root, func(path string, info os.FileInfo, err error) error {
+    files = append(files, path)
+    return nil
+  })
+  if err != nil {
+    panic(err)
+  }
+  for i:=1;i<len(files);i++{
+    os.Remove(files[i])
+  }
+}
 func main(){
   lis, err := net.Listen("tcp", ":9000")
   if err != nil {
