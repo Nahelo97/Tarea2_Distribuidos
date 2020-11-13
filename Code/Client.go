@@ -160,7 +160,7 @@ func splitter(archivo string)(int){
 }
 
 func joiner(archivo string,totalPartsNum int){
-  newFileName := archivo
+  newFileName := "../nbooks/"archivo
   _, err := os.Create(newFileName)
   if err != nil {
           fmt.Println(err)
@@ -180,7 +180,7 @@ func joiner(archivo string,totalPartsNum int){
   var writePosition int64 = 0
   for j := uint64(0); j < uint64(totalPartsNum); j++ {
           //read a chunk
-          currentChunkFileName := "../temp/cliente/" + strconv.FormatUint(j, 10)
+          currentChunkFileName := "../temp/cliente/"+archivo+"_"+strconv.FormatUint(j, 10)
 
           newFileChunk, err := os.Open(currentChunkFileName)
 
