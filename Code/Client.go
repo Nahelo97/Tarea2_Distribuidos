@@ -253,6 +253,7 @@ func main(){
 
   var accion int
   var flag bool
+  var nombre string
 
   flag=true
   for;flag;{
@@ -265,7 +266,9 @@ func main(){
     case 1:
       subir_libro(conn)
     case 2:
-      continue
+      fmt.Scanln(&nombre)
+      fmt.Scanln(&accion)
+      joiner(nombre,accion)
     case 3:
       flag=false
     }
