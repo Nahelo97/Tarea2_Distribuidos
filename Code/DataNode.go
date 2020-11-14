@@ -134,9 +134,11 @@ func distribuidor(propuesta string){
     c.DistribuirChunks(context.Background(),&comms.Request_Distribuir{
       Id:int32(i),Chunks:chunk,Nombre:nombre})
   }
-
 }
 
+func (s* Server) EstadoMaquina(ctx context.Context, request *comms.Request_Estado_M) (*comms.Response_Estado_M,error) {
+  return &comms.Response_Estado_M{Estado:int32(7734)},nil
+}
 func (s* Server) UploadBook(ctx context.Context, request *comms.Request_UploadBook) (*comms.Response_UploadBook, error) {
   log.Printf("Receive Book from client")
   tempChunk (int(request.Id), request.Nombre, int(request.Cantidad))
@@ -163,7 +165,7 @@ func (s* Server) UploadBook(ctx context.Context, request *comms.Request_UploadBo
   }
 }
 func (s* Server) DownloadBook(ctx context.Context, request *comms.Request_DownloadBook) (*comms.Response_DownloadBook, error){
-  return &comms.Response_DownloadBook{},nil
+  return &comms.Response_UploadBook{},nil
 }
 func (s* Server) DistribuirChunks(ctx context.Context, request *comms.Request_Distribuir) (*comms.Response_Distribuir, error){
   log.Printf("guardar chunk:")

@@ -44,6 +44,25 @@ func (s* Server) Log(ctx context.Context, request *comms2.Request_Log) (*comms2.
   return &comms2.Response_Log{}, nil
 }
 
+func verificar_maquinas(propuesta string)(bool){
+  lineas:=strings.Split(propuesta,"\n")
+  cantidad,_:=strconv.Atoi(strings.Split(lineas[0]," ")[1])
+  for i:=0;i<cantidad;i++{
+    maquina:=strings.Split(lineas[i+1]," ")[1]
+    conn, err := grpc.Dial(maquina+":9000", grpc.WithInsecure())
+    log.Printf(err)
+    if err != nil {
+      log.Fatalf("did not connect: %s", err)
+    }
+    defer conn.Close()
+    c:=comms.NewCommsClient(conn)
+    response,_:=c.EstadoMaquina(context.Background(),&comms.Request_Estado_M{})
+    if(int(response.Estado)!=7734){
+      return true
+    }
+  }
+  return false
+}
 func (s* Server) Propuesta(ctx context.Context, request *comms2.Request_Propuesta) (*comms2.Response_Propuesta, error) {
   tasa := rand.Intn(10)
   wea:=strings.Split(request.Propuesta,"\n")[0]
@@ -51,7 +70,7 @@ func (s* Server) Propuesta(ctx context.Context, request *comms2.Request_Propuest
   if(revisar_copia(wea)){
     return &comms2.Response_Propuesta{Estado:int32(2),}, nil
   }
-  if (tasa < 2) {
+  if (tasa < 2 || verificar_maquinas(request.Propuesta)) {
     log.Printf("le respondi")
     return &comms2.Response_Propuesta{Estado:int32(0),}, nil
   }

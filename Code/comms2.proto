@@ -18,6 +18,7 @@ message Response_Propuesta {
   int32 estado = 1;
 }
 
+
 service Comms2 {
   rpc Log(Request_Log) returns (Response_Log) {}
   rpc Propuesta(Request_Propuesta) returns (Response_Propuesta) {}
