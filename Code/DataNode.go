@@ -198,7 +198,7 @@ func (s* Server) DistribuirChunks(ctx context.Context, request *comms.Request_Di
   return &comms.Response_Distribuir{}, nil
 }
 
-func remover(){
+func remover(wea bool){
   var files []string
   root := "../temp/node/"
   err := filepath.Walk(root, func(path string, info os.FileInfo, err error) error {
@@ -213,6 +213,24 @@ func remover(){
     wea:=strings.Split(files[i],"/")
     if(wea[len(wea)-1]!=""){
       os.Remove(files[i])
+    }
+  }
+  if(wea){
+    var files []string
+    root = "../temp/Chunks/"
+    err = filepath.Walk(root, func(path string, info os.FileInfo, err error) error {
+      files = append(files, path)
+      return nil
+    })
+    if err != nil {
+      log.Printf("remover")
+      panic(err)
+    }
+    for i:=1;i<len(files);i++{
+      wea=strings.Split(files[i],"/")
+      if(wea[len(wea)-1]!=""){
+        os.Remove(files[i])
+      }
     }
   }
 }
