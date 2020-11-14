@@ -123,6 +123,7 @@ func distribuidor(propuesta string){
   for i:=0;i<cantidad;i++{
     maquina:=strings.Split(lineas[i+1]," ")[1]
     chunk:=read_chunk(strings.Split(lineas[i+1]," ")[0])
+    log.Printf(maquina)
     conn, err := grpc.Dial(maquina+":9000", grpc.WithInsecure())
     if err != nil {
       log.Fatalf("did not connect: %s", err)
