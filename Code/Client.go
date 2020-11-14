@@ -352,7 +352,7 @@ func request_chunks(ubicaciones string){
   lineas:=strings.Split(ubicaciones,"\n")
   titulo:=strings.Split(lineas[0]," ")
   super_ayuda, _ := strconv.Atoi(titulo[1])
-  log.Printf("hola, que wea?0")
+  log.Printf("hola, que wea?0 %+v",titulo)
   for i:=0;i<super_ayuda;i++{
     var conn *grpc.ClientConn
     conn, err := grpc.Dial(strings.Split(lineas[i+1]," ")[1]+":9000", grpc.WithInsecure())
