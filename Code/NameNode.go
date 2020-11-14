@@ -28,7 +28,7 @@ func revisar_copia(nombre string)(bool){
     log.Printf(nombre)
     for scanner.Scan() {
       wea:=strings.Split(scanner.Text()," ")
-      log.Printf(wea)
+      log.Printf(wea[0])
       if(wea[0]==nombre){
         return true
       }
