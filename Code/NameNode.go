@@ -93,7 +93,7 @@ func encontrar_libro(numero int)(string){
   return libros
 }
 func (s* Server) Catalogo(ctx context.Context, request *comms2.Request_Catalogo) (*comms2.Response_Catalogo, error) {
-  return &comms2.Response_Catlogo{Libros:catalogo(),}, nil
+  return &comms2.Response_Catalogo{Libros:catalogo(),}, nil
 }
 func (s* Server) Pedir_Libro(ctx context.Context, request *comms2.Request_Libro) (*comms2.Response_Libro, error) {
   return &comms2.Response_Libro{Ubicaciones:encontrar_libro(int(request.Numero)),}, nil
