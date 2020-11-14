@@ -73,7 +73,7 @@ func (s* Server) Propuesta(ctx context.Context, request *comms2.Request_Propuest
     return &comms2.Response_Propuesta{Estado:int32(2),}, nil
   }
   if (tasa < 2 || verificar_maquinas(request.Propuesta)) {
-    log.Printf("le respondi")
+    log.Printf("le respondi 1")
     return &comms2.Response_Propuesta{Estado:int32(0),}, nil
   }
   file, err := os.OpenFile("../temp/nameNode/log.txt", os.O_WRONLY|os.O_APPEND, 0644)
@@ -85,7 +85,7 @@ func (s* Server) Propuesta(ctx context.Context, request *comms2.Request_Propuest
   if err != nil {
     log.Fatalf("failed writing to file: %s", err)
   }
-  log.Printf("le respondi")
+  log.Printf("le respondi 2")
   return &comms2.Response_Propuesta{Estado:int32(1),}, nil
 }
 
