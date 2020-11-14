@@ -49,7 +49,8 @@ func tempChunk (chunk_id int, bookName string, ctdad_chunk int) {
     }
     defer file.Close()
     s := strconv.Itoa(ctdad_chunk)
-    _, err = file.WriteString(bookName + "\n" + s + "\nchunk_id")
+    sas := strconv.Itoa(chunk_id)
+    _, err = file.WriteString(bookName + "\n" + s + "\n"+sas)
     if err != nil {
       // log.Printf("aqui 3")
       log.Fatalf("failed writing to file: %s", err)
@@ -116,6 +117,7 @@ func read_chunk(archivo string)([]byte) {
 }
 
 func distribuidor(propuesta string){
+  log.Printf("distribuidor: %s",propuesta)
   lineas:=strings.Split(propuesta,"\n")
   nombre:=strings.Split(lineas[0]," ")[0]
   cantidad,_:=strconv.Atoi(strings.Split(lineas[0]," ")[1])
@@ -145,9 +147,7 @@ func read_chunk_to_send(archivo string)([]byte){
     return []byte("0")
   }
   defer file.Close()
-
   buffer := make([]byte,100)
-
   for {
     bytesread, err := file.Read(buffer)
     if err != nil {
@@ -165,6 +165,7 @@ func (s* Server) SolicitarChunk(ctx context.Context, request *comms.Request_Chun
   return &comms.Response_Chunk{Chunks:read_chunk_to_send(request.Nombre),},nil
 }
 func (s* Server) UploadBook(ctx context.Context, request *comms.Request_UploadBook) (*comms.Response_UploadBook, error) {
+  remover(false)
   tempChunk (int(request.Id), request.Nombre, int(request.Cantidad))
   createChunk (int(request.Id), request.Chunks, request.Nombre)
   if (request.Id != request.Cantidad) {
@@ -184,7 +185,6 @@ func (s* Server) UploadBook(ctx context.Context, request *comms.Request_UploadBo
       log.Printf("Aceptado!\n\n")
       distribuidor(prop)
     }
-    remover(false)
     return &comms.Response_UploadBook{State: int32(estado)}, nil
   }
 }
