@@ -79,7 +79,7 @@ func proponer (conn *grpc.ClientConn, chunks int, name string) (int) {
   fmt.Println( "propuesta terminada")
   estado,_ := c.Propuesta(context.Background(),&comms2.Request_Propuesta{
     Propuesta: propuesta,})
-  aux=int(estado.Estado)
+  aux:=int(estado.Estado)
   log.Printf("hla1")
   return aux
 
