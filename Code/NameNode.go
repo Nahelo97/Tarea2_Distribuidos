@@ -15,11 +15,11 @@ type Server struct {
 }
 
 
-func (s* Server) Log(ctx context.Context, request *comms2.Request_Log) (*comms2.Response_Log) {
+func (s* Server) Log(ctx context.Context, request *comms2.Request_Log) (*comms2.Response_Log, error) {
   return &comms2.Response_Log{}, nil
 }
 
-func (s* Server) Propuesta(ctx context.Context, request *comms2.Request_Propuesta) (*comms2.Response_Propuesta) {
+func (s* Server) Propuesta(ctx context.Context, request *comms2.Request_Propuesta) (*comms2.Response_Propuesta, error) {
   tasa := rand.Intn(10)
   if (tasa < 2) {
     return &comms2.Response_Propuesta{Estado:0}, nil
