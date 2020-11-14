@@ -66,7 +66,6 @@ func ver_libros_descargados(){
   }
 }
 
-
 func find_book_index(y int )(string){
   var files []string
   root := "../Books/"
@@ -324,7 +323,7 @@ func mostrar_catalogo(catalogo string)(int){
   var numero int
   libros:=strings.Split(catalogo,"\n")
   for i:=0;i<len(libros);i++{
-    log.Printf("%d.-$s",i+1,libros[i])
+    log.Printf("%d.-%s",i+1,libros[i])
   }
   log.Printf("Seleccione un libro")
   fmt.Scanln(&numero)
