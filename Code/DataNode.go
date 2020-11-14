@@ -153,6 +153,7 @@ func (s* Server) UploadBook(ctx context.Context, request *comms.Request_UploadBo
       estado,prop = proponer(conn, int(request.Cantidad), request.Nombre)
     }
     if(estado == 1){
+      log.Printf(prop)
       distribuidor(prop)
     }
     remover()
