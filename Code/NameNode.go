@@ -90,10 +90,10 @@ func encontrar_libro(numero int)(string){
       contador+=1
     }
     if(contador==numero){
-        libros+=scanner.Text()
+        libros+=scanner.Text()+"\n"
     }
   }
-  return libros
+  return libros[:len(libros)-1]
 }
 func (s* Server) Catalogo(ctx context.Context, request *comms2.Request_Catalogo) (*comms2.Response_Catalogo, error) {
   return &comms2.Response_Catalogo{Libros:catalogo(),}, nil
