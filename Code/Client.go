@@ -128,7 +128,7 @@ func splitter(archivo string)(int){
 
   var fileSize int64 = fileInfo.Size()
 
-  const fileChunk = 1 * (1 << 20) // 1 MB, change this to your requirement
+  const fileChunk = 0.25 * (1 << 20) // 1 MB, change this to your requirement
 
   // calculate total number of parts the file will be chunked into
 
