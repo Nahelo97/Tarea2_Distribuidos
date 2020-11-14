@@ -18,7 +18,7 @@ import (
   "math/rand"
 )
 
-func ver_libros_para_subir(){
+func ver_libros_para_subir()(cantidad int){
   var files []string
   root := "../Books/"
   err := filepath.Walk(root, func(path string, info os.FileInfo, err error) error {
@@ -39,6 +39,7 @@ func ver_libros_para_subir(){
     }
     x+=1
   }
+  return x
 }
 
 func ver_libros_descargados(){

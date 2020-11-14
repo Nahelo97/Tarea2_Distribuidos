@@ -64,7 +64,7 @@ func catalogo()(string){
     for scanner.Scan() {
       lineas:=strings.Split(scanner.Text()," ")
       if(isInt(lineas[1])) {
-        libros+=lineas[0]
+        libros+=lineas[0]+"\n"
       }
     }
   return libros
