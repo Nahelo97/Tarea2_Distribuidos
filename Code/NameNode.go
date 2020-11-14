@@ -55,7 +55,7 @@ func isInt(s string) bool {
 func catalogo()(string){
   var libros string
   libros=""
-  file, err := os.Open("../temp/log.txt")
+  file, err := os.Open("../temp/nameNode/log.txt")
     if err != nil {
         log.Fatal(err)
     }
@@ -75,7 +75,7 @@ func encontrar_libro(numero int)(string){
   var contador int
   contador=0
   libros=""
-  file, err := os.Open("../temp/log.txt")
+  file, err := os.Open("../temp/nameNode/log.txt")
   if err != nil {
       log.Fatal(err)
   }
