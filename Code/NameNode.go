@@ -72,7 +72,8 @@ func (s* Server) Propuesta(ctx context.Context, request *comms2.Request_Propuest
   if(revisar_copia(wea)){
     return &comms2.Response_Propuesta{Estado:int32(2),}, nil
   }
-  if (tasa < 2 || verificar_maquinas(request.Propuesta)) {
+  //|| verificar_maquinas(request.Propuesta)
+  if (tasa < 2 ) {
     log.Printf("le respondi 1")
     return &comms2.Response_Propuesta{Estado:int32(0),}, nil
   }
