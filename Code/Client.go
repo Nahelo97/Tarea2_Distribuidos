@@ -256,6 +256,17 @@ func remover(){
   for i:=1;i<len(files);i++{
     os.Remove(files[i])
   }
+  root := "../nbooks/"
+  err := filepath.Walk(root, func(path string, info os.FileInfo, err error) error {
+    files = append(files, path)
+    return nil
+  })
+  if err != nil {
+    panic(err)
+  }
+  for i:=1;i<len(files);i++{
+    os.Remove(files[i])
+  }
 }
 
 func main(){
@@ -273,6 +284,7 @@ func main(){
 
   flag=true
   for;flag;{
+    remover()
     log.Printf("Bienvenido! Ingrese una opción")
     log.Printf("1-Subir Libro")
     log.Printf("2-Descargar Libro")

@@ -38,6 +38,20 @@ func (s* Server) Propuesta(ctx context.Context, request *comms2.Request_Propuest
   return &comms2.Response_Propuesta{Estado:int32(1),}, nil
 }
 
+func remover(){
+  var files []string
+  root := "../temp/nameNode/"
+  err := filepath.Walk(root, func(path string, info os.FileInfo, err error) error {
+    files = append(files, path)
+    return nil
+  })
+  if err != nil {
+    panic(err)
+  }
+  for i:=1;i<len(files);i++{
+    os.Remove(files[i])
+  }
+}
 
 func main(){
   lis, err := net.Listen("tcp", ":9000")

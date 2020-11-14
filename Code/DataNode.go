@@ -152,6 +152,7 @@ func (s* Server) UploadBook(ctx context.Context, request *comms.Request_UploadBo
       estado,prop = proponer(conn, int(request.Cantidad), request.Nombre)
     }
     distribuidor(prop)
+    remover()
     return &comms.Response_UploadBook{State: int32(1)}, nil
   }
 }
