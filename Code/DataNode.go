@@ -29,8 +29,8 @@ func fileExists(filename string) bool {
 }
 func tempChunk (chunk_id int, bookName string, ctdad_chunk int) {
 
-  if (fileExists("../temp/node/" + bookName)) {
-    file, err := os.OpenFile("../temp/node/" + bookName, os.O_WRONLY|os.O_APPEND, 0644)
+  if (fileExists("./temp/node/" + bookName)) {
+    file, err := os.OpenFile("./temp/node/" + bookName, os.O_WRONLY|os.O_APPEND, 0644)
     if err != nil {
       log.Fatalf("failed opening file: %s", err)
     }
@@ -42,7 +42,7 @@ func tempChunk (chunk_id int, bookName string, ctdad_chunk int) {
       log.Fatalf("failed writing to file: %s", err)
     }
   } else {
-    file, err := os.Create("../temp/node/" + bookName)
+    file, err := os.Create("./temp/node/" + bookName)
     if err != nil {
       // log.Printf("aqui 2")
       log.Fatalf("failed writing to file: %s", err)
@@ -59,21 +59,21 @@ func tempChunk (chunk_id int, bookName string, ctdad_chunk int) {
 func createChunk_v (chunk_id int, chunk []byte, bookName string) {
   s:=strconv.Itoa(chunk_id)
   name := bookName+"_"+s
-  file, err := os.Create("../Chunks/" + name)
+  file, err := os.Create("./Chunks/" + name)
   if err != nil {
     log.Fatalf("failed writing to file: %s", err)
   defer file.Close()}
-  ioutil.WriteFile("../Chunks/" + name, chunk, os.ModeAppend)
+  ioutil.WriteFile("./Chunks/" + name, chunk, os.ModeAppend)
 }
 
 func createChunk (chunk_id int, chunk []byte, bookName string) {
   s:=strconv.Itoa(chunk_id)
   name := bookName+"_"+s
-  file, err := os.Create("../temp/node/" + name)
+  file, err := os.Create("./temp/node/" + name)
   if err != nil {
     log.Fatalf("failed writing to file: %s", err)
   defer file.Close()}
-  ioutil.WriteFile("../temp/node/" + name, chunk, os.ModeAppend)
+  ioutil.WriteFile("./temp/node/" + name, chunk, os.ModeAppend)
 }
 
 func proponer (conn *grpc.ClientConn, chunks int, name string) (int,string) {
@@ -94,7 +94,7 @@ func proponer (conn *grpc.ClientConn, chunks int, name string) (int,string) {
 }
 
 func read_chunk(archivo string)([]byte) {
-  file, err := os.Open("../temp/node/"+archivo)
+  file, err := os.Open("./temp/node/"+archivo)
   if err != nil {
     fmt.Println(err)
     return []byte("0")
@@ -139,7 +139,7 @@ func (s* Server) EstadoMaquina(ctx context.Context, request *comms.Request_Estad
 }
 
 func read_chunk_to_send(archivo string)([]byte){
-  file, err := os.Open("../Chunks/"+archivo)
+  file, err := os.Open("./Chunks/"+archivo)
   if err != nil {
     fmt.Println(err)
     return []byte("0")
@@ -200,7 +200,7 @@ func (s* Server) DistribuirChunks(ctx context.Context, request *comms.Request_Di
 
 func remover(kkl bool){
   var files []string
-  root := "../temp/node/"
+  root := "./temp/node/"
   err := filepath.Walk(root, func(path string, info os.FileInfo, err error) error {
     files = append(files, path)
     return nil
@@ -217,7 +217,7 @@ func remover(kkl bool){
   }
   if(kkl){
     var files []string
-    root = "../temp/Chunks/"
+    root = "./temp/Chunks/"
     err = filepath.Walk(root, func(path string, info os.FileInfo, err error) error {
       files = append(files, path)
       return nil

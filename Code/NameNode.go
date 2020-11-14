@@ -21,7 +21,7 @@ type Server struct {
 }
 
 func revisar_copia(nombre string)(bool){
-  file, err := os.Open("../temp/nameNode/log.txt")
+  file, err := os.Open("./temp/nameNode/log.txt")
     if err != nil {
         log.Fatal(err)
     }
@@ -55,7 +55,7 @@ func isInt(s string) bool {
 func catalogo()(string){
   var libros string
   libros=""
-  file, err := os.Open("../temp/nameNode/log.txt")
+  file, err := os.Open("./temp/nameNode/log.txt")
     if err != nil {
         log.Fatal(err)
     }
@@ -78,7 +78,7 @@ func encontrar_libro(numero int)(string){
   var contador int
   contador=0
   libros=""
-  file, err := os.Open("../temp/nameNode/log.txt")
+  file, err := os.Open("./temp/nameNode/log.txt")
   if err != nil {
       log.Fatal(err)
   }
@@ -132,7 +132,7 @@ func (s* Server) Propuesta(ctx context.Context, request *comms2.Request_Propuest
   if (tasa < 2 ||condicion) {
     return &comms2.Response_Propuesta{Estado:int32(0),}, nil
   }
-  file, err := os.OpenFile("../temp/nameNode/log.txt", os.O_WRONLY|os.O_APPEND, 0644)
+  file, err := os.OpenFile("./temp/nameNode/log.txt", os.O_WRONLY|os.O_APPEND, 0644)
   if err != nil {
     log.Fatalf("failed opening file: %s", err)
   }
@@ -146,7 +146,7 @@ func (s* Server) Propuesta(ctx context.Context, request *comms2.Request_Propuest
 
 func remover(){
   var files []string
-  root := "../temp/nameNode/"
+  root := "./temp/nameNode/"
   err := filepath.Walk(root, func(path string, info os.FileInfo, err error) error {
     files = append(files, path)
     return nil
@@ -161,7 +161,7 @@ func remover(){
       os.Remove(files[i])
     }
   }
-  os.Create("../temp/nameNode/log.txt")
+  os.Create("./temp/nameNode/log.txt")
 }
 
 func main(){

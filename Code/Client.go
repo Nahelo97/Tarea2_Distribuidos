@@ -20,7 +20,7 @@ import (
 
 func ver_libros_para_subir()(cantidad int){
   var files []string
-  root := "../Books/"
+  root := "./Books/"
   err := filepath.Walk(root, func(path string, info os.FileInfo, err error) error {
     files = append(files, path)
     return nil
@@ -44,7 +44,7 @@ func ver_libros_para_subir()(cantidad int){
 
 func ver_libros_descargados(){
   var files []string
-  root := "../nbooks/"
+  root := "./nbooks/"
   err := filepath.Walk(root, func(path string, info os.FileInfo, err error) error {
     files = append(files, path)
     return nil
@@ -67,7 +67,7 @@ func ver_libros_descargados(){
 
 func find_book_index(y int )(string){
   var files []string
-  root := "../Books/"
+  root := "./Books/"
   err := filepath.Walk(root, func(path string, info os.FileInfo, err error) error {
     files = append(files, path)
     return nil
@@ -89,7 +89,7 @@ func find_book_index(y int )(string){
 
 func read_chunk(archivo string,numero int)([]byte){
   s := strconv.Itoa(numero)
-  file, err := os.Open("../temp/cliente/"+archivo+"_"+s)
+  file, err := os.Open("./temp/cliente/"+archivo+"_"+s)
   if err != nil {
     fmt.Println(err)
     return []byte("0")
@@ -140,7 +140,7 @@ func subir_libro(conn *grpc.ClientConn){
 }
 
 func splitter(archivo string)(int){
-  fileToBeChunked := "../Books/"+archivo // change here!
+  fileToBeChunked := "./Books/"+archivo // change here!
 
   file, err := os.Open(fileToBeChunked)
 
@@ -171,7 +171,7 @@ func splitter(archivo string)(int){
           file.Read(partBuffer)
 
           // write to disk
-          fileName := "../temp/cliente/"+archivo+"_" + strconv.FormatUint(i+1, 10)
+          fileName := "./temp/cliente/"+archivo+"_" + strconv.FormatUint(i+1, 10)
           _, err := os.Create(fileName)
 
           if err != nil {
@@ -188,7 +188,7 @@ func splitter(archivo string)(int){
 }
 
 func joiner(archivo string,totalPartsNum int){
-  newFileName := "../nbooks/"+archivo
+  newFileName := "./nbooks/"+archivo
   _, err := os.Create(newFileName)
   if err != nil {
           fmt.Println(err)
@@ -208,7 +208,7 @@ func joiner(archivo string,totalPartsNum int){
   var writePosition int64 = 0
   for j := uint64(0); j < uint64(totalPartsNum); j++ {
           //read a chunk
-          currentChunkFileName := "../temp/cliente/"+archivo+"_"+strconv.FormatUint(j+1, 10)
+          currentChunkFileName := "./temp/cliente/"+archivo+"_"+strconv.FormatUint(j+1, 10)
 
           newFileChunk, err := os.Open(currentChunkFileName)
 
@@ -273,7 +273,7 @@ func joiner(archivo string,totalPartsNum int){
 
 func remover(wea bool){
   var files []string
-  root := "../temp/cliente/"
+  root := "./temp/cliente/"
   err := filepath.Walk(root, func(path string, info os.FileInfo, err error) error {
     files = append(files, path)
     return nil
@@ -289,7 +289,7 @@ func remover(wea bool){
     }
   }
   if(wea){
-    root = "../nbooks/"
+    root = "./nbooks/"
     err = filepath.Walk(root, func(path string, info os.FileInfo, err error) error {
       files = append(files, path)
       return nil
@@ -342,11 +342,11 @@ func mostrar_catalogo(catalogo string)(int){
 func createChunk (chunk_id int, chunk []byte, bookName string) {
   s:=strconv.Itoa(chunk_id)
   name := bookName+"_"+s
-  file, err := os.Create("../temp/cliente/" + name)
+  file, err := os.Create("./temp/cliente/" + name)
   if err != nil {
     log.Fatalf("failed writing to file: %s", err)
   defer file.Close()}
-  ioutil.WriteFile("../temp/cliente/" + name, chunk, os.ModeAppend)
+  ioutil.WriteFile("./temp/cliente/" + name, chunk, os.ModeAppend)
 }
 func request_chunks(ubicaciones string){
   lineas:=strings.Split(ubicaciones,"\n")
