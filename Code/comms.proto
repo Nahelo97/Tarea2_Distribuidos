@@ -21,7 +21,9 @@ message Response_DownloadBook {
 }
 
 message Request_Distribuir {
-
+  bytes chunks = 1;
+  string nombre = 2;
+  int32 id = 4;
 }
 
 message Response_Distribuir {

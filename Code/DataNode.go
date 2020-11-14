@@ -26,7 +26,6 @@ func fileExists(filename string) bool {
     }
     return !info.IsDir()
 }
-
 func tempChunk (chunk_id int, bookName string, ctdad_chunk int) {
 
   if (fileExists("../temp/node/" + bookName)) {
@@ -56,17 +55,16 @@ func tempChunk (chunk_id int, bookName string, ctdad_chunk int) {
     }
   }
 }
-
 func createChunk (chunk_id int, chunk []byte, bookName string) {
-  name := strings.Split(bookName, ".pdf")[0]
+  s=:strconv.Itoa(chunk_id)
+  name := bookName+"_"+s
   file, err := os.Create("../Chunks/" + name)
   if err != nil {
     log.Fatalf("failed writing to file: %s", err)
   defer file.Close()}
   ioutil.WriteFile("../Chunks/" + name, chunk, os.ModeAppend)
 }
-
-func proponer (conn *grpc.ClientConn, chunks int, name string) (int) {
+func proponer (conn *grpc.ClientConn, chunks int, name string) (int,string) {
   c:=comms2.NewComms2Client(conn)
   var propuesta string
   ctdad_chunks := strconv.Itoa(chunks)
@@ -79,11 +77,53 @@ func proponer (conn *grpc.ClientConn, chunks int, name string) (int) {
   fmt.Println( "propuesta terminada")
   estado,_ := c.Propuesta(context.Background(),&comms2.Request_Propuesta{
     Propuesta: propuesta,})
-  log.Printf("hla1")
-  log.Printf("%+v",estado)
   aux:=int(estado.Estado)
-  log.Printf("hla2")
-  return aux
+  return aux,propuesta
+}
+
+func read_chunk(archivo string)([]byte){
+  s := strconv.Itoa(numero)
+  file, err := os.Open("../temp/node/"+archivo+"_"+s)
+  if err != nil {
+    fmt.Println(err)
+    return []byte("0")
+  }
+  defer file.Close()
+
+  buffer := make([]byte,100)
+
+  for {
+    bytesread, err := file.Read(buffer)
+
+    if err != nil {
+      if err != io.EOF {
+        fmt.Println(err)
+      }
+
+      break
+    }
+    bs := []byte(strconv.Itoa(bytesread))
+      return bs
+  }
+  return []byte("0")
+}
+
+func distribuidor(propuesta string){
+  lineas:=strings.Split(propuesta,"\n")
+  nombre:=strings.Split(lineas[0]," ")[0]
+  cantidad:=strings.Split(lineas[0]," ")[1]
+  var conn *grpc.ClientConn
+  for i:=0;i<cantidad;i++{
+    maquina:=strings.Split(lineas[i]," ")[1]
+    chunk:=read_chunk(strings.Split(lineas[i]," ")[0])
+    conn, err := grpc.Dial(maquina+":9000", grpc.WithInsecure())
+    if err != nil {
+      log.Fatalf("did not connect: %s", err)
+    }
+    defer conn.Close()
+    c:=comms.NewCommsClient(conn)
+    c.DistribuirChunks(context.Background(),&comms.Request_Distribuir{Id:int32(i),Chunk:chunk,Nombre:nombre})
+  }
 
 }
 
@@ -100,23 +140,22 @@ func (s* Server) UploadBook(ctx context.Context, request *comms.Request_UploadBo
       log.Fatalf("did not connect: %s", err)
     }
     defer conn.Close()
-    estado := proponer(conn, int(request.Cantidad), request.Nombre)
-    log.Printf("hla3")
+    estado,prop := proponer(conn, int(request.Cantidad), request.Nombre)
     for ; estado == 0 ; {
-      log.Printf("hla4")
-      estado = proponer(conn, int(request.Cantidad), request.Nombre)
+      estado,prop = proponer(conn, int(request.Cantidad), request.Nombre)
     }
+    //distribuir_chunks(prop)
     return &comms.Response_UploadBook{State: int32(1)}, nil
   }
 }
-
 func (s* Server) DownloadBook(ctx context.Context, request *comms.Request_DownloadBook) (*comms.Response_DownloadBook, error){
   return &comms.Response_DownloadBook{},nil
 }
-
-func (s* Server) DistribuirChunks(ctx context.Context,request *comms.Request_Distribuir) (*comms.Response_Distribuir, error){
-  return &comms.Response_Distribuir{},nil
+func (s* Server) DistribuirChunks(ctx context.Context, request *comms.Request_Distribuir) (*comms.Response_Distribuir, error){
+  createChunk (int(request.Id), request.Chunk, request.Nombre)
+  return &comms.Response_Distribuir{}, nil
 }
+
 func remover(){
   var files []string
   root := "../temp/node/"
