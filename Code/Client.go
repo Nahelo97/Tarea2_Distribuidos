@@ -2,6 +2,7 @@ package main
 
 import (
   "./comms"
+  "./comms2"
   "google.golang.org/grpc"
   "golang.org/x/net/context"
   "os"
@@ -15,6 +16,7 @@ import (
   "bufio"
   "strings"
 )
+
 func ver_libros_para_subir(){
   var files []string
   root := "../Books/"
@@ -277,10 +279,28 @@ func remover(){
     }
   }
 }
-
+func verificar_maquinas(maquina string)(bool){
+    conn, err := grpc.Dial(maquina+":9000", grpc.WithInsecure())
+    if err != nil {
+      log.Fatalf("did not connect: %s", err)
+    }
+    defer conn.Close()
+    c:=comms.NewCommsClient(conn)
+    response,error:=c.EstadoMaquina(context.Background(),&comms.Request_Estado_M{})
+    log.Printf("respuesta de maquina %s: %+v",maquina,response)
+    if(error!=nil || int(response.Estado)!=7734){
+      return true
+    }
+  }
+  return false
+}
 func main(){
   var conn *grpc.ClientConn
-  conn, err := grpc.Dial("dist94:9000", grpc.WithInsecure())
+  maquina:="dist"+strconv.Itoa(rand.Intn(3) + 93)
+  for;verificar_maquinas(maquina);{
+    maquina="dist"+strconv.Itoa(rand.Intn(3) + 93)
+  }
+  conn, err := grpc.Dial(maquina+":9000", grpc.WithInsecure())
   if err != nil {
     log.Fatalf("did not connect: %s", err)
   }

@@ -44,6 +44,10 @@ func (s* Server) Log(ctx context.Context, request *comms2.Request_Log) (*comms2.
   return &comms2.Response_Log{}, nil
 }
 
+func (s* Server) Catalogo(ctx context.Context, request *comms2.Request_Catlogo) (*comms2.Response_Catlogo, error) {
+  return &comms2.Response_Catlogo{}, nil
+}
+
 func verificar_maquinas(propuesta string)(bool){
   lineas:=strings.Split(propuesta,"\n")
   cantidad,_:=strconv.Atoi(strings.Split(lineas[0]," ")[1])
