@@ -23,6 +23,7 @@ func ver_libros_para_subir(){
     return nil
   })
   if err != nil {
+    log.Printf("ver_libros_para_subir")
     panic(err)
   }
   var x int
@@ -45,6 +46,7 @@ func find_book_index(y int )(string){
     return nil
   })
   if err != nil {
+    log.Printf("find_book_index")
     panic(err)
   }
   var x int
@@ -251,6 +253,7 @@ func remover(){
     return nil
   })
   if err != nil {
+    log.Printf("remover")
     panic(err)
   }
   for i:=1;i<len(files);i++{

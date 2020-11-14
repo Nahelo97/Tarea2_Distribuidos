@@ -174,6 +174,7 @@ func remover(){
     return nil
   })
   if err != nil {
+    log.Printf("remover")
     panic(err)
   }
   for i:=1;i<len(files);i++{
