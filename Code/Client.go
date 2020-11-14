@@ -254,7 +254,7 @@ func remover(){
     panic(err)
   }
   for i:=1;i<len(files);i++{
-    wea:=strings.Split(files,"/")
+    wea:=strings.Split(files[i],"/")
     if(wea[len(wea)-1]!=""){
       os.Remove(files[i])
     }
@@ -268,7 +268,7 @@ func remover(){
     panic(err)
   }
   for i:=1;i<len(files);i++{
-    wea:=strings.Split(files,"/")
+    wea:=strings.Split(files[i],"/")
     if(wea[len(wea)-1]!=""){
       os.Remove(files[i])
     }
