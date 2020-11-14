@@ -361,7 +361,7 @@ func request_chunks(ubicaciones string){
     defer conn.Close()
     c:=comms.NewCommsClient(conn)
     response,error:=c.SolicitarChunk(context.Background(),&comms.Request_Chunk{Nombre:strings.Split(lineas[i+1]," ")[0]})
-
+    log.Printf("hola, que wea?")
     log.Printf("maquina %s, respondio: %+v",strings.Split(lineas[i+1]," ")[1],response)
     if(error!=nil){
       return
