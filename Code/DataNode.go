@@ -95,7 +95,7 @@ func (s* Server) UploadBook(ctx context.Context, request *comms.Request_UploadBo
     return &comms.Response_UploadBook{State: int32(0)}, nil
   } else {
     var conn *grpc.ClientConn
-    conn, err := grpc.Dial("dist96", grpc.WithInsecure())
+    conn, err := grpc.Dial("dist96:9000", grpc.WithInsecure())
     if err != nil {
       log.Fatalf("did not connect: %s", err)
     }
