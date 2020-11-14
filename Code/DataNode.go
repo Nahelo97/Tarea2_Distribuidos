@@ -14,6 +14,7 @@ import (
   "path/filepath"
   "math/rand"
   "fmt"
+  "io"
 )
 
 type Server struct{
@@ -82,8 +83,7 @@ func proponer (conn *grpc.ClientConn, chunks int, name string) (int,string) {
 }
 
 func read_chunk(archivo string)([]byte){
-  s := strconv.Itoa(numero)
-  file, err := os.Open("../temp/node/"+archivo+"_"+s)
+  file, err := os.Open("../temp/node/"+archivo)
   if err != nil {
     fmt.Println(err)
     return []byte("0")
@@ -111,7 +111,7 @@ func read_chunk(archivo string)([]byte){
 func distribuidor(propuesta string){
   lineas:=strings.Split(propuesta,"\n")
   nombre:=strings.Split(lineas[0]," ")[0]
-  cantidad:=strings.Split(lineas[0]," ")[1]
+  cantidad,_:=strconv.Atoi(strings.Split(lineas[0]," ")[1])
   var conn *grpc.ClientConn
   for i:=0;i<cantidad;i++{
     maquina:=strings.Split(lineas[i]," ")[1]
@@ -122,7 +122,8 @@ func distribuidor(propuesta string){
     }
     defer conn.Close()
     c:=comms.NewCommsClient(conn)
-    c.DistribuirChunks(context.Background(),&comms.Request_Distribuir{Id:int32(i),Chunk:chunk,Nombre:nombre})
+    c.DistribuirChunks(context.Background(),&comms.Request_Distribuir{
+      Id:int32(i),Chunks:chunk,Nombre:nombre})
   }
 
 }
@@ -152,7 +153,7 @@ func (s* Server) DownloadBook(ctx context.Context, request *comms.Request_Downlo
   return &comms.Response_DownloadBook{},nil
 }
 func (s* Server) DistribuirChunks(ctx context.Context, request *comms.Request_Distribuir) (*comms.Response_Distribuir, error){
-  createChunk (int(request.Id), request.Chunk, request.Nombre)
+  createChunk(int(request.Id), request.Chunks, request.Nombre)
   return &comms.Response_Distribuir{}, nil
 }
 
