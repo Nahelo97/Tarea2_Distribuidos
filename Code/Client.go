@@ -323,7 +323,11 @@ func verificar_maquinas(maquina string)(bool){
 func mostrar_catalogo(catalogo string)(int){
   var numero int
   libros:=strings.Split(catalogo,"\n")
-  for i:=0;i<len(libros) && !(len(libros)==1 && libros[0]=="");i++{
+  if((len(libros)==1 && libros[0]=="")){
+    log.Printf("No Hay Libros")
+    return -2
+  }
+  for i:=0;i<len(libros);i++{
     log.Printf("%d.-%s",i+1,libros[i])
   }
   log.Printf("Seleccione un libro")
