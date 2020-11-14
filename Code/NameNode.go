@@ -106,9 +106,11 @@ func remover(){
       os.Remove(files[i])
     }
   }
+  os.Create("../temp/nameNode/log.txt")
 }
 
 func main(){
+  remover()
   lis, err := net.Listen("tcp", ":9000")
   if err != nil {
     log.Fatalf("failed to listen: %v", err)
