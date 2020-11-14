@@ -44,6 +44,14 @@ func revisar_copia(nombre string)(bool){
 func (s* Server) Log(ctx context.Context, request *comms2.Request_Log) (*comms2.Response_Log, error) {
   return &comms2.Response_Log{}, nil
 }
+func isInt(s string) bool {
+    for _, c := range s {
+        if !unicode.IsDigit(c) {
+            return false
+        }
+    }
+    return true
+}
 func catalogo()(string){
   var libros string
   libros=""
@@ -55,7 +63,7 @@ func catalogo()(string){
     scanner := bufio.NewScanner(file)
     for scanner.Scan() {
       lineas:=strings.Split(scanner.Text()," ")
-      if(unicode.IsDigit(lineas[1])){
+      if(isInt(lineas[1])) {
         libros+=lineas[0]
       }
     }
@@ -75,7 +83,7 @@ func encontrar_libro(numero int)(string){
   scanner := bufio.NewScanner(file)
   for scanner.Scan() {
     lineas:=strings.Split(scanner.Text()," ")
-    if(unicode.IsDigit(lineas[1])){
+    if(isInt(lineas[1])){
       contador+=1
     }
     if(contador==numero){
@@ -84,7 +92,7 @@ func encontrar_libro(numero int)(string){
   }
   return libros
 }
-func (s* Server) Catalogo(ctx context.Context, request *comms2.Request_Catlogo) (*comms2.Response_Catlogo, error) {
+func (s* Server) Catalogo(ctx context.Context, request *comms2.Request_Catalogo) (*comms2.Response_Catalogo, error) {
   return &comms2.Response_Catlogo{Libros:catalogo(),}, nil
 }
 func (s* Server) Pedir_Libro(ctx context.Context, request *comms2.Request_Libro) (*comms2.Response_Libro, error) {

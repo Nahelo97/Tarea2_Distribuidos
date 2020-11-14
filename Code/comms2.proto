@@ -18,7 +18,7 @@ message Response_Propuesta {
   int32 estado = 1;
 }
 
-message Request_Catlogo {
+message Request_Catalogo {
 
 }
 
@@ -37,6 +37,6 @@ message Response_Libro {
 service Comms2 {
   rpc Log(Request_Log) returns (Response_Log) {}
   rpc Propuesta(Request_Propuesta) returns (Response_Propuesta) {}
-  rpc Catalogo(Request_Catlogo) returns (Response_Catalogo) {}
+  rpc Catalogo(Request_Catalogo) returns (Response_Catalogo) {}
   rpc Pedir_Libro(Request_Libro) returns (Response_Libro) {}
 }

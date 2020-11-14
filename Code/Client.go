@@ -395,8 +395,6 @@ func main(){
 
   var accion int
   var flag bool
-  var nombre string
-
 
   flag=true
   for;flag;{

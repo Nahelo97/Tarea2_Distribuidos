@@ -138,7 +138,7 @@ func (s* Server) EstadoMaquina(ctx context.Context, request *comms.Request_Estad
   return &comms.Response_Estado_M{Estado:int32(7734)},nil
 }
 
-func read_chunk(archivo string)([]byte){
+func read_chunk_to_send(archivo string)([]byte){
   file, err := os.Open("../Chunks/"+archivo)
   if err != nil {
     fmt.Println(err)
@@ -162,7 +162,7 @@ func read_chunk(archivo string)([]byte){
   return []byte("0")
 }
 func (s* Server) SolicitarChunk(ctx context.Context, request *comms.Request_Chunk) (*comms.Response_Chunk,error) {
-  return &comms.Response_Chunk{Chunks:read_chunk(request.Nombre),},nil
+  return &comms.Response_Chunk{Chunks:read_chunk_to_send(request.Nombre),},nil
 }
 func (s* Server) UploadBook(ctx context.Context, request *comms.Request_UploadBook) (*comms.Response_UploadBook, error) {
   tempChunk (int(request.Id), request.Nombre, int(request.Cantidad))
