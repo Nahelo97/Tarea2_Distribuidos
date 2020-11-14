@@ -20,22 +20,6 @@ message Response_DownloadBook {
 
 }
 
-message Request_Log {
-
-}
-
-message Response_Log {
-
-}
-
-message Request_Propuesta {
-
-}
-
-message Response_Propuesta {
-
-}
-
 message Request_Distribuir {
 
 }
@@ -47,7 +31,5 @@ message Response_Distribuir {
 service Comms {
  rpc UploadBook(Request_UploadBook) returns (Response_UploadBook) {}
  rpc DownloadBook(Request_DownloadBook) returns (Response_DownloadBook) {}
- rpc Log(Request_Log) returns (Response_Log) {}
- rpc Propuesta(Request_Propuesta) returns (Response_Propuesta) {}
  rpc Distribuir_chunks(Request_Distribuir) returns (Response_Distribuir) {}
 }

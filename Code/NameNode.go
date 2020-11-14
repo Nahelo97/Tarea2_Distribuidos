@@ -2,6 +2,7 @@ package main
 
 import (
   "./comms"
+  "rand"
   "google.golang.org/grpc"
   "golang.org/x/net/context"
 )
@@ -10,21 +11,27 @@ type Server struct {
 
 }
 
-func (s* Server) DownloadBook(ctx context.Context, request *comms.Request_DownloadBook) (*comms.Response_DownloadBook) {
-  return &comms.Response_DownloadBook{},nil
+
+func (s* Server) Log(ctx context.Context, request *comms2.Request_Log) (*comms2.Response_Log) {
+  return &comms2.Response_Log{},nil
 }
 
-func (s* Server) Log(ctx context.Context, request *comms.Request_Log) (*comms.Response_Log) {
-  return &comms.Response_Log{},nil
+func (s* Server) Propuesta(ctx context.Context, request *comms2.Request_Propuesta) (*comms2.Response_Propuesta) {
+  tasa := rand.Int(10)
+  if (tasa < 2) {
+    return &comms2.Response_Propuesta{0},nil
+  }
+  file, err := os.OpenFile("../temp/nameNode/log.txt", os.O_WRONLY|os.O_APPEND, 0644)
+  if err != nil {
+    log.Fatalf("failed opening file: %s", err)
+  }
+  defer file.Close()
+  _, err = file.WriteString(propuesta)
+  if err != nil {
+    log.Fatalf("failed writing to file: %s", err)
+  return &comms2.Response_Propuesta{1},nil
 }
 
-func (s* Server) Propuesta(ctx context.Context, request *comms.Request_Propuesta) (*comms.Response_Propuesta) {
-  return &comms.Response_Propuesta{},nil
-}
-
-func (s* Server) Distribuir(ctx context.Context, request *comms.Request_Distribuir) (*comms.Response_Distribuir) {
-  return &comms.Response_Distribuir,nil
-}
 
 func main(){
   lis, err := net.Listen("tcp", ":9000")

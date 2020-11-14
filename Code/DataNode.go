@@ -11,6 +11,7 @@ import (
   "golang.org/x/net/context"
   "net"
   "path/filepath"
+  "rand"
 )
 
 type Server struct{
@@ -35,20 +36,20 @@ func tempChunk (chunk_id int, bookName string, ctdad_chunk int) {
     s := strconv.Itoa(chunk_id)
     _, err = file.WriteString("\n"+s)
     if err != nil {
-      log.Printf("aqui 1")
+      // log.Printf("aqui 1")
       log.Fatalf("failed writing to file: %s", err)
     }
   } else {
     file, err := os.Create("../temp/node/" + bookName)
     if err != nil {
-      log.Printf("aqui 2")
+      // log.Printf("aqui 2")
       log.Fatalf("failed writing to file: %s", err)
     }
     defer file.Close()
     s := strconv.Itoa(ctdad_chunk)
     _, err = file.WriteString(bookName + "\n" + s + "\nchunk_id")
     if err != nil {
-      log.Printf("aqui 3")
+      // log.Printf("aqui 3")
       log.Fatalf("failed writing to file: %s", err)
     }
   }
@@ -63,6 +64,27 @@ func createChunk (chunk_id int, chunk []byte, bookName string) {
   ioutil.WriteFile("../Chunks/" + name, chunk, os.ModeAppend)
 }
 
+func proponer (conn *grpc.DataConn, chunks int, name string) {
+  c:=comms2.NewComms2Client(conn)
+  var propuesta string
+  propuesta = name + " " + chunks + "\n"
+
+
+  for (i:=0; i<chunks; i++) {
+    num := rand.Int(2) + 93
+    aux := i + 1
+    propuesta += name + "_" + aux + " " + "dist" + num + "\n"
+  }
+
+  fmt.Println(l, "propuesta terminada")
+  estado,_ := c.Propuesta(context.Background(),&comms2.Request_Propuesta{
+    Propuesta: propuesta,
+  })
+
+  return estado.Estado
+
+}
+
 func (s* Server) UploadBook(ctx context.Context, request *comms.Request_UploadBook) (*comms.Response_UploadBook, error) {
   log.Printf("Receive Book from client")
   tempChunk (int(request.Id), request.Nombre, int(request.Cantidad))
@@ -70,7 +92,13 @@ func (s* Server) UploadBook(ctx context.Context, request *comms.Request_UploadBo
   if (request.Id != request.Cantidad) {
     return &comms.Response_UploadBook{State: int32(0)}, nil
   } else {
-    //mandar propuesta
+    var conn *grpc.DataConn
+    conn, err := grpc.Dial("dist96", grpc.WithInsecure())
+    if err != nil {
+      log.Fatalf("did not connect: %s", err)
+    }
+    defer conn.Close()
+    for ; proponer(conn, request.Cantidad, request.Nombre) == 0 ; {}
     return &comms.Response_UploadBook{State: int32(1)}, nil
   }
 }
@@ -78,12 +106,7 @@ func (s* Server) UploadBook(ctx context.Context, request *comms.Request_UploadBo
 func (s* Server) DownloadBook(ctx context.Context, request *comms.Request_DownloadBook) (*comms.Response_DownloadBook, error){
   return &comms.Response_DownloadBook{},nil
 }
-func (s* Server) Log(ctx context.Context,request *comms.Request_Log) (*comms.Response_Log, error){
-  return &comms.Response_Log{},nil
-}
-func (s* Server) Propuesta(ctx context.Context,request *comms.Request_Propuesta) (*comms.Response_Propuesta, error){
-  return &comms.Response_Propuesta{},nil
-}
+
 func (s* Server) DistribuirChunks(ctx context.Context,request *comms.Request_Distribuir) (*comms.Response_Distribuir, error){
   return &comms.Response_Distribuir{},nil
 }
@@ -102,6 +125,8 @@ func remover(){
   }
 }
 func main(){
+
+
   lis, err := net.Listen("tcp", ":9000")
   if err != nil {
     log.Fatalf("failed to listen: %v", err)
@@ -112,4 +137,6 @@ func main(){
   if err := grpcServer.Serve(lis); err != nil {
     log.Fatalf("failed to serve: %s", err)
   }
+
+
 }
