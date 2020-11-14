@@ -352,16 +352,19 @@ func request_chunks(ubicaciones string){
   lineas:=strings.Split(ubicaciones,"\n")
   titulo:=strings.Split(lineas[0]," ")
   super_ayuda, _ := strconv.Atoi(titulo[1])
+  log.Printf("hola, que wea?0")
   for i:=0;i<super_ayuda;i++{
     var conn *grpc.ClientConn
     conn, err := grpc.Dial(strings.Split(lineas[i+1]," ")[1]+":9000", grpc.WithInsecure())
     if err != nil {
       log.Fatalf("did not connect: %s", err)
     }
+    log.Printf("hola, que wea?1")
     defer conn.Close()
+    log.Printf("hola, que wea?2")
     c:=comms.NewCommsClient(conn)
+    log.Printf("hola, que wea3")
     response,error:=c.SolicitarChunk(context.Background(),&comms.Request_Chunk{Nombre:strings.Split(lineas[i+1]," ")[0]})
-    log.Printf("hola, que wea?")
     log.Printf("maquina %s, respondio: %+v",strings.Split(lineas[i+1]," ")[1],response)
     if(error!=nil){
       return
