@@ -372,7 +372,7 @@ func bajar_libro(){
   }
   defer conn2.Close()
   c:=comms2.NewComms2Client(conn2)
-  request,_:=c.Catalogo(context.Background(),&comms2.Request_Catlogo{})
+  request,_:=c.Catalogo(context.Background(),&comms2.Request_Catalogo{})
   libro:=mostrar_catalogo(request.Libros)
   if(libro==-1){
     return
