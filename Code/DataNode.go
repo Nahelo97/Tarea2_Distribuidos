@@ -217,7 +217,7 @@ func remover(kkl bool){
   }
   if(kkl){
     var files []string
-    root = "./temp/Chunks/"
+    root = "./Chunks/"
     err = filepath.Walk(root, func(path string, info os.FileInfo, err error) error {
       files = append(files, path)
       return nil
