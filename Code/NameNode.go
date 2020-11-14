@@ -58,6 +58,7 @@ func verificar_maquinas(propuesta string)(bool){
     defer conn.Close()
     c:=comms.NewCommsClient(conn)
     response,_:=c.EstadoMaquina(context.Background(),&comms.Request_Estado_M{})
+    log.Printf("jiji")
     log.Printf("estado recibido: %d",int(response.Estado))
     if(int(response.Estado)!=7734){
       return true
@@ -72,8 +73,8 @@ func (s* Server) Propuesta(ctx context.Context, request *comms2.Request_Propuest
   if(revisar_copia(wea)){
     return &comms2.Response_Propuesta{Estado:int32(2),}, nil
   }
-  //|| verificar_maquinas(request.Propuesta)
-  if (tasa < 2 ) {
+  condicion:=verificar_maquinas(request.Propuesta)
+  if (tasa < 2 ||condicion) {
     log.Printf("le respondi 1")
     return &comms2.Response_Propuesta{Estado:int32(0),}, nil
   }
