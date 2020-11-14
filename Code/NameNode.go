@@ -56,12 +56,8 @@ func verificar_maquinas(propuesta string)(bool){
     defer conn.Close()
     c:=comms.NewCommsClient(conn)
     response,error:=c.EstadoMaquina(context.Background(),&comms.Request_Estado_M{})
-    if(error!=nil){
-      log.Printf("error")
-      return true
-    }
-    if(int(response.Estado)!=7734){
-      log.Printf(int(response.Estado))
+    log.Printf("respuesta de maquina: %+v",response)
+    if(error!=nil || int(response.Estado)!=7734){
       return true
     }
   }
