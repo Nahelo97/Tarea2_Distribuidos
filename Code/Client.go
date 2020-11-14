@@ -125,7 +125,7 @@ func subir_libro(conn *grpc.ClientConn){
 
   var archivo string
   archivo=find_book_index(libro)
-  archivo=strings.Split(archivo,"/")[1]
+  archivo=strings.Split(archivo,"/")[2]
   var chunks int
   chunks=splitter(archivo)
   for i:=1;i<=chunks;i++{
