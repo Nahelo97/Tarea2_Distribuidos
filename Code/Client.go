@@ -291,9 +291,49 @@ func verificar_maquinas(maquina string)(bool){
     if(error!=nil || int(response.Estado)!=7734){
       return true
     }
-  }
   return false
 }
+
+func mostrar_catalogo(catalogo int)(int){
+  var numero int
+  libros:=strings.Split(catalogo,"\n")
+  for i:=0;i<len(libros);i++{
+    log.Printf("%d.-"+libros,i+1)
+  }
+  log.Printf("Seleccione un libro")
+  fmt.Scanln(&numero)
+  if(numero<1 || numero>len(libros)){
+    log.Printf("Libro invalido")
+    return -1
+  }
+  return numero
+
+}
+func request_chunks(conn *grpc.ClientConn,ubicaciones string){
+  var conn2 *grpc.ClientConn
+  conn2, err := grpc.Dial("dist96:9000", grpc.WithInsecure())
+  if err != nil {
+    log.Fatalf("did not connect: %s", err)
+  }
+  defer conn2.Close()
+}
+func bajar_libro(conn *grpc.ClientConn){
+  var conn2 *grpc.ClientConn
+  conn2, err := grpc.Dial("dist96:9000", grpc.WithInsecure())
+  if err != nil {
+    log.Fatalf("did not connect: %s", err)
+  }
+  defer conn2.Close()
+  c:=comms2.NewCommsClient(conn2)
+  request,_:=c.Catalogo(context.Background(),&comms2.Request_Catlogo{})
+  libro:=mostrar_catalogo(request.Libros)
+  if(libro==-1){
+    return
+  }
+  ubicaciones,_:=c.Pedir_Libro(context.Background(),&comms2.Request_Libro{Numero:int32(libro)})
+  request_chunks(conn,ubicaciones.Ubicaciones)
+}
+
 func main(){
   var conn *grpc.ClientConn
   maquina:="dist"+strconv.Itoa(rand.Intn(3) + 93)
@@ -324,9 +364,10 @@ func main(){
     case 1:
       subir_libro(conn)
     case 2:
-      fmt.Scanln(&nombre)
-      fmt.Scanln(&accion)
-      joiner(nombre,accion)
+      bajar_libro(conn)
+      //fmt.Scanln(&nombre)
+      //fmt.Scanln(&accion)
+      //joiner(nombre,accion)
     case 3:
       flag=false
     }

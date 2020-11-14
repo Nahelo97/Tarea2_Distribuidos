@@ -13,6 +13,7 @@ import (
   "path/filepath"
   "bufio"
   "strings"
+  "unicode"
 )
 
 type Server struct {
@@ -43,9 +44,52 @@ func revisar_copia(nombre string)(bool){
 func (s* Server) Log(ctx context.Context, request *comms2.Request_Log) (*comms2.Response_Log, error) {
   return &comms2.Response_Log{}, nil
 }
+func catalogo()(string){
+  var libros string
+  libros=""
+  file, err := os.Open("../temp/log.txt")
+    if err != nil {
+        log.Fatal(err)
+    }
+    defer file.Close()
+    scanner := bufio.NewScanner(file)
+    for scanner.Scan() {
+      lineas:=strings.Split(scanner.Text()," ")
+      if(unicode.IsDigit(lineas[1])){
+        libros+=lineas[0]
+      }
+    }
+  return libros
+}
 
+func encontrar_libro(numero int)(string){
+  var libros string
+  var contador int
+  contador=0
+  libros=""
+  file, err := os.Open("../temp/log.txt")
+  if err != nil {
+      log.Fatal(err)
+  }
+  defer file.Close()
+  scanner := bufio.NewScanner(file)
+  for scanner.Scan() {
+    lineas:=strings.Split(scanner.Text()," ")
+    if(unicode.IsDigit(lineas[1])){
+      contador+=1
+    }
+    if(contador==numero){
+        libros+=scanner.Text()
+    }
+  }
+  return libros
+}
 func (s* Server) Catalogo(ctx context.Context, request *comms2.Request_Catlogo) (*comms2.Response_Catlogo, error) {
-  return &comms2.Response_Catlogo{}, nil
+  return &comms2.Response_Catlogo{Libros:catalogo(),}, nil
+}
+
+func (s* Server) Pedir_Libro(ctx context.Context, request *comms2.Request_Libro) (*comms2.Response_Libro, error) {
+  return &comms2.Response_Libro{Ubicaciones:encontrar_libro(int(request.Numero)),}, nil
 }
 
 func verificar_maquinas(propuesta string)(bool){
