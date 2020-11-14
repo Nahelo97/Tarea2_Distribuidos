@@ -1,7 +1,7 @@
 package main
 
 import (
-  "./comms/comms2.pb.go"
+  "./comms2"
   "math/rand"
   "google.golang.org/grpc"
   "golang.org/x/net/context"
