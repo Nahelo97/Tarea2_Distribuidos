@@ -71,19 +71,16 @@ func proponer (conn *grpc.ClientConn, chunks int, name string) ( int) {
   var propuesta string
   ctdad_chunks := strconv.Itoa(chunks)
   propuesta = name + " " + ctdad_chunks + "\n"
-
-
   for i:=0; i<chunks; i++ {
     num := strconv.Itoa(rand.Intn(2) + 93)
     aux := strconv.Itoa(i + 1)
     propuesta += name + "_" + aux + " " + "dist" + num + "\n"
   }
-
   fmt.Println( "propuesta terminada")
+  log.Printf("hla1")
   estado,_ := c.Propuesta(context.Background(),&comms2.Request_Propuesta{
-    Propuesta: propuesta,
-  })
-
+    Propuesta: propuesta,})
+  log.Printf("hla2")
   return int(estado.Estado)
 
 }
@@ -95,13 +92,11 @@ func (s* Server) UploadBook(ctx context.Context, request *comms.Request_UploadBo
   if (request.Id != request.Cantidad) {
     return &comms.Response_UploadBook{State: int32(0)}, nil
   } else {
-    log.Printf("hla1")
     var conn *grpc.ClientConn
     conn, err := grpc.Dial("dist96", grpc.WithInsecure())
     if err != nil {
       log.Fatalf("did not connect: %s", err)
     }
-    log.Printf("hla2")
     defer conn.Close()
     estado := proponer(conn, int(request.Cantidad), request.Nombre)
     log.Printf("hla3")
