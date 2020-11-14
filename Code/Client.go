@@ -34,7 +34,7 @@ func ver_libros_para_subir()(cantidad int){
   for _, file := range files {
     s := strconv.Itoa(x)
     log.Printf("sere yo maestro? %s",file)
-    aux:=strings.Split(file,"/")[2]
+    aux:=strings.Split(file,"/")[1]
     if(x!=0){
       fmt.Println(s+".-"+aux)
     }
@@ -58,7 +58,7 @@ func ver_libros_descargados(){
   x=0
   for _, file := range files {
     s := strconv.Itoa(x)
-    aux:=strings.Split(file,"/")[2]
+    aux:=strings.Split(file,"/")[1]
     if(x!=0){
       fmt.Println(s+".-"+aux)
     }
