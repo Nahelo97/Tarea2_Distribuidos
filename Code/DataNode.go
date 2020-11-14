@@ -82,24 +82,20 @@ func proponer (conn *grpc.ClientConn, chunks int, name string) (int,string) {
   return aux,propuesta
 }
 
-func read_chunk(archivo string)([]byte){
+func read_chunk(archivo string)([]byte) {
   file, err := os.Open("../temp/node/"+archivo)
   if err != nil {
     fmt.Println(err)
     return []byte("0")
   }
   defer file.Close()
-
   buffer := make([]byte,100)
-
   for {
     bytesread, err := file.Read(buffer)
-
     if err != nil {
       if err != io.EOF {
         fmt.Println(err)
       }
-
       break
     }
     bs := []byte(strconv.Itoa(bytesread))
@@ -112,7 +108,6 @@ func distribuidor(propuesta string){
   lineas:=strings.Split(propuesta,"\n")
   nombre:=strings.Split(lineas[0]," ")[0]
   cantidad,_:=strconv.Atoi(strings.Split(lineas[0]," ")[1])
-  var conn *grpc.ClientConn
   for i:=0;i<cantidad;i++{
     maquina:=strings.Split(lineas[i]," ")[1]
     chunk:=read_chunk(strings.Split(lineas[i]," ")[0])
@@ -145,7 +140,7 @@ func (s* Server) UploadBook(ctx context.Context, request *comms.Request_UploadBo
     for ; estado == 0 ; {
       estado,prop = proponer(conn, int(request.Cantidad), request.Nombre)
     }
-    //distribuir_chunks(prop)
+    distribuidor(prop)
     return &comms.Response_UploadBook{State: int32(1)}, nil
   }
 }
