@@ -50,13 +50,14 @@ func verificar_maquinas(propuesta string)(bool){
   for i:=0;i<cantidad;i++{
     maquina:=strings.Split(lineas[i+1]," ")[1]
     conn, err := grpc.Dial(maquina+":9000", grpc.WithInsecure())
-    log.Printf(err)
     if err != nil {
       log.Fatalf("did not connect: %s", err)
     }
     defer conn.Close()
     c:=comms.NewCommsClient(conn)
     response,_:=c.EstadoMaquina(context.Background(),&comms.Request_Estado_M{})
+    log.Printf("estado recibido:")
+    log.Printf(int(response.Estado))
     if(int(response.Estado)!=7734){
       return true
     }
