@@ -163,6 +163,8 @@ func (s* Server) DownloadBook(ctx context.Context, request *comms.Request_Downlo
   return &comms.Response_DownloadBook{},nil
 }
 func (s* Server) DistribuirChunks(ctx context.Context, request *comms.Request_Distribuir) (*comms.Response_Distribuir, error){
+  log.Printf("guardar chunk:")
+  log.Printf(request.Nombre)
   createChunk_v(int(request.Id), request.Chunks, request.Nombre)
   return &comms.Response_Distribuir{}, nil
 }
