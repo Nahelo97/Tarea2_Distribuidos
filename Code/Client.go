@@ -28,6 +28,7 @@ func ver_libros_para_subir(){
   }
   var x int
   x=0
+  log.Printf("\n\n")
   for _, file := range files {
     s := strconv.Itoa(x)
     aux:=strings.Split(file,"/")[2]
@@ -92,7 +93,7 @@ func subir_libro(conn *grpc.ClientConn){
   ver_libros_para_subir()
   var libro int
 
-  log.Printf("\nescoja el libro que quiere subir")
+  log.Printf("escoja el libro que quiere subir")
   fmt.Scanln(&libro)
 
   var archivo string
