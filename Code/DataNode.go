@@ -95,14 +95,18 @@ func (s* Server) UploadBook(ctx context.Context, request *comms.Request_UploadBo
   if (request.Id != request.Cantidad) {
     return &comms.Response_UploadBook{State: int32(0)}, nil
   } else {
+    log.Printf("hla1")
     var conn *grpc.ClientConn
     conn, err := grpc.Dial("dist96", grpc.WithInsecure())
     if err != nil {
       log.Fatalf("did not connect: %s", err)
     }
+    log.Printf("hla2")
     defer conn.Close()
     estado := proponer(conn, int(request.Cantidad), request.Nombre)
+    log.Printf("hla3")
     for ; estado == 0 ; {
+      log.Printf("hla4")
       estado = proponer(conn, int(request.Cantidad), request.Nombre)
     }
     return &comms.Response_UploadBook{State: int32(1)}, nil
