@@ -92,7 +92,7 @@ func subir_libro(conn *grpc.ClientConn){
   ver_libros_para_subir()
   var libro int
 
-  log.Printf("escoja el libro que quiere subir")
+  log.Printf("\nescoja el libro que quiere subir")
   fmt.Scanln(&libro)
 
   var archivo string
@@ -100,7 +100,6 @@ func subir_libro(conn *grpc.ClientConn){
   archivo=strings.Split(archivo,"/")[2]
   var chunks int
   chunks=splitter(archivo)
-  log.Printf(archivo)
   for i:=1;i<=chunks;i++{
     response,_:=c.UploadBook(context.Background(),&comms.Request_UploadBook{
       Chunks:[]byte(read_chunk(archivo,i)),
@@ -294,7 +293,7 @@ func main(){
   flag=true
   for;flag;{
     remover()
-    log.Printf("Bienvenido! Ingrese una opción")
+    log.Printf("\nBienvenido! Ingrese una opción")
     log.Printf("1-Subir Libro")
     log.Printf("2-Descargar Libro")
     log.Printf("3-Salir")

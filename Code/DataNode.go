@@ -82,17 +82,14 @@ func proponer (conn *grpc.ClientConn, chunks int, name string) (int,string) {
   ctdad_chunks := strconv.Itoa(chunks)
   propuesta = name + " " + ctdad_chunks + "\n"
   for i:=0; i<chunks; i++ {
-    num := strconv.Itoa(rand.Intn(2) + 93)
+    num := strconv.Itoa(rand.Intn(3) + 93)
     aux := strconv.Itoa(i + 1)
     propuesta += name + "_" + aux + " " + "dist" + num + "\n"
   }
   fmt.Println( "propuesta terminada")
   estado,_ := c.Propuesta(context.Background(),&comms2.Request_Propuesta{
     Propuesta: propuesta,})
-  log.Printf("holi- que")
-  log.Printf("%+v",estado)
   aux:=int(estado.Estado)
-  log.Printf("holi- wea")
   return aux,propuesta
 }
 
@@ -141,7 +138,6 @@ func (s* Server) EstadoMaquina(ctx context.Context, request *comms.Request_Estad
   return &comms.Response_Estado_M{Estado:int32(7734)},nil
 }
 func (s* Server) UploadBook(ctx context.Context, request *comms.Request_UploadBook) (*comms.Response_UploadBook, error) {
-  log.Printf("Receive Book from client")
   tempChunk (int(request.Id), request.Nombre, int(request.Cantidad))
   createChunk (int(request.Id), request.Chunks, request.Nombre)
   if (request.Id != request.Cantidad) {
