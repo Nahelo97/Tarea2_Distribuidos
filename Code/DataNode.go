@@ -13,6 +13,7 @@ import (
   "net"
   "path/filepath"
   "math/rand"
+  "fmt"
 )
 
 type Server struct{
@@ -68,12 +69,13 @@ func createChunk (chunk_id int, chunk []byte, bookName string) {
 func proponer (conn *grpc.DataConn, chunks int, name string) {
   c:=comms2.NewComms2Client(conn)
   var propuesta string
-  propuesta = name + " " + chunks + "\n"
+  ctdad_ := strconv.Itoa(chunks)
+  propuesta = name + " " + ctdad_chunks + "\n"
 
 
   for i:=0; i<chunks; i++ {
-    num := rand.Int(2) + 93
-    aux := i + 1
+    num := strconv.Itoa(rand.Intn(2) + 93)
+    aux := strconv.Itoa(i + 1)
     propuesta += name + "_" + aux + " " + "dist" + num + "\n"
   }
 
