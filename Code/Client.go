@@ -21,12 +21,10 @@ import (
 func ver_libros_para_subir()(cantidad int){
   var files []string
   root := "./Books/"
-  log.Printf("sere yo maestro?")
   err := filepath.Walk(root, func(path string, info os.FileInfo, err error) error {
     files = append(files, path)
     return nil
   })
-  log.Printf("sere yo maestro?")
   if err != nil {
     log.Printf("ver_libros_para_subir")
     panic(err)
@@ -35,6 +33,7 @@ func ver_libros_para_subir()(cantidad int){
   x=0
   for _, file := range files {
     s := strconv.Itoa(x)
+    log.Printf("sere yo maestro? %s",file)
     aux:=strings.Split(file,"/")[2]
     if(x!=0){
       fmt.Println(s+".-"+aux)
