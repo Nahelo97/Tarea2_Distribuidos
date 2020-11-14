@@ -137,6 +137,33 @@ func distribuidor(propuesta string){
 func (s* Server) EstadoMaquina(ctx context.Context, request *comms.Request_Estado_M) (*comms.Response_Estado_M,error) {
   return &comms.Response_Estado_M{Estado:int32(7734)},nil
 }
+
+func read_chunk(archivo string)([]byte){
+  file, err := os.Open("../Chunks/"+archivo)
+  if err != nil {
+    fmt.Println(err)
+    return []byte("0")
+  }
+  defer file.Close()
+
+  buffer := make([]byte,100)
+
+  for {
+    bytesread, err := file.Read(buffer)
+    if err != nil {
+      if err != io.EOF {
+        fmt.Println(err)
+      }
+      break
+    }
+    bs := []byte(strconv.Itoa(bytesread))
+      return bs
+  }
+  return []byte("0")
+}
+func (s* Server) SolicitarChunk(ctx context.Context, request *comms.Request_Chunk) (*comms.Response_Chunk,error) {
+  return &comms.Response_Chunk{Chunks:read_chunk(request.Nombre),},nil
+}
 func (s* Server) UploadBook(ctx context.Context, request *comms.Request_UploadBook) (*comms.Response_UploadBook, error) {
   tempChunk (int(request.Id), request.Nombre, int(request.Cantidad))
   createChunk (int(request.Id), request.Chunks, request.Nombre)

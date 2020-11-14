@@ -41,6 +41,31 @@ func ver_libros_para_subir(){
   }
 }
 
+func ver_libros_descargados(){
+  var files []string
+  root := "../nbooks/"
+  err := filepath.Walk(root, func(path string, info os.FileInfo, err error) error {
+    files = append(files, path)
+    return nil
+  })
+  if err != nil {
+    log.Printf("ver_libros_para_subir")
+    panic(err)
+  }
+  var x int
+  x=0
+  log.Printf("\n\n")
+  for _, file := range files {
+    s := strconv.Itoa(x)
+    aux:=strings.Split(file,"/")[2]
+    if(x!=0){
+      fmt.Println(s+".-"+aux)
+    }
+    x+=1
+  }
+}
+
+
 func find_book_index(y int )(string){
   var files []string
   root := "../Books/"
@@ -309,13 +334,33 @@ func mostrar_catalogo(catalogo int)(int){
   return numero
 
 }
-func request_chunks(conn *grpc.ClientConn,ubicaciones string){
-  var conn2 *grpc.ClientConn
-  conn2, err := grpc.Dial("dist96:9000", grpc.WithInsecure())
+func createChunk (chunk_id int, chunk []byte, bookName string) {
+  s:=strconv.Itoa(chunk_id)
+  name := bookName+"_"+s
+  file, err := os.Create("../temp/cliente/" + name)
   if err != nil {
-    log.Fatalf("did not connect: %s", err)
+    log.Fatalf("failed writing to file: %s", err)
+  defer file.Close()}
+  ioutil.WriteFile("../temp/cliente/" + name, chunk, os.ModeAppend)
+}
+func request_chunks(ubicaciones string){
+  lineas:=strings.Split(ubicaciones,"\n")
+  titulo:=strings.Split(lineas[0]," ")
+  for i:=0;i<titulo[1];{
+    var conn *grpc.ClientConn
+    conn, err := grpc.Dial(strings.Split(lineas[i+1]," ")[1]+":9000", grpc.WithInsecure())
+    if err != nil {
+      log.Fatalf("did not connect: %s", err)
+    }
+    defer conn.Close()
+    c:=comms.NewCommsClient(conn)
+    response,error:=c.SolicitarChunk(context.Background(),&comms2.Request_Chunk{Nombre:strings.Split(lineas[i+1]," ")[0]})
+    if(error!=nil){
+      return
+    }
+    createChunk(i+1,response.Chunks,titulo[0])
   }
-  defer conn2.Close()
+  joiner(titulo[0],titulo[1])
 }
 func bajar_libro(conn *grpc.ClientConn){
   var conn2 *grpc.ClientConn
@@ -357,7 +402,8 @@ func main(){
     log.Printf("\n\nBienvenido! Ingrese una opción")
     log.Printf("1-Subir Libro")
     log.Printf("2-Descargar Libro")
-    log.Printf("3-Salir")
+    log.Printf("3-Ver Libros Descargados")
+    log.Printf("4-Salir")
     fmt.Scanln(&accion)
     //remover()
     switch accion {
@@ -365,10 +411,9 @@ func main(){
       subir_libro(conn)
     case 2:
       bajar_libro(conn)
-      //fmt.Scanln(&nombre)
-      //fmt.Scanln(&accion)
-      //joiner(nombre,accion)
     case 3:
+      ver_libros_descargados()
+    case 4:
       flag=false
     }
   }

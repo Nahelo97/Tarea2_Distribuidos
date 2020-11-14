@@ -25,20 +25,25 @@ message Request_Distribuir {
   string nombre = 2;
   int32 id = 4;
 }
-
 message Response_Distribuir {
 
 }
-
 message Request_Estado_M {
   int32 estado = 1;
 }
 message Response_Estado_M {
   int32 estado = 1;
 }
+message Request_Chunk {
+  string nombre = 2;
+}
+message Response_Chunk {
+  bytes chunks = 1;
+}
 service Comms {
  rpc UploadBook(Request_UploadBook) returns (Response_UploadBook) {}
  rpc DownloadBook(Request_DownloadBook) returns (Response_DownloadBook) {}
  rpc Distribuir_chunks(Request_Distribuir) returns (Response_Distribuir) {}
  rpc EstadoMaquina(Request_Estado_M) returns (Response_Estado_M) {}
+ rpc SolicitarChunk(Request_Chunk) returns (Response_Chunk) {}
 }
