@@ -9,6 +9,8 @@ import (
   "os"
   "net"
   "path/filepath"
+  "bufio"
+  "strings"
 )
 
 type Server struct {
@@ -42,7 +44,6 @@ func (s* Server) Log(ctx context.Context, request *comms2.Request_Log) (*comms2.
 
 func (s* Server) Propuesta(ctx context.Context, request *comms2.Request_Propuesta) (*comms2.Response_Propuesta, error) {
   tasa := rand.Intn(10)
-  request.Propuesta
   wea:=strings.Split(request.Propuesta,"\n")[0]
   wea=strings.Split(wea," ")[0]
   if(revisar_copia(wea)){
