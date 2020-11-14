@@ -80,6 +80,7 @@ func proponer (conn *grpc.ClientConn, chunks int, name string) (int) {
   estado,_ := c.Propuesta(context.Background(),&comms2.Request_Propuesta{
     Propuesta: propuesta,})
   log.Printf("hla1")
+  log.Printf("%+v",estado)
   aux:=int(estado.Estado)
   log.Printf("hla2")
   return aux
@@ -131,8 +132,6 @@ func remover(){
   }
 }
 func main(){
-
-
   lis, err := net.Listen("tcp", ":9000")
   if err != nil {
     log.Fatalf("failed to listen: %v", err)
@@ -143,6 +142,4 @@ func main(){
   if err := grpcServer.Serve(lis); err != nil {
     log.Fatalf("failed to serve: %s", err)
   }
-
-
 }
