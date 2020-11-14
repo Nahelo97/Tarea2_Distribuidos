@@ -29,6 +29,7 @@ func (s* Server) Propuesta(ctx context.Context, request *comms2.Request_Propuest
   _, err = file.WriteString(propuesta)
   if err != nil {
     log.Fatalf("failed writing to file: %s", err)
+  }
   return &comms2.Response_Propuesta{1},nil
 }
 
