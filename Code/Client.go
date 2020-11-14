@@ -31,7 +31,6 @@ func ver_libros_para_subir(){
   }
   var x int
   x=0
-  log.Printf("\n\n")
   for _, file := range files {
     s := strconv.Itoa(x)
     aux:=strings.Split(file,"/")[2]
@@ -55,7 +54,6 @@ func ver_libros_descargados(){
   }
   var x int
   x=0
-  log.Printf("\n\n")
   for _, file := range files {
     s := strconv.Itoa(x)
     aux:=strings.Split(file,"/")[2]
@@ -398,7 +396,7 @@ func main(){
   flag=true
   for;flag;{
     remover()
-    log.Printf("\n\nBienvenido! Ingrese una opción")
+    log.Printf("\nBienvenido! Ingrese una opción")
     log.Printf("1-Subir Libro")
     log.Printf("2-Descargar Libro")
     log.Printf("3-Ver Libros Descargados")
