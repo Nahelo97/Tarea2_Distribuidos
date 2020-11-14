@@ -15,6 +15,26 @@ type Server struct {
 
 }
 
+func revisar_copia(nombre string)(bool){
+  file, err := os.Open("../temo/nameNode/log.txt")
+    if err != nil {
+        log.Fatal(err)
+    }
+    defer file.Close()
+
+    scanner := bufio.NewScanner(file)
+    for scanner.Scan() {
+      wea:=strings.Split(scanner.Text()," ")
+      if(wea[0]==nombre){
+        return true
+      }
+    }
+
+    if err := scanner.Err(); err != nil {
+        log.Fatal(err)
+    }
+    return false
+}
 
 func (s* Server) Log(ctx context.Context, request *comms2.Request_Log) (*comms2.Response_Log, error) {
   return &comms2.Response_Log{}, nil
@@ -22,6 +42,12 @@ func (s* Server) Log(ctx context.Context, request *comms2.Request_Log) (*comms2.
 
 func (s* Server) Propuesta(ctx context.Context, request *comms2.Request_Propuesta) (*comms2.Response_Propuesta, error) {
   tasa := rand.Intn(10)
+  request.Propuesta
+  wea:=strings.Split(request.Propuesta,"\n")[0]
+  wea=strings.Split(wea," ")[0]
+  if(revisar_copia(wea)){
+    return &comms2.Response_Propuesta{Estado:int32(2),}, nil
+  }
   if (tasa < 2) {
     log.Printf("le respondi")
     return &comms2.Response_Propuesta{Estado:int32(0),}, nil

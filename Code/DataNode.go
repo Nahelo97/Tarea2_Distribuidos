@@ -151,9 +151,11 @@ func (s* Server) UploadBook(ctx context.Context, request *comms.Request_UploadBo
     for ; estado == 0 ; {
       estado,prop = proponer(conn, int(request.Cantidad), request.Nombre)
     }
-    distribuidor(prop)
+    if(estado == 1){
+      distribuidor(prop)
+    }
     remover()
-    return &comms.Response_UploadBook{State: int32(1)}, nil
+    return &comms.Response_UploadBook{State: int32(estado)}, nil
   }
 }
 func (s* Server) DownloadBook(ctx context.Context, request *comms.Request_DownloadBook) (*comms.Response_DownloadBook, error){

@@ -98,16 +98,16 @@ func subir_libro(conn *grpc.ClientConn){
   archivo=strings.Split(archivo,"/")[2]
   var chunks int
   chunks=splitter(archivo)
-  log.Printf("hola1")
   log.Printf(archivo)
-  log.Printf("hola2")
   for i:=1;i<=chunks;i++{
-    c.UploadBook(context.Background(),&comms.Request_UploadBook{
-    Chunks:[]byte(read_chunk(archivo,i)),
-    Nombre:archivo,
-    Cantidad:int32(chunks),
-    Id:int32(i),
-  })
+    response,_=c.UploadBook(context.Background(),&comms.Request_UploadBook{
+      Chunks:[]byte(read_chunk(archivo,i)),
+      Nombre:archivo,
+      Cantidad:int32(chunks),
+      Id:int32(i),})
+    if(response.State==2){
+      lo.Printf("Este libro ya existe")
+    }
   }
 }
 
