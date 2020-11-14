@@ -66,7 +66,7 @@ func createChunk (chunk_id int, chunk []byte, bookName string) {
   ioutil.WriteFile("../Chunks/" + name, chunk, os.ModeAppend)
 }
 
-func proponer (conn *grpc.ClientConn, chunks int, name string) ( int) {
+func proponer (conn *grpc.ClientConn, chunks int, name string) (int) {
   c:=comms2.NewComms2Client(conn)
   var propuesta string
   ctdad_chunks := strconv.Itoa(chunks)
@@ -77,11 +77,11 @@ func proponer (conn *grpc.ClientConn, chunks int, name string) ( int) {
     propuesta += name + "_" + aux + " " + "dist" + num + "\n"
   }
   fmt.Println( "propuesta terminada")
-  log.Printf("hla1")
   estado,_ := c.Propuesta(context.Background(),&comms2.Request_Propuesta{
     Propuesta: propuesta,})
-  log.Printf("hla2")
-  return int(estado.Estado)
+  aux=int(estado.Estado)
+  log.Printf("hla1")
+  return aux
 
 }
 
