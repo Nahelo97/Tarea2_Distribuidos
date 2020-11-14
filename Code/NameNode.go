@@ -18,7 +18,7 @@ type Server struct {
 }
 
 func revisar_copia(nombre string)(bool){
-  file, err := os.Open("../temo/nameNode/log.txt")
+  file, err := os.Open("../temp/nameNode/log.txt")
     if err != nil {
         log.Fatal(err)
     }

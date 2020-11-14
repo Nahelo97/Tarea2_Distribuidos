@@ -90,6 +90,7 @@ func proponer (conn *grpc.ClientConn, chunks int, name string) (int,string) {
   estado,_ := c.Propuesta(context.Background(),&comms2.Request_Propuesta{
     Propuesta: propuesta,})
   aux:=int(estado.Estado)
+  log.Printf("holi")
   return aux,propuesta
 }
 
