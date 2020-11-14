@@ -227,7 +227,7 @@ func remover(kkl bool){
       panic(err)
     }
     for i:=1;i<len(files);i++{
-      wea=strings.Split(files[i],"/")
+      wea:=strings.Split(files[i],"/")
       if(wea[len(wea)-1]!=""){
         os.Remove(files[i])
       }
