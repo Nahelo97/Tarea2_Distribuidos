@@ -44,6 +44,10 @@ func (s* Server) Log(ctx context.Context, request *comms2.Request_Log) (*comms2.
   return &comms2.Response_Log{}, nil
 }
 
+func (s* Server) Catalogo(ctx context.Context, request *comms2.Request_Catlogo) (*comms2.Response_Catlogo, error) {
+  return &comms2.Response_Catlogo{}, nil
+}
+
 func verificar_maquinas(propuesta string)(bool){
   lineas:=strings.Split(propuesta,"\n")
   cantidad,_:=strconv.Atoi(strings.Split(lineas[0]," ")[1])
@@ -56,6 +60,7 @@ func verificar_maquinas(propuesta string)(bool){
     defer conn.Close()
     c:=comms.NewCommsClient(conn)
     response,error:=c.EstadoMaquina(context.Background(),&comms.Request_Estado_M{})
+    log.Printf("respuesta de maquina %s: %+v",maquina,response)
     if(error!=nil || int(response.Estado)!=7734){
       return true
     }

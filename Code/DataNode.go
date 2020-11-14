@@ -86,10 +86,10 @@ func proponer (conn *grpc.ClientConn, chunks int, name string) (int,string) {
     aux := strconv.Itoa(i + 1)
     propuesta += name + "_" + aux + " " + "dist" + num + "\n"
   }
-  fmt.Println( "propuesta terminada")
   estado,_ := c.Propuesta(context.Background(),&comms2.Request_Propuesta{
     Propuesta: propuesta,})
   aux:=int(estado.Estado)
+  log.Printf(propuesta)
   return aux,propuesta
 }
 
@@ -154,7 +154,7 @@ func (s* Server) UploadBook(ctx context.Context, request *comms.Request_UploadBo
       estado,prop = proponer(conn, int(request.Cantidad), request.Nombre)
     }
     if(estado == 1){
-      log.Printf(prop)
+      log.Printf("Aceptado!\n\n")
       distribuidor(prop)
     }
     remover()

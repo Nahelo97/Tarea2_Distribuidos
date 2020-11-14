@@ -18,8 +18,25 @@ message Response_Propuesta {
   int32 estado = 1;
 }
 
+message Request_Catlogo {
+
+}
+
+message Response_Catalogo {
+  string libros = 1;
+}
+
+message Request_Libro {
+  int32 numero =1;
+}
+
+message Response_Libro {
+  string ubicaciones = 1;
+}
 
 service Comms2 {
   rpc Log(Request_Log) returns (Response_Log) {}
   rpc Propuesta(Request_Propuesta) returns (Response_Propuesta) {}
+  rpc Catalogo(Request_Catlogo) returns (Response_Catalogo) {}
+  rpc Pedir_Libro(Request_Libro) returns (Response_Libro) {}
 }
