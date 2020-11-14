@@ -15,6 +15,7 @@ import (
   "io/ioutil"
   "bufio"
   "strings"
+  "math/rand"
 )
 
 func ver_libros_para_subir(){
@@ -346,7 +347,7 @@ func createChunk (chunk_id int, chunk []byte, bookName string) {
 func request_chunks(ubicaciones string){
   lineas:=strings.Split(ubicaciones,"\n")
   titulo:=strings.Split(lineas[0]," ")
-  super_ayuda := strconv.Itoa(titulo[1])
+  super_ayuda, _ := strconv.Atoi(titulo[1])
   for i:=0;i<super_ayuda;i++{
     var conn *grpc.ClientConn
     conn, err := grpc.Dial(strings.Split(lineas[i+1]," ")[1]+":9000", grpc.WithInsecure())
@@ -370,7 +371,7 @@ func bajar_libro(){
     log.Fatalf("did not connect: %s", err)
   }
   defer conn2.Close()
-  c:=comms2.NewCommsClient(conn2)
+  c:=comms2.NewComms2Client(conn2)
   request,_:=c.Catalogo(context.Background(),&comms2.Request_Catlogo{})
   libro:=mostrar_catalogo(request.Libros)
   if(libro==-1){
