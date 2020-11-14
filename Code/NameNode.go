@@ -5,6 +5,8 @@ import (
   "math/rand"
   "google.golang.org/grpc"
   "golang.org/x/net/context"
+  "log"
+  "os"
 )
 
 type Server struct {
@@ -13,24 +15,24 @@ type Server struct {
 
 
 func (s* Server) Log(ctx context.Context, request *comms2.Request_Log) (*comms2.Response_Log) {
-  return &comms2.Response_Log{},nil
+  return &comms2.Response_Log{}
 }
 
 func (s* Server) Propuesta(ctx context.Context, request *comms2.Request_Propuesta) (*comms2.Response_Propuesta) {
-  tasa := rand.Int(10)
+  tasa := rand.Intn(10)
   if (tasa < 2) {
-    return &comms2.Response_Propuesta{0},nil
+    return &comms2.Response_Propuesta{0}
   }
   file, err := os.OpenFile("../temp/nameNode/log.txt", os.O_WRONLY|os.O_APPEND, 0644)
   if err != nil {
     log.Fatalf("failed opening file: %s", err)
   }
   defer file.Close()
-  _, err = file.WriteString(propuesta)
+  _, err = file.WriteString(request.Propuesta)
   if err != nil {
     log.Fatalf("failed writing to file: %s", err)
   }
-  return &comms2.Response_Propuesta{1},nil
+  return &comms2.Response_Propuesta{1}
 }
 
 
