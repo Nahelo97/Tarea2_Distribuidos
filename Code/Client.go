@@ -280,7 +280,7 @@ func remover(){
 
 func main(){
   var conn *grpc.ClientConn
-  conn, err := grpc.Dial("dist93:9000", grpc.WithInsecure())
+  conn, err := grpc.Dial("dist95:9000", grpc.WithInsecure())
   if err != nil {
     log.Fatalf("did not connect: %s", err)
   }
@@ -294,7 +294,7 @@ func main(){
   flag=true
   for;flag;{
     remover()
-    log.Printf("\nBienvenido! Ingrese una opción")
+    log.Printf("\n\nBienvenido! Ingrese una opción")
     log.Printf("1-Subir Libro")
     log.Printf("2-Descargar Libro")
     log.Printf("3-Salir")
