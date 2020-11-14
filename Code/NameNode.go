@@ -25,8 +25,10 @@ func revisar_copia(nombre string)(bool){
     defer file.Close()
 
     scanner := bufio.NewScanner(file)
+    log.Printf(nombre)
     for scanner.Scan() {
       wea:=strings.Split(scanner.Text()," ")
+      log.Printf(wea)
       if(wea[0]==nombre){
         return true
       }
