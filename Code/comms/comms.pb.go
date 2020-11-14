@@ -188,130 +188,6 @@ func (m *Response_DownloadBook) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_Response_DownloadBook proto.InternalMessageInfo
 
-type Request_Log struct {
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
-}
-
-func (m *Request_Log) Reset()         { *m = Request_Log{} }
-func (m *Request_Log) String() string { return proto.CompactTextString(m) }
-func (*Request_Log) ProtoMessage()    {}
-func (*Request_Log) Descriptor() ([]byte, []int) {
-	return fileDescriptor_db39efb7717b7d47, []int{4}
-}
-
-func (m *Request_Log) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_Request_Log.Unmarshal(m, b)
-}
-func (m *Request_Log) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_Request_Log.Marshal(b, m, deterministic)
-}
-func (m *Request_Log) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_Request_Log.Merge(m, src)
-}
-func (m *Request_Log) XXX_Size() int {
-	return xxx_messageInfo_Request_Log.Size(m)
-}
-func (m *Request_Log) XXX_DiscardUnknown() {
-	xxx_messageInfo_Request_Log.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_Request_Log proto.InternalMessageInfo
-
-type Response_Log struct {
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
-}
-
-func (m *Response_Log) Reset()         { *m = Response_Log{} }
-func (m *Response_Log) String() string { return proto.CompactTextString(m) }
-func (*Response_Log) ProtoMessage()    {}
-func (*Response_Log) Descriptor() ([]byte, []int) {
-	return fileDescriptor_db39efb7717b7d47, []int{5}
-}
-
-func (m *Response_Log) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_Response_Log.Unmarshal(m, b)
-}
-func (m *Response_Log) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_Response_Log.Marshal(b, m, deterministic)
-}
-func (m *Response_Log) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_Response_Log.Merge(m, src)
-}
-func (m *Response_Log) XXX_Size() int {
-	return xxx_messageInfo_Response_Log.Size(m)
-}
-func (m *Response_Log) XXX_DiscardUnknown() {
-	xxx_messageInfo_Response_Log.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_Response_Log proto.InternalMessageInfo
-
-type Request_Propuesta struct {
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
-}
-
-func (m *Request_Propuesta) Reset()         { *m = Request_Propuesta{} }
-func (m *Request_Propuesta) String() string { return proto.CompactTextString(m) }
-func (*Request_Propuesta) ProtoMessage()    {}
-func (*Request_Propuesta) Descriptor() ([]byte, []int) {
-	return fileDescriptor_db39efb7717b7d47, []int{6}
-}
-
-func (m *Request_Propuesta) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_Request_Propuesta.Unmarshal(m, b)
-}
-func (m *Request_Propuesta) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_Request_Propuesta.Marshal(b, m, deterministic)
-}
-func (m *Request_Propuesta) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_Request_Propuesta.Merge(m, src)
-}
-func (m *Request_Propuesta) XXX_Size() int {
-	return xxx_messageInfo_Request_Propuesta.Size(m)
-}
-func (m *Request_Propuesta) XXX_DiscardUnknown() {
-	xxx_messageInfo_Request_Propuesta.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_Request_Propuesta proto.InternalMessageInfo
-
-type Response_Propuesta struct {
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
-}
-
-func (m *Response_Propuesta) Reset()         { *m = Response_Propuesta{} }
-func (m *Response_Propuesta) String() string { return proto.CompactTextString(m) }
-func (*Response_Propuesta) ProtoMessage()    {}
-func (*Response_Propuesta) Descriptor() ([]byte, []int) {
-	return fileDescriptor_db39efb7717b7d47, []int{7}
-}
-
-func (m *Response_Propuesta) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_Response_Propuesta.Unmarshal(m, b)
-}
-func (m *Response_Propuesta) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_Response_Propuesta.Marshal(b, m, deterministic)
-}
-func (m *Response_Propuesta) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_Response_Propuesta.Merge(m, src)
-}
-func (m *Response_Propuesta) XXX_Size() int {
-	return xxx_messageInfo_Response_Propuesta.Size(m)
-}
-func (m *Response_Propuesta) XXX_DiscardUnknown() {
-	xxx_messageInfo_Response_Propuesta.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_Response_Propuesta proto.InternalMessageInfo
-
 type Request_Distribuir struct {
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
@@ -322,7 +198,7 @@ func (m *Request_Distribuir) Reset()         { *m = Request_Distribuir{} }
 func (m *Request_Distribuir) String() string { return proto.CompactTextString(m) }
 func (*Request_Distribuir) ProtoMessage()    {}
 func (*Request_Distribuir) Descriptor() ([]byte, []int) {
-	return fileDescriptor_db39efb7717b7d47, []int{8}
+	return fileDescriptor_db39efb7717b7d47, []int{4}
 }
 
 func (m *Request_Distribuir) XXX_Unmarshal(b []byte) error {
@@ -353,7 +229,7 @@ func (m *Response_Distribuir) Reset()         { *m = Response_Distribuir{} }
 func (m *Response_Distribuir) String() string { return proto.CompactTextString(m) }
 func (*Response_Distribuir) ProtoMessage()    {}
 func (*Response_Distribuir) Descriptor() ([]byte, []int) {
-	return fileDescriptor_db39efb7717b7d47, []int{9}
+	return fileDescriptor_db39efb7717b7d47, []int{5}
 }
 
 func (m *Response_Distribuir) XXX_Unmarshal(b []byte) error {
@@ -379,10 +255,6 @@ func init() {
 	proto.RegisterType((*Response_UploadBook)(nil), "comms.Response_UploadBook")
 	proto.RegisterType((*Request_DownloadBook)(nil), "comms.Request_DownloadBook")
 	proto.RegisterType((*Response_DownloadBook)(nil), "comms.Response_DownloadBook")
-	proto.RegisterType((*Request_Log)(nil), "comms.Request_Log")
-	proto.RegisterType((*Response_Log)(nil), "comms.Response_Log")
-	proto.RegisterType((*Request_Propuesta)(nil), "comms.Request_Propuesta")
-	proto.RegisterType((*Response_Propuesta)(nil), "comms.Response_Propuesta")
 	proto.RegisterType((*Request_Distribuir)(nil), "comms.Request_Distribuir")
 	proto.RegisterType((*Response_Distribuir)(nil), "comms.Response_Distribuir")
 }
@@ -392,28 +264,24 @@ func init() {
 }
 
 var fileDescriptor_db39efb7717b7d47 = []byte{
-	// 329 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x09, 0x6e, 0x88, 0x02, 0xff, 0x64, 0x92, 0xcd, 0x4e, 0xeb, 0x30,
-	0x10, 0x85, 0xd3, 0xf6, 0xa6, 0xba, 0x9d, 0x96, 0x4a, 0x9d, 0xfe, 0x90, 0x1a, 0x16, 0xc8, 0x2b,
-	0x24, 0xa4, 0x0a, 0xc1, 0x1b, 0x14, 0x58, 0xd1, 0x05, 0xb2, 0xc4, 0xba, 0x4a, 0x1b, 0x0b, 0xa2,
-	0xd2, 0x38, 0xc4, 0x8e, 0x78, 0x5c, 0x5e, 0x85, 0x38, 0x4d, 0x1c, 0xd7, 0xd9, 0xf9, 0x9c, 0x33,
-	0x33, 0xf6, 0x7c, 0x32, 0x0c, 0xf7, 0xe2, 0x78, 0x94, 0xab, 0x34, 0x13, 0x4a, 0xa0, 0x5f, 0x0a,
-	0x9a, 0x02, 0x32, 0xfe, 0x9d, 0x73, 0xa9, 0xb6, 0xef, 0xe9, 0x97, 0x08, 0xa3, 0xb5, 0x10, 0x07,
-	0x5c, 0x40, 0x7f, 0xff, 0x99, 0x27, 0x07, 0x19, 0x74, 0x6e, 0x3a, 0xb7, 0x23, 0x56, 0x29, 0xed,
-	0x27, 0xe2, 0xb8, 0xcb, 0x78, 0xd0, 0x2d, 0xfc, 0x01, 0xab, 0x14, 0x12, 0xf8, 0xbf, 0x0f, 0x13,
-	0x15, 0x47, 0x61, 0x14, 0xf4, 0x8a, 0xc4, 0x67, 0x46, 0xe3, 0x18, 0xba, 0x71, 0x14, 0xfc, 0x2b,
-	0xdd, 0xe2, 0x44, 0xef, 0x60, 0xca, 0xb8, 0x4c, 0x45, 0x22, 0xb9, 0x7d, 0xe5, 0x0c, 0x7c, 0xa9,
-	0x42, 0xc5, 0xcb, 0x1b, 0x7d, 0x76, 0x12, 0x74, 0x01, 0xb3, 0xfa, 0x79, 0xcf, 0xe2, 0x27, 0xa9,
-	0xab, 0xe9, 0x25, 0xcc, 0xcd, 0x90, 0xb3, 0xe0, 0x02, 0x86, 0x75, 0xc3, 0x46, 0x7c, 0xd0, 0x31,
-	0x8c, 0x4c, 0x9d, 0xd6, 0x53, 0x98, 0xd4, 0xf1, 0x5b, 0x26, 0x52, 0x7d, 0x08, 0xe9, 0x4c, 0x33,
-	0xa8, 0x8a, 0x1c, 0xb7, 0xba, 0x3a, 0x96, 0x2a, 0x8b, 0x77, 0x79, 0x9c, 0xd1, 0xb9, 0xf5, 0xfa,
-	0xc6, 0x7e, 0xf8, 0xed, 0x82, 0xff, 0xa4, 0x81, 0xe2, 0x0b, 0x80, 0xb5, 0xd5, 0x72, 0x75, 0x62,
-	0xde, 0x66, 0x4c, 0x88, 0x89, 0x5a, 0x30, 0xa8, 0x87, 0xaf, 0x30, 0xb2, 0xf7, 0xc2, 0x2b, 0x67,
-	0x90, 0x1d, 0x92, 0x6b, 0x77, 0xd4, 0x19, 0x12, 0x0f, 0xef, 0xa1, 0x57, 0x2c, 0x8f, 0xe8, 0xcc,
-	0x28, 0x3c, 0x32, 0x75, 0x5b, 0x35, 0x25, 0x0f, 0xd7, 0x30, 0x30, 0x24, 0x30, 0x70, 0xfa, 0x4c,
-	0x42, 0x96, 0x6e, 0x77, 0x83, 0xcf, 0xc3, 0x0d, 0x4c, 0x1a, 0x42, 0xdb, 0xea, 0x07, 0xb9, 0x40,
-	0x9a, 0x8a, 0x36, 0x10, 0x0b, 0xbb, 0xb7, 0xeb, 0x97, 0xdf, 0xf6, 0xf1, 0x2f, 0x00, 0x00, 0xff,
-	0xff, 0xec, 0x14, 0x0d, 0x3f, 0xc5, 0x02, 0x00, 0x00,
+	// 267 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x09, 0x6e, 0x88, 0x02, 0xff, 0x64, 0x51, 0xcb, 0x4e, 0xc3, 0x30,
+	0x10, 0x4c, 0x0a, 0xae, 0x60, 0xa9, 0x90, 0x58, 0xd2, 0x12, 0x02, 0x07, 0xe4, 0x13, 0x12, 0x52,
+	0x0f, 0xf0, 0x07, 0x50, 0x4e, 0x70, 0xb2, 0xc4, 0xb9, 0xca, 0xc3, 0x12, 0x56, 0x89, 0x37, 0xc4,
+	0x8e, 0xf8, 0x66, 0xfe, 0xa2, 0x69, 0x9a, 0x26, 0x6e, 0x72, 0xf3, 0xcc, 0x58, 0xbb, 0x33, 0xb3,
+	0x70, 0x91, 0x52, 0x9e, 0x9b, 0x65, 0x51, 0x92, 0x25, 0x64, 0x0d, 0xe0, 0x05, 0xa0, 0x90, 0xbf,
+	0x95, 0x34, 0x76, 0xfd, 0x55, 0xfc, 0x50, 0x9c, 0xbd, 0x12, 0x6d, 0x70, 0x01, 0xd3, 0xf4, 0xbb,
+	0xd2, 0x1b, 0x13, 0xfa, 0x0f, 0xfe, 0xe3, 0x4c, 0xb4, 0x68, 0xc7, 0x6b, 0xca, 0x93, 0x52, 0x86,
+	0x93, 0x9a, 0x3f, 0x17, 0x2d, 0xc2, 0x08, 0xce, 0xd2, 0x58, 0x5b, 0x95, 0xc5, 0x59, 0x78, 0x52,
+	0x2b, 0x4c, 0x74, 0x18, 0x2f, 0x61, 0xa2, 0xb2, 0xf0, 0xb4, 0x61, 0xeb, 0x17, 0x7f, 0x82, 0x6b,
+	0x21, 0x4d, 0x41, 0xda, 0x48, 0x77, 0x65, 0x00, 0xcc, 0xd8, 0xd8, 0xca, 0x66, 0x23, 0x13, 0x7b,
+	0xc0, 0x17, 0x10, 0x1c, 0xec, 0xad, 0xe8, 0x4f, 0x1f, 0x7e, 0xf3, 0x1b, 0x98, 0x77, 0x43, 0x8e,
+	0x84, 0xa0, 0xcf, 0xb3, 0x52, 0xc6, 0x96, 0x2a, 0xa9, 0x54, 0xc9, 0xe7, 0xce, 0xce, 0x9e, 0x7e,
+	0xfe, 0xf7, 0x81, 0xbd, 0xed, 0x6a, 0xc0, 0x77, 0x00, 0xc7, 0xcb, 0xed, 0x72, 0xdf, 0xd4, 0xb8,
+	0x99, 0x28, 0xea, 0xa4, 0x51, 0x04, 0xee, 0xe1, 0x07, 0xcc, 0x5c, 0x37, 0x78, 0x37, 0x18, 0xe4,
+	0x8a, 0xd1, 0xfd, 0x70, 0xd4, 0x51, 0x10, 0x0f, 0x3f, 0xe1, 0xaa, 0xf7, 0xba, 0x6e, 0x2f, 0x30,
+	0xb4, 0xd6, 0xff, 0x18, 0x5b, 0x73, 0x0a, 0xf0, 0x92, 0x69, 0x73, 0xf6, 0x97, 0x6d, 0x00, 0x00,
+	0x00, 0xff, 0xff, 0xcc, 0xbb, 0xc5, 0x40, 0x05, 0x02, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -430,8 +298,6 @@ const _ = grpc.SupportPackageIsVersion6
 type CommsClient interface {
 	UploadBook(ctx context.Context, in *Request_UploadBook, opts ...grpc.CallOption) (*Response_UploadBook, error)
 	DownloadBook(ctx context.Context, in *Request_DownloadBook, opts ...grpc.CallOption) (*Response_DownloadBook, error)
-	Log(ctx context.Context, in *Request_Log, opts ...grpc.CallOption) (*Response_Log, error)
-	Propuesta(ctx context.Context, in *Request_Propuesta, opts ...grpc.CallOption) (*Response_Propuesta, error)
 	DistribuirChunks(ctx context.Context, in *Request_Distribuir, opts ...grpc.CallOption) (*Response_Distribuir, error)
 }
 
@@ -461,24 +327,6 @@ func (c *commsClient) DownloadBook(ctx context.Context, in *Request_DownloadBook
 	return out, nil
 }
 
-func (c *commsClient) Log(ctx context.Context, in *Request_Log, opts ...grpc.CallOption) (*Response_Log, error) {
-	out := new(Response_Log)
-	err := c.cc.Invoke(ctx, "/comms.Comms/Log", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *commsClient) Propuesta(ctx context.Context, in *Request_Propuesta, opts ...grpc.CallOption) (*Response_Propuesta, error) {
-	out := new(Response_Propuesta)
-	err := c.cc.Invoke(ctx, "/comms.Comms/Propuesta", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
 func (c *commsClient) DistribuirChunks(ctx context.Context, in *Request_Distribuir, opts ...grpc.CallOption) (*Response_Distribuir, error) {
 	out := new(Response_Distribuir)
 	err := c.cc.Invoke(ctx, "/comms.Comms/Distribuir_chunks", in, out, opts...)
@@ -492,8 +340,6 @@ func (c *commsClient) DistribuirChunks(ctx context.Context, in *Request_Distribu
 type CommsServer interface {
 	UploadBook(context.Context, *Request_UploadBook) (*Response_UploadBook, error)
 	DownloadBook(context.Context, *Request_DownloadBook) (*Response_DownloadBook, error)
-	Log(context.Context, *Request_Log) (*Response_Log, error)
-	Propuesta(context.Context, *Request_Propuesta) (*Response_Propuesta, error)
 	DistribuirChunks(context.Context, *Request_Distribuir) (*Response_Distribuir, error)
 }
 
@@ -506,12 +352,6 @@ func (*UnimplementedCommsServer) UploadBook(ctx context.Context, req *Request_Up
 }
 func (*UnimplementedCommsServer) DownloadBook(ctx context.Context, req *Request_DownloadBook) (*Response_DownloadBook, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DownloadBook not implemented")
-}
-func (*UnimplementedCommsServer) Log(ctx context.Context, req *Request_Log) (*Response_Log, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method Log not implemented")
-}
-func (*UnimplementedCommsServer) Propuesta(ctx context.Context, req *Request_Propuesta) (*Response_Propuesta, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method Propuesta not implemented")
 }
 func (*UnimplementedCommsServer) DistribuirChunks(ctx context.Context, req *Request_Distribuir) (*Response_Distribuir, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DistribuirChunks not implemented")
@@ -557,42 +397,6 @@ func _Comms_DownloadBook_Handler(srv interface{}, ctx context.Context, dec func(
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Comms_Log_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(Request_Log)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(CommsServer).Log(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/comms.Comms/Log",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(CommsServer).Log(ctx, req.(*Request_Log))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _Comms_Propuesta_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(Request_Propuesta)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(CommsServer).Propuesta(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/comms.Comms/Propuesta",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(CommsServer).Propuesta(ctx, req.(*Request_Propuesta))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
 func _Comms_DistribuirChunks_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(Request_Distribuir)
 	if err := dec(in); err != nil {
@@ -622,14 +426,6 @@ var _Comms_serviceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "DownloadBook",
 			Handler:    _Comms_DownloadBook_Handler,
-		},
-		{
-			MethodName: "Log",
-			Handler:    _Comms_Log_Handler,
-		},
-		{
-			MethodName: "Propuesta",
-			Handler:    _Comms_Propuesta_Handler,
 		},
 		{
 			MethodName: "Distribuir_chunks",
