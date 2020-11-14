@@ -56,7 +56,7 @@ func tempChunk (chunk_id int, bookName string, ctdad_chunk int) {
     }
   }
 }
-func createChunk (chunk_id int, chunk []byte, bookName string) {
+func createChunk_v (chunk_id int, chunk []byte, bookName string) {
   s:=strconv.Itoa(chunk_id)
   name := bookName+"_"+s
   file, err := os.Create("../Chunks/" + name)
@@ -65,6 +65,17 @@ func createChunk (chunk_id int, chunk []byte, bookName string) {
   defer file.Close()}
   ioutil.WriteFile("../Chunks/" + name, chunk, os.ModeAppend)
 }
+
+func createChunk (chunk_id int, chunk []byte, bookName string) {
+  s:=strconv.Itoa(chunk_id)
+  name := bookName+"_"+s
+  file, err := os.Create("../temp/node/" + name)
+  if err != nil {
+    log.Fatalf("failed writing to file: %s", err)
+  defer file.Close()}
+  ioutil.WriteFile("../temp/node/" + name, chunk, os.ModeAppend)
+}
+
 func proponer (conn *grpc.ClientConn, chunks int, name string) (int,string) {
   c:=comms2.NewComms2Client(conn)
   var propuesta string
@@ -148,7 +159,7 @@ func (s* Server) DownloadBook(ctx context.Context, request *comms.Request_Downlo
   return &comms.Response_DownloadBook{},nil
 }
 func (s* Server) DistribuirChunks(ctx context.Context, request *comms.Request_Distribuir) (*comms.Response_Distribuir, error){
-  createChunk(int(request.Id), request.Chunks, request.Nombre)
+  createChunk_v(int(request.Id), request.Chunks, request.Nombre)
   return &comms.Response_Distribuir{}, nil
 }
 
