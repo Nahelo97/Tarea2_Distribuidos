@@ -319,11 +319,11 @@ func verificar_maquinas(maquina string)(bool){
   return false
 }
 
-func mostrar_catalogo(catalogo int)(int){
+func mostrar_catalogo(catalogo string)(int){
   var numero int
   libros:=strings.Split(catalogo,"\n")
   for i:=0;i<len(libros);i++{
-    log.Printf("%d.-"+libros,i+1)
+    log.Printf("%d.-$s",i+1,libros[i])
   }
   log.Printf("Seleccione un libro")
   fmt.Scanln(&numero)
@@ -346,7 +346,8 @@ func createChunk (chunk_id int, chunk []byte, bookName string) {
 func request_chunks(ubicaciones string){
   lineas:=strings.Split(ubicaciones,"\n")
   titulo:=strings.Split(lineas[0]," ")
-  for i:=0;i<titulo[1];{
+  super_ayuda := strconv.Itoa(titulo[1])
+  for i:=0;i<super_ayuda;i++{
     var conn *grpc.ClientConn
     conn, err := grpc.Dial(strings.Split(lineas[i+1]," ")[1]+":9000", grpc.WithInsecure())
     if err != nil {
@@ -354,15 +355,15 @@ func request_chunks(ubicaciones string){
     }
     defer conn.Close()
     c:=comms.NewCommsClient(conn)
-    response,error:=c.SolicitarChunk(context.Background(),&comms2.Request_Chunk{Nombre:strings.Split(lineas[i+1]," ")[0]})
+    response,error:=c.SolicitarChunk(context.Background(),&comms.Request_Chunk{Nombre:strings.Split(lineas[i+1]," ")[0]})
     if(error!=nil){
       return
     }
     createChunk(i+1,response.Chunks,titulo[0])
   }
-  joiner(titulo[0],titulo[1])
+  joiner(titulo[0],super_ayuda)
 }
-func bajar_libro(conn *grpc.ClientConn){
+func bajar_libro(){
   var conn2 *grpc.ClientConn
   conn2, err := grpc.Dial("dist96:9000", grpc.WithInsecure())
   if err != nil {
@@ -376,7 +377,7 @@ func bajar_libro(conn *grpc.ClientConn){
     return
   }
   ubicaciones,_:=c.Pedir_Libro(context.Background(),&comms2.Request_Libro{Numero:int32(libro)})
-  request_chunks(conn,ubicaciones.Ubicaciones)
+  request_chunks(ubicaciones.Ubicaciones)
 }
 
 func main(){
@@ -410,7 +411,7 @@ func main(){
     case 1:
       subir_libro(conn)
     case 2:
-      bajar_libro(conn)
+      bajar_libro()
     case 3:
       ver_libros_descargados()
     case 4:
