@@ -101,9 +101,9 @@ func (s* Server) UploadBook(ctx context.Context, request *comms.Request_UploadBo
       log.Fatalf("did not connect: %s", err)
     }
     defer conn.Close()
-    estado := proponer(conn, request.Cantidad, request.Nombre)
+    estado := proponer(conn, int(request.Cantidad), request.Nombre)
     for ; estado == 0 ; {
-      estado = proponer(conn, request.Cantidad, request.Nombre)
+      estado = proponer(conn, int(request.Cantidad), request.Nombre)
     }
     return &comms.Response_UploadBook{State: int32(1)}, nil
   }
