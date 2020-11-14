@@ -121,8 +121,8 @@ func distribuidor(propuesta string){
   nombre:=strings.Split(lineas[0]," ")[0]
   cantidad,_:=strconv.Atoi(strings.Split(lineas[0]," ")[1])
   for i:=0;i<cantidad;i++{
-    maquina:=strings.Split(lineas[i]," ")[1]
-    chunk:=read_chunk(strings.Split(lineas[i]," ")[0])
+    maquina:=strings.Split(lineas[i+1]," ")[1]
+    chunk:=read_chunk(strings.Split(lineas[i+1]," ")[0])
     conn, err := grpc.Dial(maquina+":9000", grpc.WithInsecure())
     if err != nil {
       log.Fatalf("did not connect: %s", err)
