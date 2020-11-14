@@ -56,7 +56,7 @@ func tempChunk (chunk_id int, bookName string, ctdad_chunk int) {
   }
 }
 func createChunk (chunk_id int, chunk []byte, bookName string) {
-  s=:strconv.Itoa(chunk_id)
+  s:=strconv.Itoa(chunk_id)
   name := bookName+"_"+s
   file, err := os.Create("../Chunks/" + name)
   if err != nil {
