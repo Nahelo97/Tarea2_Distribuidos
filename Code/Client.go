@@ -349,6 +349,7 @@ func createChunk (chunk_id int, chunk []byte, bookName string) {
   ioutil.WriteFile("./temp/cliente/" + name, chunk, os.ModeAppend)
 }
 func request_chunks(ubicaciones string){
+  log.Printf("ubicaciones: %+v",ubicaciones)
   lineas:=strings.Split(ubicaciones,"\n")
   titulo:=strings.Split(lineas[0]," ")
   super_ayuda, _ := strconv.Atoi(titulo[1])
