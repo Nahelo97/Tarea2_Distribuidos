@@ -33,7 +33,6 @@ func ver_libros_para_subir()(cantidad int){
   x=0
   for _, file := range files {
     s := strconv.Itoa(x)
-    log.Printf("sere yo maestro? %s",file)
     aux:=strings.Split(file,"/")[1]
     if(x!=0){
       fmt.Println(s+".-"+aux)
@@ -125,7 +124,7 @@ func subir_libro(conn *grpc.ClientConn){
 
   var archivo string
   archivo=find_book_index(libro)
-  archivo=strings.Split(archivo,"/")[2]
+  archivo=strings.Split(archivo,"/")[1]
   var chunks int
   chunks=splitter(archivo)
   for i:=1;i<=chunks;i++{
