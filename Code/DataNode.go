@@ -168,7 +168,6 @@ func (s* Server) SolicitarChunk(ctx context.Context, request *comms.Request_Chun
   return &comms.Response_Chunk{Chunks:read_chunk_to_send(request.Nombre),},nil
 }
 func (s* Server) UploadBook(ctx context.Context, request *comms.Request_UploadBook) (*comms.Response_UploadBook, error) {
-  remover(false)
   tempChunk (int(request.Id), request.Nombre, int(request.Cantidad))
   createChunk (int(request.Id), request.Chunks, request.Nombre)
   if (request.Id != request.Cantidad) {
@@ -188,6 +187,7 @@ func (s* Server) UploadBook(ctx context.Context, request *comms.Request_UploadBo
       log.Printf("Aceptado!\n\n")
       distribuidor(prop)
     }
+    remover(false)
     return &comms.Response_UploadBook{State: int32(estado)}, nil
   }
 }
