@@ -21,10 +21,12 @@ import (
 func ver_libros_para_subir()(cantidad int){
   var files []string
   root := "./Books/"
+  log.Printf("sere yo maestro?")
   err := filepath.Walk(root, func(path string, info os.FileInfo, err error) error {
     files = append(files, path)
     return nil
   })
+  log.Printf("sere yo maestro?")
   if err != nil {
     log.Printf("ver_libros_para_subir")
     panic(err)
