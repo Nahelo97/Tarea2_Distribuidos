@@ -49,8 +49,6 @@ func verificar_maquinas(propuesta string)(bool){
   cantidad,_:=strconv.Atoi(strings.Split(lineas[0]," ")[1])
   for i:=0;i<cantidad;i++{
     maquina:=strings.Split(lineas[i+1]," ")[1]
-    log.Printf("maquina a contactarse: %s",maquina)
-    log.Printf(maquina+":9000")
     conn, err := grpc.Dial(maquina+":9000", grpc.WithInsecure())
     if err != nil {
       log.Fatalf("did not connect: %s", err)
