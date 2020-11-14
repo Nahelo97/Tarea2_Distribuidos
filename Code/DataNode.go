@@ -66,10 +66,10 @@ func createChunk (chunk_id int, chunk []byte, bookName string) {
   ioutil.WriteFile("../Chunks/" + name, chunk, os.ModeAppend)
 }
 
-func proponer (conn *grpc.DataConn, chunks int, name string) {
+func proponer (conn *grpc.ClientConn, chunks int, name string) ( int) {
   c:=comms2.NewComms2Client(conn)
   var propuesta string
-  ctdad_ := strconv.Itoa(chunks)
+  ctdad_chunks := strconv.Itoa(chunks)
   propuesta = name + " " + ctdad_chunks + "\n"
 
 
@@ -79,12 +79,12 @@ func proponer (conn *grpc.DataConn, chunks int, name string) {
     propuesta += name + "_" + aux + " " + "dist" + num + "\n"
   }
 
-  fmt.Println(l, "propuesta terminada")
+  fmt.Println( "propuesta terminada")
   estado,_ := c.Propuesta(context.Background(),&comms2.Request_Propuesta{
     Propuesta: propuesta,
   })
 
-  return estado.Estado
+  return int(estado.Estado)
 
 }
 
@@ -95,13 +95,16 @@ func (s* Server) UploadBook(ctx context.Context, request *comms.Request_UploadBo
   if (request.Id != request.Cantidad) {
     return &comms.Response_UploadBook{State: int32(0)}, nil
   } else {
-    var conn *grpc.DataConn
+    var conn *grpc.ClientConn
     conn, err := grpc.Dial("dist96", grpc.WithInsecure())
     if err != nil {
       log.Fatalf("did not connect: %s", err)
     }
     defer conn.Close()
-    for ; proponer(conn, request.Cantidad, request.Nombre) == 0 ; {}
+    estado := proponer(conn, request.Cantidad, request.Nombre)
+    for ; estado == 0 ; {
+      estado = proponer(conn, request.Cantidad, request.Nombre)
+    }
     return &comms.Response_UploadBook{State: int32(1)}, nil
   }
 }
