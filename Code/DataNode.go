@@ -184,7 +184,7 @@ func (s* Server) UploadBook(ctx context.Context, request *comms.Request_UploadBo
       log.Printf("Aceptado!\n\n")
       distribuidor(prop)
     }
-    remover()
+    remover(false)
     return &comms.Response_UploadBook{State: int32(estado)}, nil
   }
 }
@@ -198,7 +198,7 @@ func (s* Server) DistribuirChunks(ctx context.Context, request *comms.Request_Di
   return &comms.Response_Distribuir{}, nil
 }
 
-func remover(wea bool){
+func remover(kkl bool){
   var files []string
   root := "../temp/node/"
   err := filepath.Walk(root, func(path string, info os.FileInfo, err error) error {
@@ -215,7 +215,7 @@ func remover(wea bool){
       os.Remove(files[i])
     }
   }
-  if(wea){
+  if(kkl){
     var files []string
     root = "../temp/Chunks/"
     err = filepath.Walk(root, func(path string, info os.FileInfo, err error) error {
@@ -235,6 +235,7 @@ func remover(wea bool){
   }
 }
 func main(){
+  remover(true)
   lis, err := net.Listen("tcp", ":9000")
   if err != nil {
     log.Fatalf("failed to listen: %v", err)
