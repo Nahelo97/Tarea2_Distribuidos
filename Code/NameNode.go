@@ -2,7 +2,7 @@ package main
 
 import (
   "./comms"
-  "rand"
+  "math/rand"
   "google.golang.org/grpc"
   "golang.org/x/net/context"
 )

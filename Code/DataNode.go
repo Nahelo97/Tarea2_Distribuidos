@@ -11,7 +11,7 @@ import (
   "golang.org/x/net/context"
   "net"
   "path/filepath"
-  "rand"
+  "math/rand"
 )
 
 type Server struct{
