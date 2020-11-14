@@ -125,6 +125,7 @@ func distribuidor(propuesta string){
     chunk:=read_chunk(strings.Split(lineas[i+1]," ")[0])
     log.Printf(maquina)
     conn, err := grpc.Dial(maquina+":9000", grpc.WithInsecure())
+    log.Printf(err)
     if err != nil {
       log.Fatalf("did not connect: %s", err)
     }
