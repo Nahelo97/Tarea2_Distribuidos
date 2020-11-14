@@ -254,7 +254,10 @@ func remover(){
     panic(err)
   }
   for i:=1;i<len(files);i++{
-    os.Remove(files[i])
+    wea:=strings.Split(files,"/")
+    if(wea[len(wea)-1]!=""){
+      os.Remove(files[i])
+    }
   }
   root = "../nbooks/"
   err = filepath.Walk(root, func(path string, info os.FileInfo, err error) error {
@@ -265,7 +268,10 @@ func remover(){
     panic(err)
   }
   for i:=1;i<len(files);i++{
-    os.Remove(files[i])
+    wea:=strings.Split(files,"/")
+    if(wea[len(wea)-1]!=""){
+      os.Remove(files[i])
+    }
   }
 }
 
