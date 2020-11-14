@@ -235,6 +235,7 @@ func remover(kkl bool){
   }
 }
 func main(){
+  log.Printf("corriendo")
   remover(true)
   lis, err := net.Listen("tcp", ":9000")
   if err != nil {
