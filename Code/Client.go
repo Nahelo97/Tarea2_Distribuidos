@@ -270,7 +270,7 @@ func joiner(archivo string,totalPartsNum int){
   file.Close()
 }
 
-func remover(){
+func remover(wea bool){
   var files []string
   root := "../temp/cliente/"
   err := filepath.Walk(root, func(path string, info os.FileInfo, err error) error {
@@ -287,18 +287,20 @@ func remover(){
       os.Remove(files[i])
     }
   }
-  root = "../nbooks/"
-  err = filepath.Walk(root, func(path string, info os.FileInfo, err error) error {
-    files = append(files, path)
-    return nil
-  })
-  if err != nil {
-    panic(err)
-  }
-  for i:=1;i<len(files);i++{
-    wea:=strings.Split(files[i],"/")
-    if(wea[len(wea)-1]!=""){
-      os.Remove(files[i])
+  if(wea){
+    root = "../nbooks/"
+    err = filepath.Walk(root, func(path string, info os.FileInfo, err error) error {
+      files = append(files, path)
+      return nil
+    })
+    if err != nil {
+      panic(err)
+    }
+    for i:=1;i<len(files);i++{
+      wea:=strings.Split(files[i],"/")
+      if(wea[len(wea)-1]!=""){
+        os.Remove(files[i])
+      }
     }
   }
 }
@@ -379,6 +381,7 @@ func bajar_libro(){
 }
 
 func main(){
+  remover(true)
   var conn *grpc.ClientConn
   maquina:="dist"+strconv.Itoa(rand.Intn(3) + 93)
   for;verificar_maquinas(maquina);{
@@ -395,7 +398,7 @@ func main(){
 
   flag=true
   for;flag;{
-    remover()
+    remover(false)
     log.Printf("\nBienvenido! Ingrese una opción")
     log.Printf("1-Subir Libro")
     log.Printf("2-Descargar Libro")
