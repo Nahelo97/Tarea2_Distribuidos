@@ -327,7 +327,7 @@ func mostrar_catalogo(catalogo string)(int){
     log.Printf("No Hay Libros")
     return -1
   }
-  for i:=0;i<len(libros)-1;i++{
+  for i:=0;i<len(libros);i++{
     log.Printf("%d.-%s",i+1,libros[i])
   }
   log.Printf("Seleccione un libro")

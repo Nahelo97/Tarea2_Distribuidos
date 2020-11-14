@@ -67,7 +67,8 @@ func catalogo()(string){
         libros+=lineas[0]+"\n"
       }
     }
-  return libros
+
+  return libros[:len(libros)-1]
 }
 
 func encontrar_libro(numero int)(string){
