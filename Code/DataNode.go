@@ -95,8 +95,8 @@ func proponer (conn *grpc.ClientConn, chunks int, name string) (int,string) {
   return aux,propuesta
 }
 func read_chunk(archivo string)([]byte){
-  content, err := ioutil.ReadAll(("./temp/node/"+archivo)
-  if err != nil {
+  content, err := ioutil.ReadAll("./temp/node/"+archivo)
+  if (err != nil){
     log.Fatal(err)
   }
   return content
@@ -127,7 +127,7 @@ func (s* Server) EstadoMaquina(ctx context.Context, request *comms.Request_Estad
 }
 
 func read_chunk_to_send(archivo string)([]byte){
-  content, err := ioutil.ReadAll(("./Chunks/"+archivo)
+  content, err := ioutil.ReadAll("./Chunks/"+archivo)
   if err != nil {
     log.Fatal(err)
   }
