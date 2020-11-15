@@ -137,8 +137,6 @@ func subir_libro(conn *grpc.ClientConn){
       log.Printf("Este libro ya existe")
     }
   }
-  joiner(archivo,chunks)
-  log.Fatalf("termine")
 }
 
 func splitter(archivo string)(int){
