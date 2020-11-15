@@ -60,6 +60,7 @@ func tempChunk (chunk_id int, bookName string, ctdad_chunk int) {
 func createChunk_v (chunk_id int, chunk []byte, bookName string) {
   s:=strconv.Itoa(chunk_id)
   name := bookName+"_"+s
+  log.Printf(name)
   file, err := os.Create("./Chunks/" + name)
   if err != nil {
     log.Fatalf("failed writing to file: %s", err)
@@ -193,7 +194,6 @@ func (s* Server) DownloadBook(ctx context.Context, request *comms.Request_Downlo
 }
 func (s* Server) DistribuirChunks(ctx context.Context, request *comms.Request_Distribuir) (*comms.Response_Distribuir, error){
   log.Printf("guardar chunk:")
-  log.Printf(request.Nombre)
   createChunk_v(int(request.Id), request.Chunks, request.Nombre)
   return &comms.Response_Distribuir{}, nil
 }
