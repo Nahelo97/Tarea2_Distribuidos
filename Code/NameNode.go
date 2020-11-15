@@ -156,8 +156,7 @@ func remover(){
     panic(err)
   }
   for i:=1;i<len(files);i++{
-    wea:=strings.Split(files[i],"/")
-    if(wea[len(wea)-1]!=""){
+    if(strings.Contains(files[i], ".pdf") || strings.Contains(files[i], "log.txt") ){
       os.Remove(files[i])
     }
   }

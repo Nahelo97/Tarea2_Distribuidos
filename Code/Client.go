@@ -284,8 +284,7 @@ func remover(weas bool){
     panic(err)
   }
   for i:=1;i<len(files);i++{
-    wea:=strings.Split(files[i],"/")
-    if(wea[len(wea)-1]!=""){
+    if(strings.Contains(files[i], ".pdf")){
       os.Remove(files[i])
     }
   }
@@ -299,8 +298,7 @@ func remover(weas bool){
       panic(err)
     }
     for i:=1;i<len(files);i++{
-      wea:=strings.Split(files[i],"/")
-      if(wea[len(wea)-1]!=""){
+      if(strings.Contains(files[i], ".pdf")){
         log.Printf(files[i])
         os.Remove(files[i])
       }
