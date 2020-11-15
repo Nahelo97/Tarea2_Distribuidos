@@ -95,26 +95,20 @@ func proponer (conn *grpc.ClientConn, chunks int, name string) (int,string) {
   return aux,propuesta
 }
 
-func read_chunk(archivo string)([]byte) {
-  file, err := os.Open("./temp/node/"+archivo)
+func read_chunk(archivo string,numero int)([]byte){
+  s := strconv.Itoa(numero)
+  content, err := ioutil.ReadAll(("./temp/cliente/"+archivo+"_"+s)
   if err != nil {
-    fmt.Println(err)
-    return []byte("0")
+    log.Fatal(err)
   }
-  defer file.Close()
-  buffer := make([]byte,100)
-  for {
-    bytesread, err := file.Read(buffer)
-    if err != nil {
-      if err != io.EOF {
-        fmt.Println(err)
-      }
-      break
-    }
-    bs := []byte(strconv.Itoa(bytesread))
-      return bs
+  return content
+}
+func read_chunk(archivo string)([]byte){
+  content, err := ioutil.ReadAll(("./temp/node/"+archivo)
+  if err != nil {
+    log.Fatal(err)
   }
-  return []byte("0")
+  return content
 }
 
 func distribuidor(propuesta string){
@@ -142,25 +136,11 @@ func (s* Server) EstadoMaquina(ctx context.Context, request *comms.Request_Estad
 }
 
 func read_chunk_to_send(archivo string)([]byte){
-  file, err := os.Open("./Chunks/"+archivo)
+  content, err := ioutil.ReadAll(("./Chunks/"+archivo)
   if err != nil {
-    fmt.Println(err)
-    return []byte("0")
+    log.Fatal(err)
   }
-  defer file.Close()
-  buffer := make([]byte,100)
-  for {
-    bytesread, err := file.Read(buffer)
-    if err != nil {
-      if err != io.EOF {
-        fmt.Println(err)
-      }
-      break
-    }
-    bs := []byte(strconv.Itoa(bytesread))
-      return bs
-  }
-  return []byte("0")
+  return content
 }
 func (s* Server) SolicitarChunk(ctx context.Context, request *comms.Request_Chunk) (*comms.Response_Chunk,error) {
   return &comms.Response_Chunk{Chunks:read_chunk_to_send(request.Nombre),},nil
