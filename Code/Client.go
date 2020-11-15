@@ -207,11 +207,12 @@ func joiner(archivo string,totalPartsNum int){
   // defer file.Close()
 
   // just information on which part of the new file we are appending
+  log.Printf("nombre del archivo de salida: %s",newFileName)
   var writePosition int64 = 0
   for j := uint64(0); j < uint64(totalPartsNum); j++ {
           //read a chunk
           currentChunkFileName := "./temp/cliente/"+archivo+"_"+strconv.FormatUint(j+1, 10)
-
+          log.Printf("nombre del archivo de entrada: %s",currentChunkFileName)
           newFileChunk, err := os.Open(currentChunkFileName)
 
           if err != nil {
