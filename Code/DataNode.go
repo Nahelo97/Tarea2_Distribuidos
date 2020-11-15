@@ -133,7 +133,7 @@ func distribuidor(propuesta string){
     defer conn.Close()
     c:=comms.NewCommsClient(conn)
     c.DistribuirChunks(context.Background(),&comms.Request_Distribuir{
-      Id:int32(i),Chunks:chunk,Nombre:nombre})
+      Id:int32(i+1),Chunks:chunk,Nombre:nombre})
   }
 }
 
