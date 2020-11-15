@@ -107,7 +107,7 @@ func read_chunk(archivo string,numero int)([]byte){
       break
     }
     bs := []byte(strconv.Itoa(bytesread))
-    log.Printf(bs)
+    log.Printf("%v",bs)
     return bs
   }
   return []byte("0")
