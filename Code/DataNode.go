@@ -13,8 +13,6 @@ import (
   "net"
   "path/filepath"
   "math/rand"
-  "fmt"
-  "io"
 )
 
 type Server struct{
@@ -95,7 +93,11 @@ func proponer (conn *grpc.ClientConn, chunks int, name string) (int,string) {
   return aux,propuesta
 }
 func read_chunk(archivo string)([]byte){
-  content, err := ioutil.ReadAll("./temp/node/"+archivo)
+  file, err := os.Open("./temp/node/"+archivo)
+   if err != nil {
+      log.Fatal(err)
+   }
+  content, _ := ioutil.ReadAll(file)
   if (err != nil){
     log.Fatal(err)
   }
@@ -127,7 +129,11 @@ func (s* Server) EstadoMaquina(ctx context.Context, request *comms.Request_Estad
 }
 
 func read_chunk_to_send(archivo string)([]byte){
-  content, err := ioutil.ReadAll("./Chunks/"+archivo)
+  file, err := os.Open("./Chunks/"+archivo)
+   if err != nil {
+      log.Fatal(err)
+   }
+  content, _ := ioutil.ReadAll(file)
   if err != nil {
     log.Fatal(err)
   }
