@@ -98,18 +98,17 @@ func read_chunk(archivo string,numero int)([]byte){
 
   buffer := make([]byte,100)
 
-  for {
+  for;true;{
     bytesread, err := file.Read(buffer)
-
     if err != nil {
       if err != io.EOF {
         fmt.Println(err)
       }
-
       break
     }
     bs := []byte(strconv.Itoa(bytesread))
-      return bs
+    log.Printf(bs)
+    return bs
   }
   return []byte("0")
 }
@@ -129,7 +128,7 @@ func subir_libro(conn *grpc.ClientConn){
   chunks=splitter(archivo)
   for i:=1;i<=chunks;i++{
     response,_:=c.UploadBook(context.Background(),&comms.Request_UploadBook{
-      Chunks:[]byte(read_chunk(archivo,i)),
+      Chunks:read_chunk(archivo,i),
       Nombre:archivo,
       Cantidad:int32(chunks),
       Id:int32(i),})
