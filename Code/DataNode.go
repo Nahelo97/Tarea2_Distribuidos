@@ -94,15 +94,6 @@ func proponer (conn *grpc.ClientConn, chunks int, name string) (int,string) {
   log.Printf(propuesta)
   return aux,propuesta
 }
-
-func read_chunk(archivo string,numero int)([]byte){
-  s := strconv.Itoa(numero)
-  content, err := ioutil.ReadAll(("./temp/cliente/"+archivo+"_"+s)
-  if err != nil {
-    log.Fatal(err)
-  }
-  return content
-}
 func read_chunk(archivo string)([]byte){
   content, err := ioutil.ReadAll(("./temp/node/"+archivo)
   if err != nil {
