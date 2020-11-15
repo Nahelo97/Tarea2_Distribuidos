@@ -302,8 +302,8 @@ func remover(weas bool){
     }
     for i:=1;i<len(files);i++{
       wea:=strings.Split(files[i],"/")
-      if(wea[len(wea)-1][:3]=="pdf"){
-        print("borrar: %s",files[i])
+      if(wea[len(wea)-1]!=""){
+        log.Printf(files[i])
         os.Remove(files[i])
       }
     }
