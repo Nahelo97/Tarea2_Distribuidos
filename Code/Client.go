@@ -30,14 +30,14 @@ func ver_libros_para_subir()(cantidad int){
     panic(err)
   }
   var x int
-  x=0
+  x=1
   for _, file := range files {
     s := strconv.Itoa(x)
     aux:=strings.Split(file,"/")[1]
-    if(x!=0){
+    if(strings.Contains(aux, ".pdf")){
       fmt.Println(s+".-"+aux)
+      x+=1
     }
-    x+=1
   }
   return x
 }
@@ -54,14 +54,14 @@ func ver_libros_descargados(){
     panic(err)
   }
   var x int
-  x=0
+  x=1
   for _, file := range files {
     s := strconv.Itoa(x)
     aux:=strings.Split(file,"/")[1]
-    if(x!=0){
+    if(strings.Contains(aux, ".pdf")){
       fmt.Println(s+".-"+aux)
+      x+=1
     }
-    x+=1
   }
 }
 
