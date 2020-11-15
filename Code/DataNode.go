@@ -120,9 +120,7 @@ func distribuidor(propuesta string){
   log.Printf("distribuidor: %s",propuesta)
   lineas:=strings.Split(propuesta,"\n")
   nombre:=strings.Split(lineas[0]," ")[0]
-  log.Printf("hola1")
   cantidad,_:=strconv.Atoi(strings.Split(lineas[0]," ")[1])
-  log.Printf("hola2")
   for i:=0;i<cantidad;i++{
     maquina:=strings.Split(lineas[i+1]," ")[1]
     chunk:=read_chunk(strings.Split(lineas[i+1]," ")[0])
@@ -136,7 +134,6 @@ func distribuidor(propuesta string){
     c.DistribuirChunks(context.Background(),&comms.Request_Distribuir{
       Id:int32(i),Chunks:chunk,Nombre:nombre})
   }
-  log.Printf("hola3")
 }
 
 func (s* Server) EstadoMaquina(ctx context.Context, request *comms.Request_Estado_M) (*comms.Response_Estado_M,error) {
