@@ -9,7 +9,6 @@ import (
   "strconv"
   "path/filepath"
   "fmt"
-  "io"
   "log"
   "math"
   "io/ioutil"
