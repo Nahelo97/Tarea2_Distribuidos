@@ -18,6 +18,8 @@ import (
 type Server struct{
 }
 
+var state string = "RELEASED"
+
 func fileExists(filename string) bool {
     info, err := os.Stat(filename)
     if os.IsNotExist(err) {
@@ -92,6 +94,62 @@ func proponer (conn *grpc.ClientConn, chunks int, name string) (int,string) {
   log.Printf(propuesta)
   return aux,propuesta
 }
+
+func ProponerD (conn *grpc.ClientConn, chunks int, name string) (int,string) {
+  c:=comms2.NewComms2Client(conn)
+  var propuesta string
+  ctdad_chunks := strconv.Itoa(chunks)
+  propuesta = name + " " + ctdad_chunks + "\n"
+  for i:=0; i<chunks; i++ {
+    num := strconv.Itoa(rand.Intn(3) + 93)
+    aux := strconv.Itoa(i + 1)
+    propuesta += name + "_" + aux + " " + "dist" + num + "\n"
+  }
+  estado,_ := c.PropuestaD(context.Background(),&comms2.Request_Propuesta_d{
+    Propuesta: propuesta,})
+  aux:=int(estado.Estado)
+  log.Printf(propuesta)
+  return aux,propuesta
+}
+
+func verificar_maquinas(propuesta string)(bool){
+  lineas:=strings.Split(propuesta,"\n")
+  cantidad,_:=strconv.Atoi(strings.Split(lineas[0]," ")[1])
+  for i:=0;i<cantidad;i++{
+    maquina:=strings.Split(lineas[i+1]," ")[1]
+    conn, err := grpc.Dial(maquina+":9000", grpc.WithInsecure())
+    if err != nil {
+      log.Fatalf("did not connect: %s", err)
+    }
+    defer conn.Close()
+    c:=comms.NewCommsClient(conn)
+    response,error:=c.EstadoMaquina(context.Background(),&comms.Request_Estado_M{})
+    log.Printf("respuesta de maquina %s: %+v",maquina,response)
+    if(error!=nil || int(response.Estado)!=7734){
+      return true
+    }
+  }
+  return false
+}
+
+func (s* Server) PropuestaD(ctx context.Context, request *comms2.Request_Propuesta_d) (*comms2.Response_Propuesta_d, error) {
+  tasa := rand.Intn(10)
+  condicion:=verificar_maquinas(request.Propuesta)
+  if (tasa < 2 ||condicion) {
+    return &comms2.Response_Propuesta_d{Estado:int32(0),}, nil
+  }
+  file, err := os.OpenFile("./temp/nameNode/log.txt", os.O_WRONLY|os.O_APPEND, 0644)
+  if err != nil {
+    log.Fatalf("failed opening file: %s", err)
+  }
+  defer file.Close()
+  _, err = file.WriteString(request.Propuesta)
+  if err != nil {
+    log.Fatalf("failed writing to file: %s", err)
+  }
+  return &comms2.Response_Propuesta_d{Estado:int32(1),}, nil
+}
+
 func read_chunk(archivo string)([]byte){
   file, err := os.Open("./temp/node/"+archivo)
    if err != nil {
@@ -167,9 +225,8 @@ func (s* Server) UploadBook(ctx context.Context, request *comms.Request_UploadBo
     return &comms.Response_UploadBook{State: int32(estado)}, nil
   }
 }
-func (s* Server) DownloadBook(ctx context.Context, request *comms.Request_DownloadBook) (*comms.Response_DownloadBook, error){
-  return &comms.Response_DownloadBook{},nil
-}
+
+
 func (s* Server) DistribuirChunks(ctx context.Context, request *comms.Request_Distribuir) (*comms.Response_Distribuir, error){
   log.Printf("guardar chunk:")
   createChunk_v(int(request.Id), request.Chunks, request.Nombre)

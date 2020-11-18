@@ -12,14 +12,6 @@ message Response_UploadBook {
   int32 state = 1;
 }
 
-message Request_DownloadBook {
-
-}
-
-message Response_DownloadBook {
-
-}
-
 message Request_Distribuir {
   bytes chunks = 1;
   string nombre = 2;
@@ -40,10 +32,24 @@ message Request_Chunk {
 message Response_Chunk {
   bytes chunks = 1;
 }
+message Request_Write_d {
+
+}
+message Response_Write_d {
+
+}
+message Request_Propuesta_d {
+string propuesta = 1;
+}
+message Response_Propuesta_d {
+int32 estado = 1;
+}
+
 service Comms {
  rpc UploadBook(Request_UploadBook) returns (Response_UploadBook) {}
- rpc DownloadBook(Request_DownloadBook) returns (Response_DownloadBook) {}
  rpc Distribuir_chunks(Request_Distribuir) returns (Response_Distribuir) {}
  rpc EstadoMaquina(Request_Estado_M) returns (Response_Estado_M) {}
  rpc SolicitarChunk(Request_Chunk) returns (Response_Chunk) {}
+ rpc WriteLogD(Request_Write_d) returns (Response_Write_d) {}
+ rpc PropuestaD(Request_Propuesta_d) returns (Response_Propuesta_d) {}
 }

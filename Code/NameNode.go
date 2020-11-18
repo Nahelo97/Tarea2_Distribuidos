@@ -29,8 +29,8 @@ func revisar_copia(nombre string)(bool){
 
     scanner := bufio.NewScanner(file)
     for scanner.Scan() {
-      wea:=strings.Split(scanner.Text()," ")
-      if(wea[0]==nombre){
+      cosa:=strings.Split(scanner.Text()," ")
+      if(cosa[0]==nombre){
         return true
       }
     }
@@ -123,9 +123,9 @@ func verificar_maquinas(propuesta string)(bool){
 }
 func (s* Server) Propuesta(ctx context.Context, request *comms2.Request_Propuesta) (*comms2.Response_Propuesta, error) {
   tasa := rand.Intn(10)
-  wea:=strings.Split(request.Propuesta,"\n")[0]
-  wea=strings.Split(wea," ")[0]
-  if(revisar_copia(wea)){
+  cosa:=strings.Split(request.Propuesta,"\n")[0]
+  cosa=strings.Split(cosa," ")[0]
+  if(revisar_copia(cosa)){
     return &comms2.Response_Propuesta{Estado:int32(2),}, nil
   }
   condicion:=verificar_maquinas(request.Propuesta)
