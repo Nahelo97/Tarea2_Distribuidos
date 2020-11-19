@@ -57,7 +57,6 @@ service Comms {
  rpc Distribuir_chunks(Request_Distribuir) returns (Response_Distribuir) {}
  rpc EstadoMaquina(Request_Estado_M) returns (Response_Estado_M) {}
  rpc SolicitarChunk(Request_Chunk) returns (Response_Chunk) {}
- rpc WriteLogD(Request_Write_d) returns (Response_Write_d) {}
  rpc PropuestaD(Request_Propuesta_d) returns (Response_Propuesta_d) {}
  rpc UploadBookD(Request_UploadBook) returns (Response_UploadBook) {}
  rpc PedirRecurso(Request_Recurso_d) returns (Response_Recurso_d){}
