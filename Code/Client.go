@@ -172,7 +172,6 @@ func splitter(archivo string)(int){
 
           // write/save buffer to disk
           ioutil.WriteFile(fileName, partBuffer, os.ModeAppend)
-          log.Printf("desesperacion: %v",partBuffer)
           fmt.Println("Split to : ", fileName)
   }
   return int(totalPartsNum)
