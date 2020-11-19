@@ -18,7 +18,7 @@ import (
 
 type Server struct{
 }
-var tiempo_p time =tiempo_p= time.Now()
+var tiempo_p time =time.Now()
 var state string = "RELEASED"
 
 func fileExists(filename string) bool {
