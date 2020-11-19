@@ -19,7 +19,7 @@ import (
 type Server struct {
 
 }
-
+var candado bool =false
 func revisar_copia(nombre string)(bool){
   file, err := os.Open("./temp/nameNode/log.txt")
     if err != nil {
@@ -40,7 +40,6 @@ func revisar_copia(nombre string)(bool){
     }
     return false
 }
-
 func (s* Server) Log(ctx context.Context, request *comms2.Request_Log) (*comms2.Response_Log, error) {
   return &comms2.Response_Log{}, nil
 }
@@ -72,7 +71,6 @@ func catalogo()(string){
     }
   return libros
 }
-
 func encontrar_libro(numero int)(string){
   var libros string
   var contador int
@@ -101,7 +99,6 @@ func (s* Server) Catalogo(ctx context.Context, request *comms2.Request_Catalogo)
 func (s* Server) Pedir_Libro(ctx context.Context, request *comms2.Request_Libro) (*comms2.Response_Libro, error) {
   return &comms2.Response_Libro{Ubicaciones:encontrar_libro(int(request.Numero)),}, nil
 }
-
 func verificar_maquinas(propuesta string)(bool){
   lineas:=strings.Split(propuesta,"\n")
   cantidad,_:=strconv.Atoi(strings.Split(lineas[0]," ")[1])
@@ -122,14 +119,20 @@ func verificar_maquinas(propuesta string)(bool){
   return false
 }
 func (s* Server) Propuesta(ctx context.Context, request *comms2.Request_Propuesta) (*comms2.Response_Propuesta, error) {
+  for;candado;{
+    log.Printf("ocupadito")
+  }
+  candado=true
   tasa := rand.Intn(10)
   cosa:=strings.Split(request.Propuesta,"\n")[0]
   cosa=strings.Split(cosa," ")[0]
   if(revisar_copia(cosa)){
+    candado=false
     return &comms2.Response_Propuesta{Estado:int32(2),}, nil
   }
   condicion:=verificar_maquinas(request.Propuesta)
   if (tasa < 2 ||condicion) {
+    candado=false
     return &comms2.Response_Propuesta{Estado:int32(0),}, nil
   }
   file, err := os.OpenFile("./temp/nameNode/log.txt", os.O_WRONLY|os.O_APPEND, 0644)
@@ -141,10 +144,10 @@ func (s* Server) Propuesta(ctx context.Context, request *comms2.Request_Propuest
   if err != nil {
     log.Fatalf("failed writing to file: %s", err)
   }
+  candado=false
   return &comms2.Response_Propuesta{Estado:int32(1),}, nil
 }
-
-func (s* Server) Propuesta_D(ctx context.Context, request *comms2.Request_Propuesta) (*comms2.Response_Propuesta, error) {
+func (s* Server) Propuesta_D(ctx context.Context, request *comms2.Request_Propuesta) (*comms2.Response_Propuesta, error){
   cosa:=strings.Split(request.Propuesta,"\n")[0]
   cosa=strings.Split(cosa," ")[0]
   if(revisar_copia(cosa)){
