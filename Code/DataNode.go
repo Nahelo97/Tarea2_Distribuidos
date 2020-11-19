@@ -290,7 +290,6 @@ func (s* Server) PedirRecurso(ctx context.Context, request *comms.Request_recurd
     Log.Debug(state)
   }
   return &comms.Response_recurso_d{Estado:int32(1)}, nil
-  }
 }
 func (s* Server) DistribuirChunks(ctx context.Context, request *comms.Request_Distribuir) (*comms.Response_Distribuir, error){
   log.Printf("guardar chunk:")
