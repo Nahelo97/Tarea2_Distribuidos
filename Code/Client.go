@@ -115,13 +115,13 @@ func subir_libro(conn *grpc.ClientConn,tipo int){
   chunks=splitter(archivo)
   for i:=1;i<=chunks;i++{
     if(tipo==1){
-      response,_:=c.UploadBook(context.Background(),&comms.Request_UploadBook{
+      c.UploadBook(context.Background(),&comms.Request_UploadBook{
         Chunks:read_chunk(archivo,i),
         Nombre:archivo,
         Cantidad:int32(chunks),
         Id:int32(i),})
     }else{
-      response,_:=c.UploadBookD(context.Background(),&comms.Request_UploadBook{
+      c.UploadBookD(context.Background(),&comms.Request_UploadBook{
         Chunks:read_chunk(archivo,i),
         Nombre:archivo,
         Cantidad:int32(chunks),
