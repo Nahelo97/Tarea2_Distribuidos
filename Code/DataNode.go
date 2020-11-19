@@ -18,7 +18,7 @@ import (
 
 type Server struct{
 }
-var tiempo_p time =time.Now()
+tiempo_p :=time.Now()
 var state string = "RELEASED"
 func fileExists(filename string) bool {
     info, err := os.Stat(filename)
@@ -111,7 +111,7 @@ func ProponerD (chunks int, name string) (int,string) {
         continue
       }
     }
-    Debug.Log("hola : %d",i)
+    Log.Printf("hola : %d",i)
     maquina:=strconv.Itoa(i)
     conn, err := grpc.Dial(maquina+":9000", grpc.WithInsecure())
     if err != nil {
@@ -150,7 +150,7 @@ func verificar_maquinas (propuesta string) (bool){
 
 func (s* Server) PropuestaD(ctx context.Context, request *comms.Request_Propuesta_d) (*comms.Response_Propuesta_d, error) {
   tasa := rand.Intn(10)
-  if (tasa < 1 ||condicion) {
+  if (tasa < 1) {
     return &comms2.Response_Propuesta_d{Estado:int32(0),}, nil
   }
   return &comms2.Response_Propuesta_d{Estado:int32(1),}, nil
