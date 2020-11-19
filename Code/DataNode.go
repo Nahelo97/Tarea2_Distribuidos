@@ -113,7 +113,7 @@ func ProponerD (chunks int, name string) (int,string) {
         continue
       }
     }
-    Log.Printf("hola : %d",i)
+    log.Printf("hola : %d",i)
     maquina:=strconv.Itoa(i)
     conn, err := grpc.Dial(maquina+":9000", grpc.WithInsecure())
     if err != nil {
@@ -121,7 +121,7 @@ func ProponerD (chunks int, name string) (int,string) {
     }
     defer conn.Close()
     c:=comms.NewCommsClient(conn)
-    estado,_ := c.PropuestaD(context.Background(),&comms.Request_Propuesta_d{Propuesta: propuesta,})
+    estado,_ := c.PropuestaD(context.Background(),&comms.Request_PropuestaD{Propuesta: propuesta,})
     aux=int(estado.Estado)
     log.Printf(propuesta)
     if(int32(estado)!=1){
@@ -150,12 +150,12 @@ func verificar_maquinas (propuesta string) (bool){
   return false
 }
 
-func (s* Server) PropuestaD(ctx context.Context, request *comms.Request_Propuesta_d) (*comms.Response_Propuesta_d, error) {
+func (s* Server) PropuestaD(ctx context.Context, request *comms.Request_PropuestaD) (*comms.Response_PropuestaD, error) {
   tasa := rand.Intn(10)
   if (tasa < 1) {
-    return &comms2.Response_Propuesta_d{Estado:int32(0),}, nil
+    return &comms2.Response_PropuestaD{Estado:int32(0),}, nil
   }
-  return &comms2.Response_Propuesta_d{Estado:int32(1),}, nil
+  return &comms2.Response_PropuestaD{Estado:int32(1),}, nil
 }
 func read_chunk(archivo string)([]byte){
   file, err := os.Open("./temp/node/"+archivo)
@@ -242,7 +242,7 @@ func (s* Server) UploadBookD(ctx context.Context, request *comms.Request_UploadB
       log.Fatalf("did not connect: %s", err)
     }
     defer conn.Close()
-    estado,prop := ProponerD(conn, int(request.Cantidad), request.Nombre)
+    estado,prop := ProponerD(int(request.Cantidad), request.Nombre)
     log.Printf("Aceptado!\n\n")
     resultado:=permisos_d(prop);
     if(resultado){
@@ -285,7 +285,7 @@ func permisos_d(propuesta string)(bool){
   }
   return false
 }
-func (s* Server) PedirRecurso(ctx context.Context, request *comms.Request_recurdo_d) (*comms.Response_recurso_d, error){
+func (s* Server) PedirRecurso(ctx context.Context, request *comms.Request_recurdoD) (*comms.Response_recursoD, error){
   layout := "Mon Jan 02 2006 15:04:05 GMT-0700"
 	t, _ := time.Parse(layout, request.Tiempo)
   for ;(state=="HELD"||(state=="WANTED" && tiempo_p.Before(t))); {

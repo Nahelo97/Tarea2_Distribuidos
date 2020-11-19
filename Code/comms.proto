@@ -45,7 +45,7 @@ message Response_Propuesta_d {
 int32 estado = 1;
 }
 
-message Request_recurdo_d {
+message Request_recurso_d {
 string tiempo = 1;
 }
 message Response_recurso_d {
@@ -60,5 +60,5 @@ service Comms {
  rpc WriteLogD(Request_Write_d) returns (Response_Write_d) {}
  rpc PropuestaD(Request_Propuesta_d) returns (Response_Propuesta_d) {}
  rpc UploadBookD(Request_UploadBook) returns (Response_UploadBook) {}
- rpc PedirRecurso(Request_recurdo_d) returns (Response_recurso_d){}
+ rpc PedirRecurso(Request_recurso_d) returns (Response_recurso_d){}
 }
