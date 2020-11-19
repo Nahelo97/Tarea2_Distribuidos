@@ -45,10 +45,10 @@ message Response_Propuesta_d {
 int32 estado = 1;
 }
 
-message Request_recurso_d {
+message Request_Recurso_d {
 string tiempo = 1;
 }
-message Response_recurso_d {
+message Response_Recurso_d {
 int32 estado = 1;
 }
 

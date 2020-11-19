@@ -259,24 +259,24 @@ func permisos_d(propuesta string)(bool){
     maquina:=strconv.Itoa(i)
     conn, err := grpc.Dial("dist"+maquina+":9000", grpc.WithInsecure())
     if err != nil {
-      log.Printf(i)
+      log.Printf("%d",i)
     }else{
       defer conn.Close()
       c:=comms.NewCommsClient(conn)
-      response,error:=c.PedirRecurso(context.Background(),&comms.Request_recurdoD{Timepo:tiempo_p.String()})
+      response,error:=c.PedirRecurso(context.Background(),&comms.Request_recursoD{Timepo:tiempo_p.String()})
     }
   }
   state="HELD"
   conn, err := grpc.Dial("dist96:9000", grpc.WithInsecure())
   if err != nil {
-    Log.Fatal("ay :c")
+    log.Fatal("ay :c")
   }else{
     defer conn.Close()
     c:=comms2.NewComms2Client(conn)
     respuesta,errores:=c.Propuesta_D(context.Background(),&comms2.Request_Propuesta{Propuesta:propuesta})
     state  = "RELEASED"
     if(errores!=nil){
-      Log.Fatal("ay x2 :c")
+      log.Fatal("ay x2 :c")
     }
     if(int32(respuesta.Estado)==1){
       return true
@@ -285,13 +285,13 @@ func permisos_d(propuesta string)(bool){
   }
   return false
 }
-func (s* Server) PedirRecurso(ctx context.Context, request *comms.Request_recurdoD) (*comms.Response_recursoD, error){
+func (s* Server) PedirRecurso(ctx context.Context, request *comms.Request_recursoD) (*comms.Response_recursoD, error){
   layout := "Mon Jan 02 2006 15:04:05 GMT-0700"
 	t, _ := time.Parse(layout, request.Tiempo)
   for ;(state=="HELD"||(state=="WANTED" && tiempo_p.Before(t))); {
     Log.Debug(state)
   }
-  return &comms.Response_recurso_d{Estado:int32(1)}, nil
+  return &comms.Response_recursoD{Estado:int32(1)}, nil
 }
 func (s* Server) DistribuirChunks(ctx context.Context, request *comms.Request_Distribuir) (*comms.Response_Distribuir, error){
   log.Printf("guardar chunk:")
