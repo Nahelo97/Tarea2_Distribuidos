@@ -126,68 +126,6 @@ func (m *Response_UploadBook) GetState() int32 {
 	return 0
 }
 
-type Request_DownloadBook struct {
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
-}
-
-func (m *Request_DownloadBook) Reset()         { *m = Request_DownloadBook{} }
-func (m *Request_DownloadBook) String() string { return proto.CompactTextString(m) }
-func (*Request_DownloadBook) ProtoMessage()    {}
-func (*Request_DownloadBook) Descriptor() ([]byte, []int) {
-	return fileDescriptor_db39efb7717b7d47, []int{2}
-}
-
-func (m *Request_DownloadBook) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_Request_DownloadBook.Unmarshal(m, b)
-}
-func (m *Request_DownloadBook) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_Request_DownloadBook.Marshal(b, m, deterministic)
-}
-func (m *Request_DownloadBook) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_Request_DownloadBook.Merge(m, src)
-}
-func (m *Request_DownloadBook) XXX_Size() int {
-	return xxx_messageInfo_Request_DownloadBook.Size(m)
-}
-func (m *Request_DownloadBook) XXX_DiscardUnknown() {
-	xxx_messageInfo_Request_DownloadBook.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_Request_DownloadBook proto.InternalMessageInfo
-
-type Response_DownloadBook struct {
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
-}
-
-func (m *Response_DownloadBook) Reset()         { *m = Response_DownloadBook{} }
-func (m *Response_DownloadBook) String() string { return proto.CompactTextString(m) }
-func (*Response_DownloadBook) ProtoMessage()    {}
-func (*Response_DownloadBook) Descriptor() ([]byte, []int) {
-	return fileDescriptor_db39efb7717b7d47, []int{3}
-}
-
-func (m *Response_DownloadBook) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_Response_DownloadBook.Unmarshal(m, b)
-}
-func (m *Response_DownloadBook) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_Response_DownloadBook.Marshal(b, m, deterministic)
-}
-func (m *Response_DownloadBook) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_Response_DownloadBook.Merge(m, src)
-}
-func (m *Response_DownloadBook) XXX_Size() int {
-	return xxx_messageInfo_Response_DownloadBook.Size(m)
-}
-func (m *Response_DownloadBook) XXX_DiscardUnknown() {
-	xxx_messageInfo_Response_DownloadBook.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_Response_DownloadBook proto.InternalMessageInfo
-
 type Request_Distribuir struct {
 	Chunks               []byte   `protobuf:"bytes,1,opt,name=chunks,proto3" json:"chunks,omitempty"`
 	Nombre               string   `protobuf:"bytes,2,opt,name=nombre,proto3" json:"nombre,omitempty"`
@@ -201,7 +139,7 @@ func (m *Request_Distribuir) Reset()         { *m = Request_Distribuir{} }
 func (m *Request_Distribuir) String() string { return proto.CompactTextString(m) }
 func (*Request_Distribuir) ProtoMessage()    {}
 func (*Request_Distribuir) Descriptor() ([]byte, []int) {
-	return fileDescriptor_db39efb7717b7d47, []int{4}
+	return fileDescriptor_db39efb7717b7d47, []int{2}
 }
 
 func (m *Request_Distribuir) XXX_Unmarshal(b []byte) error {
@@ -253,7 +191,7 @@ func (m *Response_Distribuir) Reset()         { *m = Response_Distribuir{} }
 func (m *Response_Distribuir) String() string { return proto.CompactTextString(m) }
 func (*Response_Distribuir) ProtoMessage()    {}
 func (*Response_Distribuir) Descriptor() ([]byte, []int) {
-	return fileDescriptor_db39efb7717b7d47, []int{5}
+	return fileDescriptor_db39efb7717b7d47, []int{3}
 }
 
 func (m *Response_Distribuir) XXX_Unmarshal(b []byte) error {
@@ -285,7 +223,7 @@ func (m *Request_Estado_M) Reset()         { *m = Request_Estado_M{} }
 func (m *Request_Estado_M) String() string { return proto.CompactTextString(m) }
 func (*Request_Estado_M) ProtoMessage()    {}
 func (*Request_Estado_M) Descriptor() ([]byte, []int) {
-	return fileDescriptor_db39efb7717b7d47, []int{6}
+	return fileDescriptor_db39efb7717b7d47, []int{4}
 }
 
 func (m *Request_Estado_M) XXX_Unmarshal(b []byte) error {
@@ -324,7 +262,7 @@ func (m *Response_Estado_M) Reset()         { *m = Response_Estado_M{} }
 func (m *Response_Estado_M) String() string { return proto.CompactTextString(m) }
 func (*Response_Estado_M) ProtoMessage()    {}
 func (*Response_Estado_M) Descriptor() ([]byte, []int) {
-	return fileDescriptor_db39efb7717b7d47, []int{7}
+	return fileDescriptor_db39efb7717b7d47, []int{5}
 }
 
 func (m *Response_Estado_M) XXX_Unmarshal(b []byte) error {
@@ -363,7 +301,7 @@ func (m *Request_Chunk) Reset()         { *m = Request_Chunk{} }
 func (m *Request_Chunk) String() string { return proto.CompactTextString(m) }
 func (*Request_Chunk) ProtoMessage()    {}
 func (*Request_Chunk) Descriptor() ([]byte, []int) {
-	return fileDescriptor_db39efb7717b7d47, []int{8}
+	return fileDescriptor_db39efb7717b7d47, []int{6}
 }
 
 func (m *Request_Chunk) XXX_Unmarshal(b []byte) error {
@@ -402,7 +340,7 @@ func (m *Response_Chunk) Reset()         { *m = Response_Chunk{} }
 func (m *Response_Chunk) String() string { return proto.CompactTextString(m) }
 func (*Response_Chunk) ProtoMessage()    {}
 func (*Response_Chunk) Descriptor() ([]byte, []int) {
-	return fileDescriptor_db39efb7717b7d47, []int{9}
+	return fileDescriptor_db39efb7717b7d47, []int{7}
 }
 
 func (m *Response_Chunk) XXX_Unmarshal(b []byte) error {
@@ -430,17 +368,239 @@ func (m *Response_Chunk) GetChunks() []byte {
 	return nil
 }
 
+type Request_WriteD struct {
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *Request_WriteD) Reset()         { *m = Request_WriteD{} }
+func (m *Request_WriteD) String() string { return proto.CompactTextString(m) }
+func (*Request_WriteD) ProtoMessage()    {}
+func (*Request_WriteD) Descriptor() ([]byte, []int) {
+	return fileDescriptor_db39efb7717b7d47, []int{8}
+}
+
+func (m *Request_WriteD) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_Request_WriteD.Unmarshal(m, b)
+}
+func (m *Request_WriteD) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_Request_WriteD.Marshal(b, m, deterministic)
+}
+func (m *Request_WriteD) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_Request_WriteD.Merge(m, src)
+}
+func (m *Request_WriteD) XXX_Size() int {
+	return xxx_messageInfo_Request_WriteD.Size(m)
+}
+func (m *Request_WriteD) XXX_DiscardUnknown() {
+	xxx_messageInfo_Request_WriteD.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_Request_WriteD proto.InternalMessageInfo
+
+type Response_WriteD struct {
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *Response_WriteD) Reset()         { *m = Response_WriteD{} }
+func (m *Response_WriteD) String() string { return proto.CompactTextString(m) }
+func (*Response_WriteD) ProtoMessage()    {}
+func (*Response_WriteD) Descriptor() ([]byte, []int) {
+	return fileDescriptor_db39efb7717b7d47, []int{9}
+}
+
+func (m *Response_WriteD) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_Response_WriteD.Unmarshal(m, b)
+}
+func (m *Response_WriteD) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_Response_WriteD.Marshal(b, m, deterministic)
+}
+func (m *Response_WriteD) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_Response_WriteD.Merge(m, src)
+}
+func (m *Response_WriteD) XXX_Size() int {
+	return xxx_messageInfo_Response_WriteD.Size(m)
+}
+func (m *Response_WriteD) XXX_DiscardUnknown() {
+	xxx_messageInfo_Response_WriteD.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_Response_WriteD proto.InternalMessageInfo
+
+type Request_PropuestaD struct {
+	Propuesta            string   `protobuf:"bytes,1,opt,name=propuesta,proto3" json:"propuesta,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *Request_PropuestaD) Reset()         { *m = Request_PropuestaD{} }
+func (m *Request_PropuestaD) String() string { return proto.CompactTextString(m) }
+func (*Request_PropuestaD) ProtoMessage()    {}
+func (*Request_PropuestaD) Descriptor() ([]byte, []int) {
+	return fileDescriptor_db39efb7717b7d47, []int{10}
+}
+
+func (m *Request_PropuestaD) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_Request_PropuestaD.Unmarshal(m, b)
+}
+func (m *Request_PropuestaD) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_Request_PropuestaD.Marshal(b, m, deterministic)
+}
+func (m *Request_PropuestaD) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_Request_PropuestaD.Merge(m, src)
+}
+func (m *Request_PropuestaD) XXX_Size() int {
+	return xxx_messageInfo_Request_PropuestaD.Size(m)
+}
+func (m *Request_PropuestaD) XXX_DiscardUnknown() {
+	xxx_messageInfo_Request_PropuestaD.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_Request_PropuestaD proto.InternalMessageInfo
+
+func (m *Request_PropuestaD) GetPropuesta() string {
+	if m != nil {
+		return m.Propuesta
+	}
+	return ""
+}
+
+type Response_PropuestaD struct {
+	Estado               int32    `protobuf:"varint,1,opt,name=estado,proto3" json:"estado,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *Response_PropuestaD) Reset()         { *m = Response_PropuestaD{} }
+func (m *Response_PropuestaD) String() string { return proto.CompactTextString(m) }
+func (*Response_PropuestaD) ProtoMessage()    {}
+func (*Response_PropuestaD) Descriptor() ([]byte, []int) {
+	return fileDescriptor_db39efb7717b7d47, []int{11}
+}
+
+func (m *Response_PropuestaD) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_Response_PropuestaD.Unmarshal(m, b)
+}
+func (m *Response_PropuestaD) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_Response_PropuestaD.Marshal(b, m, deterministic)
+}
+func (m *Response_PropuestaD) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_Response_PropuestaD.Merge(m, src)
+}
+func (m *Response_PropuestaD) XXX_Size() int {
+	return xxx_messageInfo_Response_PropuestaD.Size(m)
+}
+func (m *Response_PropuestaD) XXX_DiscardUnknown() {
+	xxx_messageInfo_Response_PropuestaD.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_Response_PropuestaD proto.InternalMessageInfo
+
+func (m *Response_PropuestaD) GetEstado() int32 {
+	if m != nil {
+		return m.Estado
+	}
+	return 0
+}
+
+type RequestRecurdoD struct {
+	Tiempo               string   `protobuf:"bytes,1,opt,name=tiempo,proto3" json:"tiempo,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *RequestRecurdoD) Reset()         { *m = RequestRecurdoD{} }
+func (m *RequestRecurdoD) String() string { return proto.CompactTextString(m) }
+func (*RequestRecurdoD) ProtoMessage()    {}
+func (*RequestRecurdoD) Descriptor() ([]byte, []int) {
+	return fileDescriptor_db39efb7717b7d47, []int{12}
+}
+
+func (m *RequestRecurdoD) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_RequestRecurdoD.Unmarshal(m, b)
+}
+func (m *RequestRecurdoD) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_RequestRecurdoD.Marshal(b, m, deterministic)
+}
+func (m *RequestRecurdoD) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_RequestRecurdoD.Merge(m, src)
+}
+func (m *RequestRecurdoD) XXX_Size() int {
+	return xxx_messageInfo_RequestRecurdoD.Size(m)
+}
+func (m *RequestRecurdoD) XXX_DiscardUnknown() {
+	xxx_messageInfo_RequestRecurdoD.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_RequestRecurdoD proto.InternalMessageInfo
+
+func (m *RequestRecurdoD) GetTiempo() string {
+	if m != nil {
+		return m.Tiempo
+	}
+	return ""
+}
+
+type ResponseRecursoD struct {
+	Estado               int32    `protobuf:"varint,1,opt,name=estado,proto3" json:"estado,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *ResponseRecursoD) Reset()         { *m = ResponseRecursoD{} }
+func (m *ResponseRecursoD) String() string { return proto.CompactTextString(m) }
+func (*ResponseRecursoD) ProtoMessage()    {}
+func (*ResponseRecursoD) Descriptor() ([]byte, []int) {
+	return fileDescriptor_db39efb7717b7d47, []int{13}
+}
+
+func (m *ResponseRecursoD) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_ResponseRecursoD.Unmarshal(m, b)
+}
+func (m *ResponseRecursoD) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_ResponseRecursoD.Marshal(b, m, deterministic)
+}
+func (m *ResponseRecursoD) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_ResponseRecursoD.Merge(m, src)
+}
+func (m *ResponseRecursoD) XXX_Size() int {
+	return xxx_messageInfo_ResponseRecursoD.Size(m)
+}
+func (m *ResponseRecursoD) XXX_DiscardUnknown() {
+	xxx_messageInfo_ResponseRecursoD.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_ResponseRecursoD proto.InternalMessageInfo
+
+func (m *ResponseRecursoD) GetEstado() int32 {
+	if m != nil {
+		return m.Estado
+	}
+	return 0
+}
+
 func init() {
 	proto.RegisterType((*Request_UploadBook)(nil), "comms.Request_UploadBook")
 	proto.RegisterType((*Response_UploadBook)(nil), "comms.Response_UploadBook")
-	proto.RegisterType((*Request_DownloadBook)(nil), "comms.Request_DownloadBook")
-	proto.RegisterType((*Response_DownloadBook)(nil), "comms.Response_DownloadBook")
 	proto.RegisterType((*Request_Distribuir)(nil), "comms.Request_Distribuir")
 	proto.RegisterType((*Response_Distribuir)(nil), "comms.Response_Distribuir")
 	proto.RegisterType((*Request_Estado_M)(nil), "comms.Request_Estado_M")
 	proto.RegisterType((*Response_Estado_M)(nil), "comms.Response_Estado_M")
 	proto.RegisterType((*Request_Chunk)(nil), "comms.Request_Chunk")
 	proto.RegisterType((*Response_Chunk)(nil), "comms.Response_Chunk")
+	proto.RegisterType((*Request_WriteD)(nil), "comms.Request_Write_d")
+	proto.RegisterType((*Response_WriteD)(nil), "comms.Response_Write_d")
+	proto.RegisterType((*Request_PropuestaD)(nil), "comms.Request_Propuesta_d")
+	proto.RegisterType((*Response_PropuestaD)(nil), "comms.Response_Propuesta_d")
+	proto.RegisterType((*RequestRecurdoD)(nil), "comms.Request_recurdo_d")
+	proto.RegisterType((*ResponseRecursoD)(nil), "comms.Response_recurso_d")
 }
 
 func init() {
@@ -448,30 +608,38 @@ func init() {
 }
 
 var fileDescriptor_db39efb7717b7d47 = []byte{
-	// 368 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x09, 0x6e, 0x88, 0x02, 0xff, 0x94, 0x93, 0xcb, 0x4e, 0xf2, 0x40,
-	0x14, 0xc7, 0x0b, 0xdf, 0x57, 0xa2, 0x47, 0x20, 0x32, 0x72, 0xa9, 0xd5, 0x85, 0x99, 0x8d, 0x44,
-	0x13, 0x16, 0xfa, 0x00, 0x26, 0x02, 0x2b, 0x65, 0x53, 0x75, 0x4d, 0x86, 0x76, 0x12, 0x27, 0x40,
-	0xa7, 0x74, 0xa6, 0xf1, 0xb5, 0x7d, 0x04, 0xdb, 0xe9, 0x6d, 0x18, 0x34, 0xc6, 0x5d, 0xcf, 0x25,
-	0xbf, 0xf3, 0x3f, 0xe7, 0x3f, 0x85, 0x13, 0x9f, 0x6f, 0xb7, 0x62, 0x12, 0xc5, 0x5c, 0x72, 0x64,
-	0xab, 0x00, 0x47, 0x80, 0x3c, 0xba, 0x4b, 0xa8, 0x90, 0xcb, 0xb7, 0x68, 0xc3, 0x49, 0xf0, 0xc8,
-	0xf9, 0x1a, 0x0d, 0xa1, 0xe5, 0xbf, 0x27, 0xe1, 0x5a, 0x38, 0x8d, 0xab, 0xc6, 0xb8, 0xed, 0x15,
-	0x51, 0x96, 0x0f, 0xf9, 0x76, 0x15, 0x53, 0xa7, 0x99, 0xe6, 0x8f, 0xbd, 0x22, 0x42, 0x2e, 0x1c,
-	0xf9, 0x24, 0x94, 0x2c, 0x20, 0x81, 0xf3, 0x2f, 0xad, 0xd8, 0x5e, 0x15, 0xa3, 0x2e, 0x34, 0x59,
-	0xe0, 0xfc, 0x57, 0xd9, 0xf4, 0x0b, 0xdf, 0xc2, 0x99, 0x47, 0x45, 0xc4, 0x43, 0x41, 0xf5, 0x91,
-	0x7d, 0xb0, 0x85, 0x24, 0x92, 0xaa, 0x89, 0xb6, 0x97, 0x07, 0x78, 0x08, 0xfd, 0x52, 0xde, 0x8c,
-	0x7f, 0x84, 0x65, 0x37, 0x1e, 0xc1, 0xa0, 0x82, 0xec, 0x15, 0x5e, 0xeb, 0x7d, 0x66, 0x4c, 0xc8,
-	0x98, 0xad, 0x12, 0x16, 0xff, 0x79, 0x1f, 0x53, 0xf3, 0x40, 0xd3, 0x5c, 0x63, 0xf1, 0x0d, 0x9c,
-	0x96, 0xc3, 0xe6, 0xa9, 0xde, 0x80, 0x2f, 0x17, 0x19, 0x92, 0xaa, 0xef, 0x62, 0x91, 0x22, 0x4a,
-	0xd7, 0xee, 0x55, 0x88, 0x5f, 0x9b, 0xaf, 0xa1, 0x53, 0x82, 0xa7, 0x99, 0xd2, 0x9f, 0x84, 0xe2,
-	0x31, 0x74, 0x2b, 0x6a, 0xd5, 0xf9, 0xdd, 0xaa, 0x77, 0x9f, 0x4d, 0xb0, 0xa7, 0x99, 0xe5, 0x68,
-	0x0e, 0xa0, 0xdd, 0xfd, 0x7c, 0x92, 0xbf, 0x8a, 0xc3, 0x57, 0xe0, 0xba, 0x55, 0xe9, 0xc0, 0x2e,
-	0x6c, 0xa1, 0x27, 0x68, 0xeb, 0x97, 0x47, 0x17, 0x06, 0x48, 0x2f, 0xba, 0x97, 0x26, 0x6a, 0xcf,
-	0x34, 0x0b, 0x3d, 0x43, 0xaf, 0xbe, 0xeb, 0xb2, 0x70, 0xc7, 0x94, 0x56, 0x77, 0x1c, 0x4a, 0xd3,
-	0x5c, 0xb1, 0xd0, 0x0c, 0x3a, 0xf9, 0x89, 0x17, 0x64, 0x97, 0xb0, 0x90, 0xa0, 0x91, 0x41, 0x2a,
-	0x0d, 0x70, 0x1d, 0x93, 0x53, 0x56, 0x52, 0xca, 0x03, 0x74, 0x5f, 0xf8, 0x86, 0xf9, 0x4c, 0x92,
-	0x38, 0xbf, 0x6d, 0xdf, 0xc0, 0xa8, 0xac, 0x3b, 0x30, 0x19, 0x2a, 0x8d, 0xad, 0x55, 0x4b, 0xfd,
-	0x69, 0xf7, 0x5f, 0x01, 0x00, 0x00, 0xff, 0xff, 0x8f, 0xc0, 0x95, 0xf8, 0x78, 0x03, 0x00, 0x00,
+	// 481 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x09, 0x6e, 0x88, 0x02, 0xff, 0x9c, 0x94, 0xc1, 0x6e, 0xd4, 0x30,
+	0x10, 0x86, 0xb7, 0xa5, 0xa9, 0xd8, 0x69, 0xbb, 0xb0, 0x66, 0xdb, 0xa6, 0x86, 0x03, 0xf2, 0x85,
+	0x0a, 0xd0, 0x1e, 0xe8, 0x1d, 0x24, 0x9a, 0x85, 0x4b, 0x2b, 0x55, 0x01, 0xc4, 0x31, 0xca, 0x26,
+	0x16, 0x58, 0x6d, 0xe2, 0xd4, 0x71, 0x9e, 0x8e, 0x97, 0xc3, 0x76, 0x6c, 0x27, 0xf2, 0xb2, 0x20,
+	0x7a, 0xcb, 0x8c, 0x67, 0xbe, 0xf9, 0xed, 0xf9, 0x15, 0x38, 0x28, 0x78, 0x55, 0xb5, 0xcb, 0x46,
+	0x70, 0xc9, 0x51, 0x64, 0x02, 0xd2, 0x00, 0x4a, 0xe9, 0x7d, 0x47, 0x5b, 0x99, 0x7d, 0x6b, 0xee,
+	0x78, 0x5e, 0x7e, 0xe4, 0xfc, 0x16, 0x9d, 0xc0, 0x7e, 0xf1, 0xb3, 0xab, 0x6f, 0xdb, 0x78, 0xe7,
+	0xe5, 0xce, 0xf9, 0x61, 0x6a, 0x23, 0x9d, 0xaf, 0x79, 0xb5, 0x16, 0x34, 0xde, 0x55, 0xf9, 0x69,
+	0x6a, 0x23, 0x84, 0xe1, 0x71, 0x91, 0xd7, 0x92, 0x95, 0x79, 0x19, 0x3f, 0x52, 0x27, 0x51, 0xea,
+	0x63, 0x34, 0x83, 0x5d, 0x56, 0xc6, 0x7b, 0x26, 0xab, 0xbe, 0xc8, 0x1b, 0x78, 0x96, 0xd2, 0xb6,
+	0xe1, 0x75, 0x4b, 0xc7, 0x23, 0x17, 0x10, 0xb5, 0x32, 0x97, 0xd4, 0x4c, 0x8c, 0xd2, 0x3e, 0x20,
+	0x5f, 0x07, 0x79, 0x09, 0x6b, 0xa5, 0x60, 0xeb, 0x8e, 0x89, 0xff, 0x96, 0x17, 0x4a, 0x38, 0x1e,
+	0x49, 0x18, 0xb0, 0xe4, 0x35, 0x3c, 0x75, 0xc3, 0x56, 0x6a, 0x7c, 0xc9, 0xb3, 0x6b, 0x8d, 0xa4,
+	0xe6, 0xdb, 0xea, 0xb2, 0x91, 0xba, 0xc5, 0xdc, 0x23, 0xfe, 0x59, 0xfc, 0x0a, 0x8e, 0x1c, 0xf8,
+	0x52, 0x2b, 0xdd, 0x26, 0x94, 0x9c, 0xc3, 0xcc, 0x53, 0x7d, 0xe5, 0x9f, 0xae, 0x4a, 0xe6, 0xf0,
+	0xc4, 0x21, 0xbf, 0x0b, 0x26, 0x69, 0x56, 0x12, 0xa4, 0xe5, 0xdb, 0x66, 0x97, 0xbb, 0xd0, 0x37,
+	0xed, 0xcb, 0x6e, 0x04, 0x6f, 0xf4, 0x47, 0x9e, 0x95, 0xe8, 0x05, 0x4c, 0x1b, 0x17, 0x1a, 0xf0,
+	0x34, 0x1d, 0x12, 0x64, 0x09, 0x0b, 0x0f, 0x1a, 0x77, 0xfd, 0xf5, 0x2d, 0xfa, 0x21, 0x82, 0x16,
+	0x9d, 0x50, 0x6f, 0x61, 0x8a, 0x25, 0xa3, 0x55, 0xc3, 0x2d, 0xdf, 0x46, 0xe4, 0xad, 0xde, 0xa8,
+	0x85, 0x9b, 0xea, 0x96, 0x6f, 0x47, 0xbf, 0xfb, 0xb5, 0x07, 0xd1, 0xa5, 0x36, 0x2a, 0x5a, 0x01,
+	0x8c, 0xdc, 0x72, 0xb6, 0xec, 0xbd, 0xbc, 0xe9, 0x5d, 0x8c, 0xfd, 0xd1, 0x86, 0xc9, 0xc8, 0x04,
+	0x5d, 0xc1, 0x7c, 0xd8, 0x78, 0x66, 0x7d, 0x13, 0xd2, 0x86, 0x8a, 0x4d, 0xda, 0xc8, 0x2f, 0x13,
+	0x94, 0xc0, 0x51, 0xbf, 0xfc, 0xeb, 0xfc, 0xbe, 0x63, 0x75, 0x8e, 0x4e, 0x03, 0x92, 0xb3, 0x06,
+	0x8e, 0x43, 0x8e, 0x3b, 0x51, 0x94, 0x0f, 0x30, 0xfb, 0xc2, 0xef, 0x58, 0xc1, 0x64, 0x2e, 0xfa,
+	0xad, 0x2f, 0x02, 0x8c, 0xc9, 0xe2, 0xe3, 0x90, 0x61, 0xd2, 0x0a, 0xf0, 0x1e, 0xa6, 0x66, 0xe1,
+	0x57, 0xfc, 0x47, 0x82, 0x4e, 0x82, 0x5e, 0x6b, 0x05, 0x7c, 0x1a, 0x76, 0x3b, 0x8f, 0x4c, 0xd0,
+	0x67, 0x00, 0xbf, 0xe7, 0x04, 0xe1, 0x00, 0x30, 0xb2, 0x00, 0x7e, 0x1e, 0x42, 0x46, 0x87, 0x0a,
+	0xf4, 0x09, 0x0e, 0x86, 0xd7, 0x4e, 0x1e, 0xbe, 0xa5, 0x15, 0x1c, 0xde, 0xd0, 0x92, 0x89, 0xb4,
+	0x37, 0x08, 0x8a, 0x03, 0x90, 0xb7, 0x19, 0x3e, 0x0b, 0x39, 0xde, 0x53, 0x64, 0xb2, 0xde, 0x37,
+	0xbf, 0xba, 0x8b, 0xdf, 0x01, 0x00, 0x00, 0xff, 0xff, 0xdd, 0x72, 0x93, 0xf8, 0xf9, 0x04, 0x00,
+	0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -487,10 +655,13 @@ const _ = grpc.SupportPackageIsVersion6
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
 type CommsClient interface {
 	UploadBook(ctx context.Context, in *Request_UploadBook, opts ...grpc.CallOption) (*Response_UploadBook, error)
-	DownloadBook(ctx context.Context, in *Request_DownloadBook, opts ...grpc.CallOption) (*Response_DownloadBook, error)
 	DistribuirChunks(ctx context.Context, in *Request_Distribuir, opts ...grpc.CallOption) (*Response_Distribuir, error)
 	EstadoMaquina(ctx context.Context, in *Request_Estado_M, opts ...grpc.CallOption) (*Response_Estado_M, error)
 	SolicitarChunk(ctx context.Context, in *Request_Chunk, opts ...grpc.CallOption) (*Response_Chunk, error)
+	WriteLogD(ctx context.Context, in *Request_WriteD, opts ...grpc.CallOption) (*Response_WriteD, error)
+	PropuestaD(ctx context.Context, in *Request_PropuestaD, opts ...grpc.CallOption) (*Response_PropuestaD, error)
+	UploadBookD(ctx context.Context, in *Request_UploadBook, opts ...grpc.CallOption) (*Response_UploadBook, error)
+	PedirRecurso(ctx context.Context, in *RequestRecurdoD, opts ...grpc.CallOption) (*ResponseRecursoD, error)
 }
 
 type commsClient struct {
@@ -504,15 +675,6 @@ func NewCommsClient(cc grpc.ClientConnInterface) CommsClient {
 func (c *commsClient) UploadBook(ctx context.Context, in *Request_UploadBook, opts ...grpc.CallOption) (*Response_UploadBook, error) {
 	out := new(Response_UploadBook)
 	err := c.cc.Invoke(ctx, "/comms.Comms/UploadBook", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *commsClient) DownloadBook(ctx context.Context, in *Request_DownloadBook, opts ...grpc.CallOption) (*Response_DownloadBook, error) {
-	out := new(Response_DownloadBook)
-	err := c.cc.Invoke(ctx, "/comms.Comms/DownloadBook", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -546,13 +708,52 @@ func (c *commsClient) SolicitarChunk(ctx context.Context, in *Request_Chunk, opt
 	return out, nil
 }
 
+func (c *commsClient) WriteLogD(ctx context.Context, in *Request_WriteD, opts ...grpc.CallOption) (*Response_WriteD, error) {
+	out := new(Response_WriteD)
+	err := c.cc.Invoke(ctx, "/comms.Comms/WriteLogD", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *commsClient) PropuestaD(ctx context.Context, in *Request_PropuestaD, opts ...grpc.CallOption) (*Response_PropuestaD, error) {
+	out := new(Response_PropuestaD)
+	err := c.cc.Invoke(ctx, "/comms.Comms/PropuestaD", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *commsClient) UploadBookD(ctx context.Context, in *Request_UploadBook, opts ...grpc.CallOption) (*Response_UploadBook, error) {
+	out := new(Response_UploadBook)
+	err := c.cc.Invoke(ctx, "/comms.Comms/UploadBookD", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *commsClient) PedirRecurso(ctx context.Context, in *RequestRecurdoD, opts ...grpc.CallOption) (*ResponseRecursoD, error) {
+	out := new(ResponseRecursoD)
+	err := c.cc.Invoke(ctx, "/comms.Comms/PedirRecurso", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // CommsServer is the server API for Comms service.
 type CommsServer interface {
 	UploadBook(context.Context, *Request_UploadBook) (*Response_UploadBook, error)
-	DownloadBook(context.Context, *Request_DownloadBook) (*Response_DownloadBook, error)
 	DistribuirChunks(context.Context, *Request_Distribuir) (*Response_Distribuir, error)
 	EstadoMaquina(context.Context, *Request_Estado_M) (*Response_Estado_M, error)
 	SolicitarChunk(context.Context, *Request_Chunk) (*Response_Chunk, error)
+	WriteLogD(context.Context, *Request_WriteD) (*Response_WriteD, error)
+	PropuestaD(context.Context, *Request_PropuestaD) (*Response_PropuestaD, error)
+	UploadBookD(context.Context, *Request_UploadBook) (*Response_UploadBook, error)
+	PedirRecurso(context.Context, *RequestRecurdoD) (*ResponseRecursoD, error)
 }
 
 // UnimplementedCommsServer can be embedded to have forward compatible implementations.
@@ -562,9 +763,6 @@ type UnimplementedCommsServer struct {
 func (*UnimplementedCommsServer) UploadBook(ctx context.Context, req *Request_UploadBook) (*Response_UploadBook, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UploadBook not implemented")
 }
-func (*UnimplementedCommsServer) DownloadBook(ctx context.Context, req *Request_DownloadBook) (*Response_DownloadBook, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method DownloadBook not implemented")
-}
 func (*UnimplementedCommsServer) DistribuirChunks(ctx context.Context, req *Request_Distribuir) (*Response_Distribuir, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DistribuirChunks not implemented")
 }
@@ -573,6 +771,18 @@ func (*UnimplementedCommsServer) EstadoMaquina(ctx context.Context, req *Request
 }
 func (*UnimplementedCommsServer) SolicitarChunk(ctx context.Context, req *Request_Chunk) (*Response_Chunk, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SolicitarChunk not implemented")
+}
+func (*UnimplementedCommsServer) WriteLogD(ctx context.Context, req *Request_WriteD) (*Response_WriteD, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method WriteLogD not implemented")
+}
+func (*UnimplementedCommsServer) PropuestaD(ctx context.Context, req *Request_PropuestaD) (*Response_PropuestaD, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method PropuestaD not implemented")
+}
+func (*UnimplementedCommsServer) UploadBookD(ctx context.Context, req *Request_UploadBook) (*Response_UploadBook, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UploadBookD not implemented")
+}
+func (*UnimplementedCommsServer) PedirRecurso(ctx context.Context, req *RequestRecurdoD) (*ResponseRecursoD, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method PedirRecurso not implemented")
 }
 
 func RegisterCommsServer(s *grpc.Server, srv CommsServer) {
@@ -593,24 +803,6 @@ func _Comms_UploadBook_Handler(srv interface{}, ctx context.Context, dec func(in
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(CommsServer).UploadBook(ctx, req.(*Request_UploadBook))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _Comms_DownloadBook_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(Request_DownloadBook)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(CommsServer).DownloadBook(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/comms.Comms/DownloadBook",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(CommsServer).DownloadBook(ctx, req.(*Request_DownloadBook))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -669,6 +861,78 @@ func _Comms_SolicitarChunk_Handler(srv interface{}, ctx context.Context, dec fun
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Comms_WriteLogD_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(Request_WriteD)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CommsServer).WriteLogD(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/comms.Comms/WriteLogD",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CommsServer).WriteLogD(ctx, req.(*Request_WriteD))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Comms_PropuestaD_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(Request_PropuestaD)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CommsServer).PropuestaD(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/comms.Comms/PropuestaD",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CommsServer).PropuestaD(ctx, req.(*Request_PropuestaD))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Comms_UploadBookD_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(Request_UploadBook)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CommsServer).UploadBookD(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/comms.Comms/UploadBookD",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CommsServer).UploadBookD(ctx, req.(*Request_UploadBook))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Comms_PedirRecurso_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(RequestRecurdoD)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CommsServer).PedirRecurso(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/comms.Comms/PedirRecurso",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CommsServer).PedirRecurso(ctx, req.(*RequestRecurdoD))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 var _Comms_serviceDesc = grpc.ServiceDesc{
 	ServiceName: "comms.Comms",
 	HandlerType: (*CommsServer)(nil),
@@ -676,10 +940,6 @@ var _Comms_serviceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "UploadBook",
 			Handler:    _Comms_UploadBook_Handler,
-		},
-		{
-			MethodName: "DownloadBook",
-			Handler:    _Comms_DownloadBook_Handler,
 		},
 		{
 			MethodName: "Distribuir_chunks",
@@ -692,6 +952,22 @@ var _Comms_serviceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "SolicitarChunk",
 			Handler:    _Comms_SolicitarChunk_Handler,
+		},
+		{
+			MethodName: "WriteLogD",
+			Handler:    _Comms_WriteLogD_Handler,
+		},
+		{
+			MethodName: "PropuestaD",
+			Handler:    _Comms_PropuestaD_Handler,
+		},
+		{
+			MethodName: "UploadBookD",
+			Handler:    _Comms_UploadBookD_Handler,
+		},
+		{
+			MethodName: "PedirRecurso",
+			Handler:    _Comms_PedirRecurso_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
