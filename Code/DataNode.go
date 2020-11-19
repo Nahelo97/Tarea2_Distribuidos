@@ -263,7 +263,7 @@ func permisos_d(propuesta string)(bool){
     }else{
       defer conn.Close()
       c:=comms.NewCommsClient(conn)
-      response,error:=c.PedirRecurso(context.Background(),&comms.Request_recurdo_d{Timepo:tiempo_p})
+      response,error:=c.PedirRecurso(context.Background(),&comms.Request_recurdo_d{Timepo:tiempo_p.String()})
     }
   }
   state="HELD"
@@ -284,7 +284,9 @@ func permisos_d(propuesta string)(bool){
   return false
 }
 func (s* Server) PedirRecurso(ctx context.Context, request *comms.Request_recurdo_d) (*comms.Response_recurso_d, error){
-  for ;(state=="HELD"||(state=="WANTED" && tiempo_p.Before(request.Tiempo))); {
+  layout := "Mon Jan 02 2006 15:04:05 GMT-0700"
+	t, _ := time.Parse(layout, request.Tiempo)
+  for ;(state=="HELD"||(state=="WANTED" && tiempo_p.Before(t))); {
     Log.Debug(state)
   }
   return &comms.Response_recurso_d{Estado:int32(1)}, nil

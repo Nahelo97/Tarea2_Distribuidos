@@ -46,7 +46,7 @@ int32 estado = 1;
 }
 
 message Request_recurdo_d {
-time tiempo = 1;
+string tiempo = 1;
 }
 message Response_recurso_d {
 int32 estado = 1;
