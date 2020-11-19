@@ -95,7 +95,6 @@ func proponer (conn *grpc.ClientConn, chunks int, name string) (int,string) {
   return aux,propuesta
 }
 func ProponerD (chunks int, name string) (int,string) {
-  var aceptado=false
   var propuesta string
   var ctdad_chunks string
   var aux int
@@ -263,7 +262,7 @@ func permisos_d(propuesta string)(bool){
     }else{
       defer conn.Close()
       c:=comms.NewCommsClient(conn)
-      response,error:=c.PedirRecurso(context.Background(),&comms.Request_RecursoD{Tiempo:tiempo_p.String()})
+      _,_:=c.PedirRecurso(context.Background(),&comms.Request_RecursoD{Tiempo:tiempo_p.String()})
     }
   }
   state="HELD"
