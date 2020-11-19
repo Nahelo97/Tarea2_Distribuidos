@@ -262,7 +262,7 @@ func permisos_d(propuesta string)(bool){
     }else{
       defer conn.Close()
       c:=comms.NewCommsClient(conn)
-      _,_:=c.PedirRecurso(context.Background(),&comms.Request_RecursoD{Tiempo:tiempo_p.String()})
+      c.PedirRecurso(context.Background(),&comms.Request_RecursoD{Tiempo:tiempo_p.String()})
     }
   }
   state="HELD"
