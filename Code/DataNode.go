@@ -153,9 +153,9 @@ func verificar_maquinas (propuesta string) (bool){
 func (s* Server) PropuestaD(ctx context.Context, request *comms.Request_PropuestaD) (*comms.Response_PropuestaD, error) {
   tasa := rand.Intn(10)
   if (tasa < 1) {
-    return &comms2.Response_PropuestaD{Estado:int32(0),}, nil
+    return &comms.Response_PropuestaD{Estado:int32(0),}, nil
   }
-  return &comms2.Response_PropuestaD{Estado:int32(1),}, nil
+  return &comms.Response_PropuestaD{Estado:int32(1),}, nil
 }
 func read_chunk(archivo string)([]byte){
   file, err := os.Open("./temp/node/"+archivo)
@@ -259,11 +259,11 @@ func permisos_d(propuesta string)(bool){
     maquina:=strconv.Itoa(i)
     conn, err := grpc.Dial("dist"+maquina+":9000", grpc.WithInsecure())
     if err != nil {
-      Log.Debug(i)
+      log.Printf(i)
     }else{
       defer conn.Close()
       c:=comms.NewCommsClient(conn)
-      response,error:=c.PedirRecurso(context.Background(),&comms.Request_recurdo_d{Timepo:tiempo_p.String()})
+      response,error:=c.PedirRecurso(context.Background(),&comms.Request_recurdoD{Timepo:tiempo_p.String()})
     }
   }
   state="HELD"
@@ -272,8 +272,8 @@ func permisos_d(propuesta string)(bool){
     Log.Fatal("ay :c")
   }else{
     defer conn.Close()
-    c:=comms2.NewCommsClient(conn)
-    respuesta,errores:=c.Propuesta_D(context.Background(),&comm2.Request_Propuesta{Propuesta:propuesta})
+    c:=comms2.NewComms2Client(conn)
+    respuesta,errores:=c.Propuesta_D(context.Background(),&comms2.Request_Propuesta{Propuesta:propuesta})
     state  = "RELEASED"
     if(errores!=nil){
       Log.Fatal("ay x2 :c")
