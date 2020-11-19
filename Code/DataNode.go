@@ -124,7 +124,7 @@ func ProponerD (chunks int, name string) (int,string) {
     estado,_ := c.PropuestaD(context.Background(),&comms.Request_PropuestaD{Propuesta: propuesta,})
     aux=int(estado.Estado)
     log.Printf(propuesta)
-    if(int32(estado)!=1){
+    if(aux!=1){
       i=92
     }
   }
@@ -263,7 +263,7 @@ func permisos_d(propuesta string)(bool){
     }else{
       defer conn.Close()
       c:=comms.NewCommsClient(conn)
-      response,error:=c.PedirRecurso(context.Background(),&comms.Request_recursoD{Timepo:tiempo_p.String()})
+      response,error:=c.PedirRecurso(context.Background(),&comms.Request_RecursoD{Timepo:tiempo_p.String()})
     }
   }
   state="HELD"
@@ -285,13 +285,13 @@ func permisos_d(propuesta string)(bool){
   }
   return false
 }
-func (s* Server) PedirRecurso(ctx context.Context, request *comms.Request_recursoD) (*comms.Response_recursoD, error){
+func (s* Server) PedirRecurso(ctx context.Context, request *comms.Request_RecursoD) (*comms.Response_RecursoD, error){
   layout := "Mon Jan 02 2006 15:04:05 GMT-0700"
 	t, _ := time.Parse(layout, request.Tiempo)
   for ;(state=="HELD"||(state=="WANTED" && tiempo_p.Before(t))); {
-    Log.Debug(state)
+    log.Debug(state)
   }
-  return &comms.Response_recursoD{Estado:int32(1)}, nil
+  return &comms.Response_RecursoD{Estado:int32(1)}, nil
 }
 func (s* Server) DistribuirChunks(ctx context.Context, request *comms.Request_Distribuir) (*comms.Response_Distribuir, error){
   log.Printf("guardar chunk:")
