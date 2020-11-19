@@ -269,15 +269,17 @@ func permisos_d(propuesta string)(bool){
   if err != nil {
     Log.Fatal("ay :c")
   }else{
-  defer conn.Close()
-  c:=comms2.NewCommsClient(conn)
-  respuesta,errores:=c.Propuesta_D(context.Background(),&comm2.Request_Propuesta{Propuesta:propuesta})
-  state  = "RELEASED"
-  if(errores!=nil){
-    Log.Fatal("ay x2 :c")
-  }
-  if(int32(respuesta.Estado)==1){
-    return true
+    defer conn.Close()
+    c:=comms2.NewCommsClient(conn)
+    respuesta,errores:=c.Propuesta_D(context.Background(),&comm2.Request_Propuesta{Propuesta:propuesta})
+    state  = "RELEASED"
+    if(errores!=nil){
+      Log.Fatal("ay x2 :c")
+    }
+    if(int32(respuesta.Estado)==1){
+      return true
+    }
+    return false
   }
   return false
 }
