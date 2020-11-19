@@ -20,7 +20,6 @@ type Server struct{
 }
 var tiempo_p time =time.Now()
 var state string = "RELEASED"
-
 func fileExists(filename string) bool {
     info, err := os.Stat(filename)
     if os.IsNotExist(err) {
@@ -120,17 +119,16 @@ func ProponerD (chunks int, name string) (int,string) {
     }
     defer conn.Close()
     c:=comms.NewCommsClient(conn)
-    estado,_ := c.PropuestaD(context.Background(),&comms.Request_Propuesta_d{
-    Propuesta: propuesta,})
+    estado,_ := c.PropuestaD(context.Background(),&comms.Request_Propuesta_d{Propuesta: propuesta,})
     aux=int(estado.Estado)
     log.Printf(propuesta)
     if(int32(estado)!=1){
       i=92
     }
+  }
   return aux,propuesta
 }
-
-func verificar_maquinas(propuesta string)(bool){
+func verificar_maquinas (propuesta string) (bool){
   lineas:=strings.Split(propuesta,"\n")
   cantidad,_:=strconv.Atoi(strings.Split(lineas[0]," ")[1])
   for i:=0;i<cantidad;i++{
