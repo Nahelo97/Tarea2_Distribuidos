@@ -144,6 +144,24 @@ func (s* Server) Propuesta(ctx context.Context, request *comms2.Request_Propuest
   return &comms2.Response_Propuesta{Estado:int32(1),}, nil
 }
 
+func (s* Server) Propuesta_D(ctx context.Context, request *comms2.Request_Propuesta) (*comms2.Response_Propuesta, error) {
+  cosa:=strings.Split(request.Propuesta,"\n")[0]
+  cosa=strings.Split(cosa," ")[0]
+  if(revisar_copia(cosa)){
+    return &comms2.Response_Propuesta{Estado:int32(2),}, nil
+  }
+  file, err := os.OpenFile("./temp/nameNode/log.txt", os.O_WRONLY|os.O_APPEND, 0644)
+  if err != nil {
+    log.Fatalf("failed opening file: %s", err)
+  }
+  defer file.Close()
+  _, err = file.WriteString(request.Propuesta)
+  if err != nil {
+    log.Fatalf("failed writing to file: %s", err)
+  }
+  return &comms2.Response_Propuesta{Estado:int32(1),}, nil
+}
+
 func remover(){
   var files []string
   root := "./temp/nameNode/"

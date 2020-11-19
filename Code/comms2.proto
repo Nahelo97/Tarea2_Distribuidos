@@ -39,4 +39,5 @@ service Comms2 {
   rpc Propuesta(Request_Propuesta) returns (Response_Propuesta) {}
   rpc Catalogo(Request_Catalogo) returns (Response_Catalogo) {}
   rpc Pedir_Libro(Request_Libro) returns (Response_Libro) {}
+  rpc Propuesta_D(Request_Propuesta) returns (Response_Propuesta){}
 }

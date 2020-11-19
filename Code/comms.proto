@@ -45,6 +45,13 @@ message Response_Propuesta_d {
 int32 estado = 1;
 }
 
+message Request_recurdo_d {
+time tiempo = 1;
+}
+message Response_recurso_d {
+int32 estado = 1;
+}
+
 service Comms {
  rpc UploadBook(Request_UploadBook) returns (Response_UploadBook) {}
  rpc Distribuir_chunks(Request_Distribuir) returns (Response_Distribuir) {}
@@ -52,4 +59,6 @@ service Comms {
  rpc SolicitarChunk(Request_Chunk) returns (Response_Chunk) {}
  rpc WriteLogD(Request_Write_d) returns (Response_Write_d) {}
  rpc PropuestaD(Request_Propuesta_d) returns (Response_Propuesta_d) {}
+ rpc UploadBookD(Request_UploadBook) returns (Response_UploadBook) {}
+ rpc PedirRecurso(Request_recurdo_d) returns (Response_recurso_d){}
 }

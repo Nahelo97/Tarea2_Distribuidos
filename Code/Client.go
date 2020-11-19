@@ -100,7 +100,7 @@ func read_chunk(archivo string,numero int)([]byte){
   return content
 }
 
-func subir_libro(conn *grpc.ClientConn){
+func subir_libro(conn *grpc.ClientConn,tipo int){
   c:=comms.NewCommsClient(conn)
   ver_libros_para_subir()
   var libro int
@@ -114,13 +114,18 @@ func subir_libro(conn *grpc.ClientConn){
   var chunks int
   chunks=splitter(archivo)
   for i:=1;i<=chunks;i++{
-    response,_:=c.UploadBook(context.Background(),&comms.Request_UploadBook{
-      Chunks:read_chunk(archivo,i),
-      Nombre:archivo,
-      Cantidad:int32(chunks),
-      Id:int32(i),})
-    if(response.State==2){
-      log.Printf("Este libro ya existe")
+    if(tipo==1){
+      response,_:=c.UploadBook(context.Background(),&comms.Request_UploadBook{
+        Chunks:read_chunk(archivo,i),
+        Nombre:archivo,
+        Cantidad:int32(chunks),
+        Id:int32(i),})
+    }else{
+      response,_:=c.UploadBookD(context.Background(),&comms.Request_UploadBook{
+        Chunks:read_chunk(archivo,i),
+        Nombre:archivo,
+        Cantidad:int32(chunks),
+        Id:int32(i),})
     }
   }
 }
@@ -393,20 +398,23 @@ func main(){
   for;flag;{
     remover(false)
     log.Printf("\nBienvenido! Ingrese una opción")
-    log.Printf("1-Subir Libro")
-    log.Printf("2-Descargar Libro")
-    log.Printf("3-Ver Libros Descargados")
-    log.Printf("4-Salir")
+    log.Printf("1-Subir Libro (Centralizado)")
+    log.Printf("2-Subir Libro (Distribuido)")
+    log.Printf("3-Descargar Libro")
+    log.Printf("4-Ver Libros Descargados")
+    log.Printf("5-Salir")
     fmt.Scanln(&accion)
     //remover()
     switch accion {
     case 1:
-      subir_libro(conn)
+      subir_libro(conn,accion)
     case 2:
-      bajar_libro()
+      subir_libro(conn,accion)
     case 3:
-      ver_libros_descargados()
+      bajar_libro()
     case 4:
+      ver_libros_descargados()
+    case 5:
       flag=false
     }
   }
