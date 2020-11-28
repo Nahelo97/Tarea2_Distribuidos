@@ -117,13 +117,18 @@ func ProponerD (chunks int, name string) (int,string) {
     log.Printf("hola : %d",i)
     maquina:=strconv.Itoa(i)
     conn, err := grpc.Dial("dist"+maquina+":9000", grpc.WithInsecure())
+    log.Printf("hola : %s",err)
+    log.Printf("hola : %+v",conn)
     if err != nil {
       //log.Fatalf("did not connect: %s", err)
     }else{
       defer conn.Close()
+      log.Printf("hola :1")
       c:=comms.NewCommsClient(conn)
+      log.Printf("hola :2")
       estado,_ := c.PropuestaD(context.Background(),&comms.Request_PropuestaD{Propuesta: propuesta,})
       mensajes += 1
+      log.Printf("hola :3")
       aux=int(estado.Estado)
       log.Printf(propuesta)
       if(aux!=1){
