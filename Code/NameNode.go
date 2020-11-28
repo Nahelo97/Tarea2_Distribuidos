@@ -102,6 +102,7 @@ func (s* Server) Pedir_Libro(ctx context.Context, request *comms2.Request_Libro)
 func verificar_maquinas(propuesta string)(bool){
   lineas:=strings.Split(propuesta,"\n")
   cantidad,_:=strconv.Atoi(strings.Split(lineas[0]," ")[1])
+  mensajes:= 0
   for i:=0;i<cantidad;i++{
     maquina:=strings.Split(lineas[i+1]," ")[1]
     conn, err := grpc.Dial(maquina+":9000", grpc.WithInsecure())
@@ -111,7 +112,9 @@ func verificar_maquinas(propuesta string)(bool){
     defer conn.Close()
     c:=comms.NewCommsClient(conn)
     response,error:=c.EstadoMaquina(context.Background(),&comms.Request_Estado_M{})
+    mensajes += 1
     log.Printf("respuesta de maquina %s: %+v",maquina,response)
+    log.Printf("Mensajes NameNode-DataNode: %s", mensajes)
     if(error!=nil || int(response.Estado)!=7734){
       return true
     }

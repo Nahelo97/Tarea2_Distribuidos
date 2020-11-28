@@ -92,12 +92,14 @@ func proponer (conn *grpc.ClientConn, chunks int, name string) (int,string) {
     Propuesta: propuesta,})
   aux:=int(estado.Estado)
   log.Printf(propuesta)
+  log.Printf("+1 mensaje DataNode-NameNode")
   return aux,propuesta
 }
 func ProponerD (chunks int, name string) (int,string) {
   var propuesta string
   var ctdad_chunks string
   var aux int
+  mensajes := 0
   for i:=93;i<96;i++{
     if(i==93){
       ctdad_chunks = strconv.Itoa(chunks)
@@ -120,21 +122,22 @@ func ProponerD (chunks int, name string) (int,string) {
     }
     defer conn.Close()
     c:=comms.NewCommsClient(conn)
-    log.Printf("ojo aqui1")
     estado,_ := c.PropuestaD(context.Background(),&comms.Request_PropuestaD{Propuesta: propuesta,})
-    log.Printf("ojo aqui2")
+    mensajes += 1
     aux=int(estado.Estado)
-    log.Printf("ojo aqui3")
     log.Printf(propuesta)
     if(aux!=1){
       i=92
     }
   }
+  log.Printf("+1 mensaje DataNode-NameNode")
+
   return aux,propuesta
 }
 func verificar_maquinas (propuesta string) (bool){
   lineas:=strings.Split(propuesta,"\n")
   cantidad,_:=strconv.Atoi(strings.Split(lineas[0]," ")[1])
+  mensajes := 0
   for i:=0;i<cantidad;i++{
     maquina:=strings.Split(lineas[i+1]," ")[1]
     conn, err := grpc.Dial(maquina+":9000", grpc.WithInsecure())
@@ -144,7 +147,9 @@ func verificar_maquinas (propuesta string) (bool){
     defer conn.Close()
     c:=comms.NewCommsClient(conn)
     response,error:=c.EstadoMaquina(context.Background(),&comms.Request_Estado_M{})
+    mensajes += 1
     log.Printf("respuesta de maquina %s: %+v",maquina,response)
+    log.Printf("mensajes DataNode-DataNode: %s", mensajes)
     if(error!=nil || int(response.Estado)!=7734){
       return true
     }
@@ -175,6 +180,7 @@ func distribuidor(propuesta string){
   lineas:=strings.Split(propuesta,"\n")
   nombre:=strings.Split(lineas[0]," ")[0]
   cantidad,_:=strconv.Atoi(strings.Split(lineas[0]," ")[1])
+  mensajes := 0
   for i:=0;i<cantidad;i++{
     maquina:=strings.Split(lineas[i+1]," ")[1]
     chunk:=read_chunk(strings.Split(lineas[i+1]," ")[0])
@@ -185,9 +191,11 @@ func distribuidor(propuesta string){
     }
     defer conn.Close()
     c:=comms.NewCommsClient(conn)
+    mensajes += 1
     c.DistribuirChunks(context.Background(),&comms.Request_Distribuir{
       Id:int32(i+1),Chunks:chunk,Nombre:nombre})
   }
+  log.Printf("Mensajes DataNode-DataNode: %s", mensajes)
 }
 func (s* Server) EstadoMaquina(ctx context.Context, request *comms.Request_Estado_M) (*comms.Response_Estado_M,error) {
   return &comms.Response_Estado_M{Estado:int32(7734)},nil
@@ -255,6 +263,7 @@ func (s* Server) UploadBookD(ctx context.Context, request *comms.Request_UploadB
 func permisos_d(propuesta string)(bool){
   tiempo_p= time.Now()
   state="WANTED"
+  mensajes := 0
   for i:=93;i<96;i++{
     maquina:=strconv.Itoa(i)
     conn, err := grpc.Dial("dist"+maquina+":9000", grpc.WithInsecure())
@@ -264,8 +273,11 @@ func permisos_d(propuesta string)(bool){
       defer conn.Close()
       c:=comms.NewCommsClient(conn)
       c.PedirRecurso(context.Background(),&comms.Request_RecursoD{Tiempo:tiempo_p.String()})
+      mensajes += 1
     }
   }
+  log.Printf("Mensajes  DataNode-DataNode: %s", mensajes)
+
   state="HELD"
   conn, err := grpc.Dial("dist96:9000", grpc.WithInsecure())
   if err != nil {
@@ -274,6 +286,7 @@ func permisos_d(propuesta string)(bool){
     defer conn.Close()
     c:=comms2.NewComms2Client(conn)
     respuesta,errores:=c.Propuesta_D(context.Background(),&comms2.Request_Propuesta{Propuesta:propuesta})
+    log.Printf("+1 mensaje DataNode-NameNode")
     state  = "RELEASED"
     if(errores!=nil){
       log.Fatal("ay x2 :c")

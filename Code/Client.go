@@ -103,6 +103,7 @@ func read_chunk(archivo string,numero int)([]byte){
 
 func subir_libro(conn *grpc.ClientConn,tipo int){
   start := time.Now()
+  mensajes := 0
   c:=comms.NewCommsClient(conn)
   ver_libros_para_subir()
   var libro int
@@ -116,6 +117,7 @@ func subir_libro(conn *grpc.ClientConn,tipo int){
   var chunks int
   chunks=splitter(archivo)
   for i:=1;i<=chunks;i++{
+    mensajes += 1
     if(tipo==1){
       c.UploadBook(context.Background(),&comms.Request_UploadBook{
         Chunks:read_chunk(archivo,i),
@@ -131,7 +133,8 @@ func subir_libro(conn *grpc.ClientConn,tipo int){
     }
   }
   elapsed := time.Since(start)
-  log.Printf("Log took %s", elapsed)
+  log.Printf("Upload took %s", elapsed)
+  log.Printf("Total messages between client and DataNode: %s", mensajes)
 
 }
 
@@ -309,6 +312,7 @@ func verificar_maquinas(maquina string)(bool){
     c:=comms.NewCommsClient(conn)
     response,error:=c.EstadoMaquina(context.Background(),&comms.Request_Estado_M{})
     log.Printf("respuesta de maquina %s: %+v",maquina,response)
+    log.Printf("+1 mensaje cliente-DataNode")
     if(error!=nil || int(response.Estado)!=7734){
       return true
     }
@@ -344,6 +348,7 @@ func createChunk (chunk_id int, chunk []byte, bookName string) {
   ioutil.WriteFile("./temp/cliente/" + name, chunk, os.ModeAppend)
 }
 func request_chunks(ubicaciones string){
+  mensajes := 0
   log.Printf("ubicaciones: %+v",ubicaciones)
   lineas:=strings.Split(ubicaciones,"\n")
   titulo:=strings.Split(lineas[0]," ")
@@ -357,11 +362,13 @@ func request_chunks(ubicaciones string){
     defer conn.Close()
     c:=comms.NewCommsClient(conn)
     response,error:=c.SolicitarChunk(context.Background(),&comms.Request_Chunk{Nombre:strings.Split(lineas[i+1]," ")[0]})
+    mensajes += 1
     if(error!=nil){
       return
     }
     createChunk(i+1,response.Chunks,titulo[0])
   }
+  log.Printf("Mensajes Cliente-DataNode: %s", mensajes)
   joiner(titulo[0],super_ayuda)
 }
 func bajar_libro(){
@@ -373,11 +380,13 @@ func bajar_libro(){
   defer conn2.Close()
   c:=comms2.NewComms2Client(conn2)
   request,_:=c.Catalogo(context.Background(),&comms2.Request_Catalogo{})
+  log.Printf("+1 mensaje cliente-NameNode")
   libro:=mostrar_catalogo(request.Libros)
   if(libro==-1){
     return
   }
   ubicaciones,_:=c.Pedir_Libro(context.Background(),&comms2.Request_Libro{Numero:int32(libro)})
+  log.Printf("+1 mensaje cliente-NameNode")
   request_chunks(ubicaciones.Ubicaciones)
 }
 
