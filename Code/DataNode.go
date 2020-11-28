@@ -95,24 +95,27 @@ func proponer (conn *grpc.ClientConn, chunks int, name string) (int,string) {
   log.Printf("+1 mensaje DataNode-NameNode")
   return aux,propuesta
 }
-func ProponerD (chunks int, name string) (int,string) {
+
+func generar_propuesta_D(chunks int, name string)(string){
   var propuesta string
   var ctdad_chunks string
   var aux int
+  ctdad_chunks = strconv.Itoa(chunks)
+  propuesta = name + " " + ctdad_chunks + "\n"
+  for f:=0; f<chunks; f++ {
+    num := strconv.Itoa(rand.Intn(3) + 93)
+    aux := strconv.Itoa(f + 1)
+    propuesta += name + "_" + aux + " " + "dist" + num + "\n"
+  }
+  return propuesta
+}
+func ProponerD (chunks int, name string) (int,string) {
+  var propuesta string
   mensajes := 0
-  for i:=93;i<96;i++{
-    if(i==93){
-      ctdad_chunks = strconv.Itoa(chunks)
-      propuesta = name + " " + ctdad_chunks + "\n"
-      for f:=0; f<chunks; f++ {
-        num := strconv.Itoa(rand.Intn(3) + 93)
-        aux := strconv.Itoa(f + 1)
-        propuesta += name + "_" + aux + " " + "dist" + num + "\n"
-      }
-      if(verificar_maquinas(propuesta)){
-        i=92
-        continue
-      }
+  flag:=true
+  for ;flag || verificar_maquinas(propuesta);{
+    flag=false
+      propuesta=generar_propuesta_D(chunks, name)
     }
     log.Printf("hola : %d",i)
     maquina:=strconv.Itoa(i)
