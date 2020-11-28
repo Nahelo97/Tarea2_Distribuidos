@@ -372,6 +372,7 @@ func request_chunks(ubicaciones string){
   joiner(titulo[0],super_ayuda)
 }
 func bajar_libro(){
+  start := time.Now()
   var conn2 *grpc.ClientConn
   conn2, err := grpc.Dial("dist96:9000", grpc.WithInsecure())
   if err != nil {
@@ -388,6 +389,8 @@ func bajar_libro(){
   ubicaciones,_:=c.Pedir_Libro(context.Background(),&comms2.Request_Libro{Numero:int32(libro)})
   log.Printf("+1 mensaje cliente-NameNode")
   request_chunks(ubicaciones.Ubicaciones)
+  elapsed := time.Since(start)
+  log.Printf("Download took %s", elapsed)
 }
 
 func main(){
