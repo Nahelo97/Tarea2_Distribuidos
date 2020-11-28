@@ -15,6 +15,7 @@ import (
   "bufio"
   "strings"
   "math/rand"
+  "time"
 )
 
 func ver_libros_para_subir()(cantidad int){
@@ -101,6 +102,7 @@ func read_chunk(archivo string,numero int)([]byte){
 }
 
 func subir_libro(conn *grpc.ClientConn,tipo int){
+  start := time.Now()
   c:=comms.NewCommsClient(conn)
   ver_libros_para_subir()
   var libro int
@@ -128,6 +130,9 @@ func subir_libro(conn *grpc.ClientConn,tipo int){
         Id:int32(i),})
     }
   }
+  elapsed := time.Since(start)
+  log.Printf("Log took %s", elapsed)
+
 }
 
 func splitter(archivo string)(int){
@@ -146,7 +151,7 @@ func splitter(archivo string)(int){
 
   var fileSize int64 = fileInfo.Size()
 
-  const fileChunk = 250000//0.25 * (1 << 20) // 1 MB, change this to your requirement
+  const fileChunk = 256000//0.25 * (1 << 20) // 1 MB, change this to your requirement
 
   // calculate total number of parts the file will be chunked into
 
