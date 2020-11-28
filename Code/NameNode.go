@@ -114,11 +114,12 @@ func verificar_maquinas(propuesta string)(bool){
     response,error:=c.EstadoMaquina(context.Background(),&comms.Request_Estado_M{})
     mensajes += 1
     log.Printf("respuesta de maquina %s: %+v",maquina,response)
-    log.Printf("Mensajes NameNode-DataNode: %s", mensajes)
     if(error!=nil || int(response.Estado)!=7734){
+      log.Printf("Mensajes NameNode-DataNode: %s", mensajes)
       return true
     }
   }
+  log.Printf("Mensajes NameNode-DataNode: %s", mensajes)
   return false
 }
 func (s* Server) Propuesta(ctx context.Context, request *comms2.Request_Propuesta) (*comms2.Response_Propuesta, error) {
