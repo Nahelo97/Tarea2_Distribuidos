@@ -113,7 +113,7 @@ func verificar_maquinas(propuesta string)(bool){
     c:=comms.NewCommsClient(conn)
     response,error:=c.EstadoMaquina(context.Background(),&comms.Request_Estado_M{})
     mensajes += 1
-    log.Printf("respuesta de maquina %s: %+v",maquina,response)
+    // log.Printf("respuesta de maquina %s: %+v",maquina,response)
     if(error!=nil || int(response.Estado)!=7734){
       log.Printf("Mensajes NameNode-DataNode: %s", mensajes)
       return true

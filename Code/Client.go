@@ -102,12 +102,12 @@ func read_chunk(archivo string,numero int)([]byte){
 }
 
 func subir_libro(conn *grpc.ClientConn,tipo int){
-  start := time.Now()
   mensajes := 0
   c:=comms.NewCommsClient(conn)
   ver_libros_para_subir()
   var libro int
 
+  start := time.Now()
   log.Printf("escoja el libro que quiere subir")
   fmt.Scanln(&libro)
 
