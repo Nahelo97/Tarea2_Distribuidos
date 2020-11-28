@@ -270,7 +270,7 @@ func joiner(archivo string,totalPartsNum int){
   file.Close()
 }
 
-func remover(weas bool){
+func remover(cosas bool){
   var files []string
   root := "./temp/cliente/"
   err := filepath.Walk(root, func(path string, info os.FileInfo, err error) error {
@@ -286,7 +286,7 @@ func remover(weas bool){
       os.Remove(files[i])
     }
   }
-  if(weas){
+  if(cosas){
     root = "./nbooks/"
     err = filepath.Walk(root, func(path string, info os.FileInfo, err error) error {
       files = append(files, path)

@@ -22,6 +22,7 @@ type Server struct{
 var tiempo_p =time.Now()
 var state string = "RELEASED"
 
+//revisa si el archivo existe
 func fileExists(filename string) bool {
     info, err := os.Stat(filename)
     if os.IsNotExist(err) {
@@ -29,6 +30,7 @@ func fileExists(filename string) bool {
     }
     return !info.IsDir()
 }
+//almacena los chunks que envia el cliente en una carpeta temporal
 func tempChunk (chunk_id int, bookName string, ctdad_chunk int) {
 
   if (fileExists("./temp/node/" + bookName)) {
@@ -59,6 +61,7 @@ func tempChunk (chunk_id int, bookName string, ctdad_chunk int) {
     }
   }
 }
+//almacena el chunk que le corresponde segun la distribucion
 func createChunk_v (chunk_id int, chunk []byte, bookName string) {
   s:=strconv.Itoa(chunk_id)
   name := bookName+"_"+s
@@ -69,6 +72,7 @@ func createChunk_v (chunk_id int, chunk []byte, bookName string) {
   defer file.Close()}
   ioutil.WriteFile("./Chunks/" + name, chunk, os.ModeAppend)
 }
+//almacena los chunks en el temporal
 func createChunk (chunk_id int, chunk []byte, bookName string) {
   s:=strconv.Itoa(chunk_id)
   name := bookName+"_"+s
@@ -78,6 +82,7 @@ func createChunk (chunk_id int, chunk []byte, bookName string) {
   defer file.Close()}
   ioutil.WriteFile("./temp/node/" + name, chunk, os.ModeAppend)
 }
+//genera y gestiona la propuesta para el sistema centralizado
 func proponer (conn *grpc.ClientConn, chunks int, name string) (int,string) {
   c:=comms2.NewComms2Client(conn)
   var propuesta string
@@ -95,6 +100,7 @@ func proponer (conn *grpc.ClientConn, chunks int, name string) (int,string) {
   log.Printf("+1 mensaje DataNode-NameNode")
   return aux,propuesta
 }
+//genera y gestiona la propuesta para el sistema distribuido
 func ProponerD (chunks int, name string) (int,string) {
   var propuesta string
   var ctdad_chunks string
@@ -140,6 +146,7 @@ func ProponerD (chunks int, name string) (int,string) {
 
   return aux,propuesta
 }
+//se encarga de verificar si las maquinas estan disponibles
 func verificar_maquinas (propuesta string) (bool){
   lineas:=strings.Split(propuesta,"\n")
   cantidad,_:=strconv.Atoi(strings.Split(lineas[0]," ")[1])
@@ -162,7 +169,7 @@ func verificar_maquinas (propuesta string) (bool){
   }
   return false
 }
-
+//recibe la propuesta (distribuido) y se encarga de aceptar o rechazar
 func (s* Server) PropuestaD(ctx context.Context, request *comms.Request_PropuestaD) (*comms.Response_PropuestaD, error) {
   tasa := rand.Intn(10)
   if (tasa < 1) {
@@ -170,6 +177,7 @@ func (s* Server) PropuestaD(ctx context.Context, request *comms.Request_Propuest
   }
   return &comms.Response_PropuestaD{Estado:int32(1),}, nil
 }
+//lee un chunk desde el temporal
 func read_chunk(archivo string)([]byte){
   file, err := os.Open("./temp/node/"+archivo)
    if err != nil {
@@ -181,6 +189,7 @@ func read_chunk(archivo string)([]byte){
   }
   return content
 }
+//se encarga de distribuir los chunks almacenados en la carpeta temporal
 func distribuidor(propuesta string){
   log.Printf("distribuidor: %s",propuesta)
   lineas:=strings.Split(propuesta,"\n")
@@ -203,9 +212,11 @@ func distribuidor(propuesta string){
   }
   log.Printf("Mensajes DataNode-DataNode: %s", mensajes)
 }
+//funcion que responde a un "ping"
 func (s* Server) EstadoMaquina(ctx context.Context, request *comms.Request_Estado_M) (*comms.Response_Estado_M,error) {
   return &comms.Response_Estado_M{Estado:int32(7734)},nil
 }
+//lee un chunk desde sus chunks
 func read_chunk_to_send(archivo string)([]byte){
   file, err := os.Open("./Chunks/"+archivo)
    if err != nil {
@@ -217,9 +228,11 @@ func read_chunk_to_send(archivo string)([]byte){
   }
   return content
 }
+//funcion que se encara de enviar chunk solicitado
 func (s* Server) SolicitarChunk(ctx context.Context, request *comms.Request_Chunk) (*comms.Response_Chunk,error) {
   return &comms.Response_Chunk{Chunks:read_chunk_to_send(request.Nombre),},nil
 }
+//funcion que se encarga de manejar la subida de un libro por parte de un cliente (centalizado)
 func (s* Server) UploadBook(ctx context.Context, request *comms.Request_UploadBook) (*comms.Response_UploadBook, error) {
   tempChunk (int(request.Id), request.Nombre, int(request.Cantidad))
   createChunk (int(request.Id), request.Chunks, request.Nombre)
@@ -244,6 +257,7 @@ func (s* Server) UploadBook(ctx context.Context, request *comms.Request_UploadBo
     return &comms.Response_UploadBook{State: int32(estado)}, nil
   }
 }
+//lo mismo de arriba pero en version distribuido
 func (s* Server) UploadBookD(ctx context.Context, request *comms.Request_UploadBook) (*comms.Response_UploadBook, error) {
   tempChunk (int(request.Id), request.Nombre, int(request.Cantidad))
   createChunk (int(request.Id), request.Chunks, request.Nombre)
@@ -266,6 +280,7 @@ func (s* Server) UploadBookD(ctx context.Context, request *comms.Request_UploadB
     return &comms.Response_UploadBook{State: int32(estado)}, nil
   }
 }
+//permisos para sistema distribuido
 func permisos_d(propuesta string)(bool){
   tiempo_p= time.Now()
   state="WANTED"
@@ -304,6 +319,7 @@ func permisos_d(propuesta string)(bool){
   }
   return false
 }
+//solicitar recursos distribuido
 func (s* Server) PedirRecurso(ctx context.Context, request *comms.Request_RecursoD) (*comms.Response_RecursoD, error){
   layout := "Mon Jan 02 2006 15:04:05 GMT-0700"
 	t, _ := time.Parse(layout, request.Tiempo)
@@ -312,12 +328,13 @@ func (s* Server) PedirRecurso(ctx context.Context, request *comms.Request_Recurs
   }
   return &comms.Response_RecursoD{Estado:int32(1)}, nil
 }
+//recibe un chunk desde otro data node
 func (s* Server) DistribuirChunks(ctx context.Context, request *comms.Request_Distribuir) (*comms.Response_Distribuir, error){
   log.Printf("guardar chunk:")
   createChunk_v(int(request.Id), request.Chunks, request.Nombre)
   return &comms.Response_Distribuir{}, nil
 }
-
+//limpia archivos residuos
 func remover(kkl bool){
   var files []string
   root := "./temp/node/"
