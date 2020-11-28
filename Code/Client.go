@@ -107,9 +107,9 @@ func subir_libro(conn *grpc.ClientConn,tipo int){
   ver_libros_para_subir()
   var libro int
 
-  start := time.Now()
   log.Printf("escoja el libro que quiere subir")
   fmt.Scanln(&libro)
+  start := time.Now()
 
   var archivo string
   archivo=find_book_index(libro)
