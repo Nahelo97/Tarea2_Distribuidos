@@ -119,15 +119,16 @@ func ProponerD (chunks int, name string) (int,string) {
     conn, err := grpc.Dial("dist"+maquina+":9000", grpc.WithInsecure())
     if err != nil {
       //log.Fatalf("did not connect: %s", err)
-    }
-    defer conn.Close()
-    c:=comms.NewCommsClient(conn)
-    estado,_ := c.PropuestaD(context.Background(),&comms.Request_PropuestaD{Propuesta: propuesta,})
-    mensajes += 1
-    aux=int(estado.Estado)
-    log.Printf(propuesta)
-    if(aux!=1){
-      i=92
+    }else{
+      defer conn.Close()
+      c:=comms.NewCommsClient(conn)
+      estado,_ := c.PropuestaD(context.Background(),&comms.Request_PropuestaD{Propuesta: propuesta,})
+      mensajes += 1
+      aux=int(estado.Estado)
+      log.Printf(propuesta)
+      if(aux!=1){
+        i=92
+      }
     }
   }
   log.Printf("+1 mensaje DataNode-NameNode")
