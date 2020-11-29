@@ -16,7 +16,7 @@ donde [nombre] corresponde al sistema que desea correr:
    en las máquinas asignadas:
        datanode   --->maquina 93,94,95
        namenode   --->maquina 96
-       cliente    --->cualquiera
+       cliente    --->cualquiera , pero que no se ejecute mas de 1 cliente en una misma maquina
 
 2.-Si usted quiere utilizar su propio input de libros, remplace los archivos que se encuentran en la carpeta Books (en la maquina que usted vaya a ejecutar al cliente)
 
@@ -24,4 +24,6 @@ donde [nombre] corresponde al sistema que desea correr:
 
 4.-Si correrá los sistemas en otras máquinas haga los cambios necesarios en las conexiones, además de las instalaciones
 
-5.-Todo funcionó correctamente, asique si hay algún problema no dude en contactarnos :D
+5.-Los chunks estan programados para ser de a lo mas 250k, algunos son de 250k, otros de 245k.
+
+6.-Todo funcionó correctamente, asique si hay algún problema no dude en contactarnos :D
