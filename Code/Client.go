@@ -17,7 +17,7 @@ import (
   "math/rand"
   "time"
 )
-
+//muestra los libros que tiene guardado
 func ver_libros_para_subir()(cantidad int){
   var files []string
   root := "./Books/"
@@ -41,7 +41,7 @@ func ver_libros_para_subir()(cantidad int){
   }
   return x
 }
-
+//muestra los libros descargados
 func ver_libros_descargados(){
   var files []string
   root := "./nbooks/"
@@ -64,7 +64,7 @@ func ver_libros_descargados(){
     }
   }
 }
-
+//busca el libro seleccionado por el usuario
 func find_book_index(y int )(string){
   var files []string
   root := "./Books/"
@@ -86,7 +86,7 @@ func find_book_index(y int )(string){
   }
   return ""
 }
-
+//lee chunks
 func read_chunk(archivo string,numero int)([]byte){
   s := strconv.Itoa(numero)
   file, err := os.Open("./temp/cliente/"+archivo+"_"+s)
@@ -100,7 +100,7 @@ func read_chunk(archivo string,numero int)([]byte){
   }
   return content
 }
-
+//sube se encarga de subir el libro
 func subir_libro(conn *grpc.ClientConn,tipo int){
   mensajes := 0
   c:=comms.NewCommsClient(conn)
@@ -137,7 +137,7 @@ func subir_libro(conn *grpc.ClientConn,tipo int){
   log.Printf("Total messages between client and DataNode: %s", mensajes)
 
 }
-
+//divide en chunks los libros
 func splitter(archivo string)(int){
   fileToBeChunked := "./Books/"+archivo // change here!
 
@@ -184,7 +184,7 @@ func splitter(archivo string)(int){
   }
   return int(totalPartsNum)
 }
-
+//junta los chunks para formar el libro
 func joiner(archivo string,totalPartsNum int){
   newFileName := "./nbooks/"+archivo
   _, err := os.Create(newFileName)
@@ -270,6 +270,7 @@ func joiner(archivo string,totalPartsNum int){
   file.Close()
 }
 
+//elimina archivos al inicio de la ejecucion
 func remover(cosas bool){
   var files []string
   root := "./temp/cliente/"
@@ -303,6 +304,7 @@ func remover(cosas bool){
     }
   }
 }
+//ping para saber el estado de las maquinas
 func verificar_maquinas(maquina string)(bool){
     conn, err := grpc.Dial(maquina+":9000", grpc.WithInsecure())
     if err != nil {
@@ -318,7 +320,7 @@ func verificar_maquinas(maquina string)(bool){
     }
   return false
 }
-
+//muestra los libros entregados por el nameNode
 func mostrar_catalogo(catalogo string)(int){
   var numero int
   libros:=strings.Split(catalogo,"\n")
@@ -338,6 +340,7 @@ func mostrar_catalogo(catalogo string)(int){
   return numero
 
 }
+//guarda el chunk recibido
 func createChunk (chunk_id int, chunk []byte, bookName string) {
   s:=strconv.Itoa(chunk_id)
   name := bookName+"_"+s
@@ -347,6 +350,7 @@ func createChunk (chunk_id int, chunk []byte, bookName string) {
   defer file.Close()}
   ioutil.WriteFile("./temp/cliente/" + name, chunk, os.ModeAppend)
 }
+//se encarga de pedir los chunks
 func request_chunks(ubicaciones string){
   mensajes := 0
   log.Printf("ubicaciones: %+v",ubicaciones)
@@ -371,6 +375,7 @@ func request_chunks(ubicaciones string){
   log.Printf("Mensajes Cliente-DataNode: %s", mensajes)
   joiner(titulo[0],super_ayuda)
 }
+//se encarga de pedir el libro
 func bajar_libro(){
   var conn2 *grpc.ClientConn
   conn2, err := grpc.Dial("dist96:9000", grpc.WithInsecure())

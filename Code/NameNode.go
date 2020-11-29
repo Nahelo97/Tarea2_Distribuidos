@@ -20,6 +20,7 @@ type Server struct {
 
 }
 var candado bool =false
+//verifica si hay una copia del libro
 func revisar_copia(nombre string)(bool){
   file, err := os.Open("./temp/nameNode/log.txt")
     if err != nil {
@@ -40,9 +41,11 @@ func revisar_copia(nombre string)(bool){
     }
     return false
 }
+//al final no la usamos :)
 func (s* Server) Log(ctx context.Context, request *comms2.Request_Log) (*comms2.Response_Log, error) {
   return &comms2.Response_Log{}, nil
 }
+//verifica si un string es entero
 func isInt(s string) bool {
     for _, c := range s {
         if !unicode.IsDigit(c) {
@@ -51,6 +54,7 @@ func isInt(s string) bool {
     }
     return true
 }
+//recopila los libros disponibles para descargar
 func catalogo()(string){
   var libros string
   libros=""
@@ -71,6 +75,7 @@ func catalogo()(string){
     }
   return libros
 }
+//encuentra el libro seleccionado por input
 func encontrar_libro(numero int)(string){
   var libros string
   var contador int
@@ -93,12 +98,15 @@ func encontrar_libro(numero int)(string){
   }
   return libros[:len(libros)-1]
 }
+//manda el catalogo al cliente
 func (s* Server) Catalogo(ctx context.Context, request *comms2.Request_Catalogo) (*comms2.Response_Catalogo, error) {
   return &comms2.Response_Catalogo{Libros:catalogo(),}, nil
 }
+//manda la ubicacion de los chunks al cliente
 func (s* Server) Pedir_Libro(ctx context.Context, request *comms2.Request_Libro) (*comms2.Response_Libro, error) {
   return &comms2.Response_Libro{Ubicaciones:encontrar_libro(int(request.Numero)),}, nil
 }
+//ping para saber el estado de las maquinas
 func verificar_maquinas(propuesta string)(bool){
   lineas:=strings.Split(propuesta,"\n")
   cantidad,_:=strconv.Atoi(strings.Split(lineas[0]," ")[1])
@@ -122,6 +130,7 @@ func verificar_maquinas(propuesta string)(bool){
   log.Printf("Mensajes NameNode-DataNode: %s", mensajes)
   return false
 }
+//recibe la propuesta (centralizado)
 func (s* Server) Propuesta(ctx context.Context, request *comms2.Request_Propuesta) (*comms2.Response_Propuesta, error) {
   for;candado;{
     log.Printf("ocupadito")
@@ -151,6 +160,7 @@ func (s* Server) Propuesta(ctx context.Context, request *comms2.Request_Propuest
   candado=false
   return &comms2.Response_Propuesta{Estado:int32(1),}, nil
 }
+//recibe la propuesta (distribuido)
 func (s* Server) Propuesta_D(ctx context.Context, request *comms2.Request_Propuesta) (*comms2.Response_Propuesta, error){
   cosa:=strings.Split(request.Propuesta,"\n")[0]
   cosa=strings.Split(cosa," ")[0]
@@ -169,6 +179,7 @@ func (s* Server) Propuesta_D(ctx context.Context, request *comms2.Request_Propue
   return &comms2.Response_Propuesta{Estado:int32(1),}, nil
 }
 
+//limpia archivos 
 func remover(){
   var files []string
   root := "./temp/nameNode/"
